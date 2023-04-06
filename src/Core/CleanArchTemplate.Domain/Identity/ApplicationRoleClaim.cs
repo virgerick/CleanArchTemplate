@@ -7,17 +7,17 @@ public class ApplicationRoleClaim : IdentityRoleClaim<string>, IAuditableEntity<
 {
     public string Description { get; set; }
     public string Group { get; set; }
-    public virtual ApplicationRole? Role { get; set; }
+    public ApplicationRole? Role { get; set; } = default!;
     public DateTime CreatedAt { get; set; }
     public string CreatedBy { get; set; }
     public DateTime? ModifiedAt { get; set; }
-    public string ModifiedBy { get; set; }
+    public string? ModifiedBy { get; set; }
 
     public ApplicationRoleClaim() : base()
     {
     }
 
-    public ApplicationRoleClaim(string roleClaimdescription = null, string roleClaimGroup = null) : base()
+    public ApplicationRoleClaim(string roleClaimdescription, string roleClaimGroup) : base()
     {
         Description = roleClaimdescription;
         Group = roleClaimGroup;

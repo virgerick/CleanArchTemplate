@@ -37,7 +37,6 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
     public void UpdateEntities(DbContext? context)
     {
         if (context == null) return;
-
         foreach (var entry in context.ChangeTracker.Entries<ICreatable>())
         {
             if (entry.State == EntityState.Added)
@@ -61,6 +60,7 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
                 entry.Entity.Deleted = true;
                 entry.Entity.DeletedBy = _currentUserService.UserId!;
                 entry.Entity.DeletedAt = _dateTime.Now;
+                entry.State = EntityState.Modified;
             }
         }
     }
@@ -72,5 +72,5 @@ public static class Extensions
         entry.References.Any(r =>
             r.TargetEntry != null &&
             r.TargetEntry.Metadata.IsOwned() &&
-            (r.TargetEntry.State == EntityState.Added || r.TargetEntry.State == EntityState.Modified));
+            (r.TargetEntry.State == EntityState.Added || r.TargetEntry.State == EntityState.Modified||r.TargetEntry.State == EntityState.Deleted));
 }
