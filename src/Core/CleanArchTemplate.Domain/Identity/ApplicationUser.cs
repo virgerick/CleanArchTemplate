@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchTemplate.Domain.Identity;
 
-public class ApplicationIdentityUser:IdentityUser
+public class ApplicationUser:IdentityUser
 {
 	
 }

@@ -8,11 +8,11 @@ public interface IAuditableRootEntity : IAuditableEntity<int>, IDeletable{}
 public abstract class AuditableEntity : AuditableEntity<int>{}
 public abstract class AuditableEntity<TKey> : IAuditableEntity<TKey>
 {
-    public TKey Id { get; set; }
+    public TKey Id { get; set; } = default!;
     public DateTime CreatedAt { get; set; }
-    public string CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = string.Empty;
     public DateTime? ModifiedAt { get; set; }
-    public string ModifiedBy { get; set; }
+    public string? ModifiedBy { get; set; }
 }
 
 public abstract class AuditableRootEntity : AuditableRootEntity<int>{}
