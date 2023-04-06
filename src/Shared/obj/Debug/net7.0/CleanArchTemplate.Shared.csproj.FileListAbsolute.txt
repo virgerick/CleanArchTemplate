@@ -1,0 +1,12 @@
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/bin/Debug/net7.0/CleanArchTemplate.Shared.deps.json
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/bin/Debug/net7.0/CleanArchTemplate.Shared.dll
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/bin/Debug/net7.0/CleanArchTemplate.Shared.pdb
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/obj/Debug/net7.0/CleanArchTemplate.Shared.csproj.AssemblyReference.cache
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/obj/Debug/net7.0/CleanArchTemplate.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/obj/Debug/net7.0/CleanArchTemplate.Shared.AssemblyInfoInputs.cache
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/obj/Debug/net7.0/CleanArchTemplate.Shared.AssemblyInfo.cs
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/obj/Debug/net7.0/CleanArchTemplate.Shared.csproj.CoreCompileInputs.cache
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/obj/Debug/net7.0/CleanArchTemplate.Shared.dll
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/obj/Debug/net7.0/refint/CleanArchTemplate.Shared.dll
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/obj/Debug/net7.0/CleanArchTemplate.Shared.pdb
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Shared/obj/Debug/net7.0/ref/CleanArchTemplate.Shared.dll
