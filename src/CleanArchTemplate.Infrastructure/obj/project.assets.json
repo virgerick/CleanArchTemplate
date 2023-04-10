@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net7.0": {
-      "FluentValidation/11.5.1": {
+      "FluentValidation/11.5.2": {
         "type": "package",
         "compile": {
           "lib/net7.0/FluentValidation.dll": {
@@ -15,10 +15,10 @@
           }
         }
       },
-      "FluentValidation.DependencyInjectionExtensions/11.5.1": {
+      "FluentValidation.DependencyInjectionExtensions/11.5.2": {
         "type": "package",
         "dependencies": {
-          "FluentValidation": "11.5.1",
+          "FluentValidation": "11.5.2",
           "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
         },
         "compile": {
@@ -409,10 +409,10 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "FluentValidation.DependencyInjectionExtensions": "11.5.1",
+          "FluentValidation.DependencyInjectionExtensions": "11.5.2",
           "MediatR": "12.0.1",
           "Microsoft.EntityFrameworkCore.Abstractions": "7.0.4",
-          "Microsoft.Extensions.Identity.Stores": "7.0.0",
+          "Microsoft.Extensions.Identity.Stores": "7.0.4",
           "OneOf": "3.0.243",
           "OneOf.SourceGenerator": "3.0.243"
         },
@@ -436,16 +436,16 @@
     }
   },
   "libraries": {
-    "FluentValidation/11.5.1": {
-      "sha512": "0h1Q5lNOLLyYTWMJmyNoMqhY4CBRvvUWvJP1R4F2CnmmzuWwvB0A8aVmw5+lOuwYnwUwCRrdeMLbc81F38ahNQ==",
+    "FluentValidation/11.5.2": {
+      "sha512": "kj/hW/iusp2zq1Vt1YPLgDj6UG0DhoJXGkLwjLwm3j7vUtRF8DVA5vHJfItG3BxDjLWJUR2pvw8fK7rnuysZNA==",
       "type": "package",
-      "path": "fluentvalidation/11.5.1",
+      "path": "fluentvalidation/11.5.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
         "fluent-validation-icon.png",
-        "fluentvalidation.11.5.1.nupkg.sha512",
+        "fluentvalidation.11.5.2.nupkg.sha512",
         "fluentvalidation.nuspec",
         "lib/net5.0/FluentValidation.dll",
         "lib/net5.0/FluentValidation.xml",
@@ -459,16 +459,16 @@
         "lib/netstandard2.1/FluentValidation.xml"
       ]
     },
-    "FluentValidation.DependencyInjectionExtensions/11.5.1": {
-      "sha512": "iWM0LS1MDYX06pcjMEQKqHirl2zkjHlNV23mEJSoR1IZI7KQmTa0RcTtGEJpj5+iHvBCfrzP2mYKM4FtRKVb+A==",
+    "FluentValidation.DependencyInjectionExtensions/11.5.2": {
+      "sha512": "ycibtdWdluIx0aTgQvO7Kjd5GjNRpD92z4/hEJc8u1luZ5ff1k0JpwPGmL+YFbPVYFk+A6gYIrVI4QdZfSJJdQ==",
       "type": "package",
-      "path": "fluentvalidation.dependencyinjectionextensions/11.5.1",
+      "path": "fluentvalidation.dependencyinjectionextensions/11.5.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
         "fluent-validation-icon.png",
-        "fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
+        "fluentvalidation.dependencyinjectionextensions.11.5.2.nupkg.sha512",
         "fluentvalidation.dependencyinjectionextensions.nuspec",
         "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll",
         "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.xml",

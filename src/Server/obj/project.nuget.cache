@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "nfdgh8HPVsz2q3wS5jwmxWLv9bBI+hFRGEoR7eryNJrWONjb/u8F29x0s70NCuT5RdezlukySveeoURQe910qQ==",
+  "dgSpecHash": "9mxfncEHvVCUhkg1YdxOsInkMiqGvX/SBp4mQc3aE65pkaVKVlUblx2bLb3SK2jxx68QfI8/Mefkr5lOiG0IwA==",
   "success": true,
   "projectFilePath": "/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Server/CleanArchTemplate.Server.csproj",
   "expectedPackageFiles": [
-    "/Users/developer/.nuget/packages/fluentvalidation/11.5.1/fluentvalidation.11.5.1.nupkg.sha512",
-    "/Users/developer/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.5.1/fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
+    "/Users/developer/.nuget/packages/fluentvalidation/11.5.2/fluentvalidation.11.5.2.nupkg.sha512",
+    "/Users/developer/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.5.2/fluentvalidation.dependencyinjectionextensions.11.5.2.nupkg.sha512",
     "/Users/developer/.nuget/packages/mediatr/12.0.1/mediatr.12.0.1.nupkg.sha512",
     "/Users/developer/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.aspnetcore.authorization/7.0.4/microsoft.aspnetcore.authorization.7.0.4.nupkg.sha512",
