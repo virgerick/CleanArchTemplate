@@ -13,12 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CleanArchTemplate.Infrastructure\CleanArchTemplate.Infrastructure.csproj" />
     <ProjectReference Include="..\Client\CleanArchTemplate.Client.csproj" />
     <ProjectReference Include="..\Shared\CleanArchTemplate.Shared.csproj" />
     <ProjectReference Include="..\Core\CleanArchTemplate.Application\CleanArchTemplate.Application.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\CleanArchTemplate.Infrastructure\CleanArchTemplate.Infrastructure.Abstraction\CleanArchTemplate.Infrastructure.Abstraction.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>

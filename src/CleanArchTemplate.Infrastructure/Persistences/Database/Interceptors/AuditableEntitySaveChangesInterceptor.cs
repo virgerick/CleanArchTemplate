@@ -1,11 +1,11 @@
-﻿using System;
-using CleanArchTemplate.Application.Common.Interfaces;
+﻿using CleanArchTemplate.Application.Common.Interfaces;
 using CleanArchTemplate.Domain.Common;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace CleanArchTemplate.Infrastructure.Persistences.Database.Interceptors;
+namespace CleanArchTemplate.Infrastructure.Persistence.Database.Interceptors;
 
 
 public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
@@ -42,15 +42,15 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
             if (entry.State == EntityState.Added)
             {
                 entry.Entity.ToCreate(_dateTime.Now, _currentUserService.UserId ?? "");
-               /* entry.Entity.CreatedBy = _currentUserService.UserId!;
-                entry.Entity.CreatedAt = _dateTime.Now;*/
+                /* entry.Entity.CreatedBy = _currentUserService.UserId!;
+                 entry.Entity.CreatedAt = _dateTime.Now;*/
             }
         }
         foreach (var entry in context.ChangeTracker.Entries<IModifiable>())
         {
             if (entry.State == EntityState.Modified)
             {
-                entry.Entity.ToModify(_dateTime.Now, _currentUserService.UserId??"");
+                entry.Entity.ToModify(_dateTime.Now, _currentUserService.UserId ?? "");
                 /*entry.Entity.ModifiedBy = _currentUserService.UserId!;
                 entry.Entity.ModifiedAt = _dateTime.Now;*/
             }
@@ -75,5 +75,5 @@ public static class Extensions
         entry.References.Any(r =>
             r.TargetEntry != null &&
             r.TargetEntry.Metadata.IsOwned() &&
-            (r.TargetEntry.State == EntityState.Added || r.TargetEntry.State == EntityState.Modified||r.TargetEntry.State == EntityState.Deleted));
+            (r.TargetEntry.State == EntityState.Added || r.TargetEntry.State == EntityState.Modified || r.TargetEntry.State == EntityState.Deleted));
 }

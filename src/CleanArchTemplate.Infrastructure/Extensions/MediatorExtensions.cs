@@ -1,5 +1,5 @@
-﻿using System;
-using CleanArchTemplate.Domain;
+﻿using CleanArchTemplate.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace MediatR;

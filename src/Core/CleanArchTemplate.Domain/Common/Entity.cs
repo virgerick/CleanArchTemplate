@@ -30,4 +30,4 @@ public abstract class BaseEntity<TKey> : IEntity<TKey>
     }
 }
 
-public abstract class BaseEntity : BaseEntity<int>{ }
+public abstract class BaseEntity : BaseEntity<int> { }

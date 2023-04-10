@@ -18,10 +18,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Common\" />
-    <None Remove="Common\Interfaces\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Common\" />
-    <Folder Include="Common\Interfaces\" />
   </ItemGroup>
 </Project>

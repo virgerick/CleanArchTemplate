@@ -1,12 +1,13 @@
 ﻿using CleanArchTemplate.Domain.Common;
+
 using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchTemplate.Domain.Identity;
 
 public class ApplicationRoleClaim : IdentityRoleClaim<string>, IAuditableEntity<int>
 {
-    public  string Description { get; set; } = default!;
-    public  string Group { get; set; } = default!;
+    public string Description { get; set; } = default!;
+    public string Group { get; set; } = default!;
     public ApplicationRole? Role { get; set; } = default!;
     public DateTime CreatedAt { get; set; }
     public string CreatedBy { get; set; } = "";

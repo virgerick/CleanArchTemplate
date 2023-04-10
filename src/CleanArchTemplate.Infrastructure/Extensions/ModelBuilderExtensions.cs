@@ -1,8 +1,10 @@
-﻿using System.Reflection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace MediatR;
+using Pluralize.NET;
+
+using System.Reflection;
+
+namespace Microsoft.EntityFrameworkCore;
 
 public static class ModelBuilderExtensions
 {
@@ -20,7 +22,7 @@ public static class ModelBuilderExtensions
     }
 
     /// <summary>
-    /// Dynamicaly load all IEntityTypeConfiguration with Reflection
+    /// Dynamically load all IEntityTypeConfiguration with Reflection
     /// </summary>
     /// <param name="modelBuilder"></param>
     /// <param name="assemblies">Assemblies contains Entities</param>
@@ -33,19 +35,19 @@ public static class ModelBuilderExtensions
 
         foreach (Type type in types)
         {
-            foreach (Type iface in type.GetInterfaces())
+            foreach (Type @interface in type.GetInterfaces())
             {
-                if (iface.IsConstructedGenericType && iface.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>))
+                if (@interface.IsConstructedGenericType && @interface.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>))
                 {
-                    MethodInfo applyConcreteMethod = applyGenericMethod.MakeGenericMethod(iface.GenericTypeArguments[0]);
-                    applyConcreteMethod.Invoke(modelBuilder, new object[] { Activator.CreateInstance(type)!});
+                    MethodInfo applyConcreteMethod = applyGenericMethod.MakeGenericMethod(@interface.GenericTypeArguments[0]);
+                    applyConcreteMethod.Invoke(modelBuilder, new object[] { Activator.CreateInstance(type)! });
                 }
             }
         }
     }
 
     /// <summary>
-    /// Dynamicaly register all Entities that inherit from specific BaseType
+    /// Dynamically register all Entities that inherit from specific BaseType
     /// </summary>
     /// <param name="modelBuilder"></param>
     /// <param name="baseType">Base type that Entities inherit from this</param>
@@ -61,11 +63,11 @@ public static class ModelBuilderExtensions
 
     public static void AddPluralizingTableNameConvention(this ModelBuilder modelBuilder)
     {
-        Pluralizer pluralizer = new Pluralizer();
+        Pluralizer pluralize = new();
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
         {
-            string tableName = entityType.GetTableName();
-            entityType.SetTableName(pluralizer.Pluralize(tableName));
+            string tableName = entityType.GetTableName()!;
+            entityType.SetTableName(pluralize.Pluralize(tableName));
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CleanArchTemplate.Shared;
+﻿using CleanArchTemplate.Shared;
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchTemplate.Server.Controllers;
 

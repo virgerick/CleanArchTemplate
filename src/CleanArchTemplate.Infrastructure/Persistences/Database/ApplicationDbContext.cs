@@ -1,16 +1,15 @@
-﻿using System;
-using System.Reflection;
+﻿using CleanArchTemplate.Application.Common.Interfaces;
 using CleanArchTemplate.Domain;
-using System.Reflection.Emit;
 using CleanArchTemplate.Domain.Identity;
-using CleanArchTemplate.Infrastructure.Persistences.Database.Interceptors;
+using CleanArchTemplate.Infrastructure.Persistence.Database.Interceptors;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using CleanArchTemplate.Application.Common.Interfaces;
 
-namespace CleanArchTemplate.Infrastructure.Persistences.Database;
+namespace CleanArchTemplate.Infrastructure.Persistence.Database;
 
 public class ApplicationDbContext :
     IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, ApplicationRoleClaim, IdentityUserToken<string>>, IApplicationDbContext
@@ -43,12 +42,12 @@ public class ApplicationDbContext :
         return await base.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<int> ExecuteSqlRawAsync(string query, CancellationToken cancellationToken=default)
+    public async Task<int> ExecuteSqlRawAsync(string query, CancellationToken cancellationToken = default)
     {
         var result = await base.Database.ExecuteSqlRawAsync(query, cancellationToken);
         return result;
     }
 
-    
+
 }
 

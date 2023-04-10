@@ -1,8 +1,7 @@
-﻿using System;
-namespace CleanArchTemplate.Server;
+﻿namespace CleanArchTemplate.Server;
 
-public interface IServerAssambly
+public interface IServerAssemblyMarkup
 {
-	
+
 }
 

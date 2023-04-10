@@ -1,5 +1,4 @@
-﻿using System;
-namespace CleanArchTemplate.Application.Common.Interfaces;
+﻿namespace CleanArchTemplate.Application.Common.Interfaces;
 
 public interface ICurrentUserService
 {
