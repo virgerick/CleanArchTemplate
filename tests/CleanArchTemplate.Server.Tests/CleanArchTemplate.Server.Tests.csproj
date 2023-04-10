@@ -20,6 +20,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="6.10.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Server\CleanArchTemplate.Server.csproj" />
+    <ProjectReference Include="..\..\src\CleanArchTemplate.Infrastructure\CleanArchTemplate.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Core\CleanArchTemplate.Application\CleanArchTemplate.Application.csproj" />
+    <ProjectReference Include="..\..\src\Core\CleanArchTemplate.Domain\CleanArchTemplate.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Shared\CleanArchTemplate.Shared.csproj" />
+  </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9mxfncEHvVCUhkg1YdxOsInkMiqGvX/SBp4mQc3aE65pkaVKVlUblx2bLb3SK2jxx68QfI8/Mefkr5lOiG0IwA==",
+  "dgSpecHash": "XZOX5x0CWwWEbN+yp25XSmGrYwmzZRvKiPF+C07cKEXWYnjQBmRzIMgT8dbAjvzfm44Nxi+AperP+gEeo5TOxg==",
   "success": true,
   "projectFilePath": "/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Server/CleanArchTemplate.Server.csproj",
   "expectedPackageFiles": [
@@ -17,14 +17,9 @@
     "/Users/developer/.nuget/packages/microsoft.aspnetcore.components.webassembly.server/7.0.4/microsoft.aspnetcore.components.webassembly.server.7.0.4.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.aspnetcore.cryptography.internal/7.0.4/microsoft.aspnetcore.cryptography.internal.7.0.4.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/7.0.4/microsoft.aspnetcore.cryptography.keyderivation.7.0.4.nupkg.sha512",
-    "/Users/developer/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/7.0.4/microsoft.aspnetcore.identity.entityframeworkcore.7.0.4.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.aspnetcore.metadata/7.0.4/microsoft.aspnetcore.metadata.7.0.4.nupkg.sha512",
-    "/Users/developer/.nuget/packages/microsoft.entityframeworkcore/7.0.4/microsoft.entityframeworkcore.7.0.4.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.4/microsoft.entityframeworkcore.abstractions.7.0.4.nupkg.sha512",
-    "/Users/developer/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.4/microsoft.entityframeworkcore.analyzers.7.0.4.nupkg.sha512",
-    "/Users/developer/.nuget/packages/microsoft.entityframeworkcore.relational/7.0.4/microsoft.entityframeworkcore.relational.7.0.4.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.extensions.caching.abstractions/7.0.0/microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
-    "/Users/developer/.nuget/packages/microsoft.extensions.caching.memory/7.0.0/microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.extensions.configuration/7.0.0/microsoft.extensions.configuration.7.0.0.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.extensions.configuration.abstractions/7.0.0/microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.extensions.configuration.binder/7.0.4/microsoft.extensions.configuration.binder.7.0.4.nupkg.sha512",

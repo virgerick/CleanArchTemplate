@@ -838,7 +838,12 @@
 /Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Client/obj/Debug/net7.0/refint/CleanArchTemplate.Client.dll
 /Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Client/obj/Debug/net7.0/CleanArchTemplate.Client.pdb
 /Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Client/obj/Debug/net7.0/ref/CleanArchTemplate.Client.dll
+/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/blazor.boot.json
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/blazor.webassembly.js
+/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Client.dll
+/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Client.pdb
+/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Shared.dll
+/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Shared.pdb
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/dotnet.7.0.4.9h66m8xu50.js
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/dotnet.timezones.blat
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/dotnet.wasm
@@ -1081,6 +1086,7 @@
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Collections.NonGeneric.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Diagnostics.Tools.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Memory.dll.gz
+/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Client.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/Microsoft.Extensions.Configuration.FileExtensions.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Threading.Tasks.Dataflow.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Xml.XmlDocument.dll.gz
@@ -1142,6 +1148,7 @@
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Security.Cryptography.Encoding.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Diagnostics.StackTrace.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.ComponentModel.Primitives.dll.gz
+/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Shared.pdb.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Diagnostics.Tracing.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Runtime.Numerics.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.ComponentModel.TypeConverter.dll.gz
@@ -1164,6 +1171,7 @@
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Security.Cryptography.Cng.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Data.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Threading.Tasks.dll.gz
+/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Shared.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Net.ServicePoint.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Resources.ResourceManager.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Diagnostics.Debug.dll.gz
@@ -1209,6 +1217,7 @@
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Diagnostics.TraceSource.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Text.Json.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Security.Cryptography.X509Certificates.dll.gz
+/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Client.pdb.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Net.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Collections.Concurrent.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Xml.XPath.dll.gz
@@ -1236,15 +1245,6 @@
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Xml.Serialization.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/System.Reflection.Emit.Lightweight.dll.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/icudt_CJK.dat.gz
-/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/blazor.boot.json
-/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Client.dll
-/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Client.pdb
-/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Shared.dll
-/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Shared.pdb
-/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Client.dll.gz
-/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Shared.pdb.gz
-/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Shared.dll.gz
-/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/_framework/CleanArchTemplate.Client.pdb.gz
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/service-worker-assets.js
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/wwwroot/service-worker.js
 /Users/developer/Projects/DotNet/Templates/CleanArchTemplate/src/Client/bin/Debug/net7.0/CleanArchTemplate.Client.staticwebassets.runtime.json

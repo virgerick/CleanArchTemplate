@@ -865,19 +865,19 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-di\/JqbBgDN2A3AmqpUk7KPZ2eWn+bIkQQ61fV1AbpKk=",
+      "hash": "sha256-+23OQ\/HVJjlegzpuXuIdEQGG6y3aY6FT59lO1AWP6sQ=",
       "url": "_framework\/CleanArchTemplate.Shared.dll"
     },
     {
-      "hash": "sha256-pFNBXbKZ+eJKrfLKqlGrdD5D1sXsh2A3rZFWDPTIq+s=",
+      "hash": "sha256-clOW+MeTOiPuh1za5QSBRZbcJOkYG7b9uWQ5LOG9ET8=",
       "url": "_framework\/CleanArchTemplate.Shared.pdb"
     },
     {
-      "hash": "sha256-4SO+VA5nmlo8nVXs0iVI7r+NseD1Bz6\/nDOAvOXZQ5w=",
+      "hash": "sha256-\/3qeEGUtKf2tlY16I+ve9zBj+ibOYJucbnl\/06nm8pk=",
       "url": "_framework\/CleanArchTemplate.Client.dll"
     },
     {
-      "hash": "sha256-Nmu5LGnvKrSfaMEnAtqVfDqj2RNNdDuay1pg5oQM7tA=",
+      "hash": "sha256-QbLxOH3nmmKav+VguVquGa5wqE3va0XdoUTujESxkAo=",
       "url": "_framework\/CleanArchTemplate.Client.pdb"
     },
     {
@@ -885,9 +885,9 @@
       "url": "_framework\/blazor.webassembly.js"
     },
     {
-      "hash": "sha256-KtU400oZUANaTrj2sUrZcT0Y4jyjXWlaAoAH5u7tBcM=",
+      "hash": "sha256-DxvcyLJ3oJxdzsyZev2kCROIRcmI4JvvjxJj7jtvSQ0=",
       "url": "_framework\/blazor.boot.json"
     }
   ],
-  "version": "GN1zKSfY"
+  "version": "7M4as97P"
 };

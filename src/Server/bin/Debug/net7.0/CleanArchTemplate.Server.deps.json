@@ -10,7 +10,6 @@
         "dependencies": {
           "CleanArchTemplate.Application": "1.0.0",
           "CleanArchTemplate.Client": "1.0.0",
-          "CleanArchTemplate.Infrastructure": "1.0.0",
           "CleanArchTemplate.Shared": "1.0.0",
           "Microsoft.AspNetCore.Components.WebAssembly.Server": "7.0.4"
         },
@@ -18,23 +17,23 @@
           "CleanArchTemplate.Server.dll": {}
         }
       },
-      "FluentValidation/11.5.1": {
+      "FluentValidation/11.5.2": {
         "runtime": {
           "lib/net7.0/FluentValidation.dll": {
             "assemblyVersion": "11.0.0.0",
-            "fileVersion": "11.5.1.0"
+            "fileVersion": "11.5.2.0"
           }
         }
       },
-      "FluentValidation.DependencyInjectionExtensions/11.5.1": {
+      "FluentValidation.DependencyInjectionExtensions/11.5.2": {
         "dependencies": {
-          "FluentValidation": "11.5.1",
+          "FluentValidation": "11.5.2",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
         },
         "runtime": {
           "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
             "assemblyVersion": "11.0.0.0",
-            "fileVersion": "11.5.1.0"
+            "fileVersion": "11.5.2.0"
           }
         }
       },
@@ -152,38 +151,11 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.4": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "7.0.4",
-          "Microsoft.Extensions.Identity.Stores": "7.0.4"
-        },
-        "runtime": {
-          "lib/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
-            "assemblyVersion": "7.0.4.0",
-            "fileVersion": "7.0.423.11903"
-          }
-        }
-      },
       "Microsoft.AspNetCore.Metadata/7.0.4": {
         "runtime": {
           "lib/net7.0/Microsoft.AspNetCore.Metadata.dll": {
             "assemblyVersion": "7.0.0.0",
             "fileVersion": "7.0.423.11903"
-          }
-        }
-      },
-      "Microsoft.EntityFrameworkCore/7.0.4": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "7.0.4",
-          "Microsoft.EntityFrameworkCore.Analyzers": "7.0.4",
-          "Microsoft.Extensions.Caching.Memory": "7.0.0",
-          "Microsoft.Extensions.DependencyInjection": "7.0.0",
-          "Microsoft.Extensions.Logging": "7.0.0"
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.EntityFrameworkCore.dll": {
-            "assemblyVersion": "7.0.4.0",
-            "fileVersion": "7.0.423.11504"
           }
         }
       },
@@ -195,30 +167,8 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/7.0.4": {},
-      "Microsoft.EntityFrameworkCore.Relational/7.0.4": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "7.0.4",
-          "Microsoft.Extensions.Configuration.Abstractions": "7.0.0"
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.EntityFrameworkCore.Relational.dll": {
-            "assemblyVersion": "7.0.4.0",
-            "fileVersion": "7.0.423.11504"
-          }
-        }
-      },
       "Microsoft.Extensions.Caching.Abstractions/7.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "7.0.0"
-        }
-      },
-      "Microsoft.Extensions.Caching.Memory/7.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Caching.Abstractions": "7.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "7.0.0",
-          "Microsoft.Extensions.Options": "7.0.1",
           "Microsoft.Extensions.Primitives": "7.0.0"
         }
       },
@@ -387,7 +337,7 @@
       },
       "CleanArchTemplate.Domain/1.0.0": {
         "dependencies": {
-          "FluentValidation.DependencyInjectionExtensions": "11.5.1",
+          "FluentValidation.DependencyInjectionExtensions": "11.5.2",
           "MediatR": "12.0.1",
           "Microsoft.EntityFrameworkCore.Abstractions": "7.0.4",
           "Microsoft.Extensions.Identity.Stores": "7.0.4",
@@ -396,16 +346,6 @@
         },
         "runtime": {
           "CleanArchTemplate.Domain.dll": {}
-        }
-      },
-      "CleanArchTemplate.Infrastructure/1.0.0": {
-        "dependencies": {
-          "CleanArchTemplate.Application": "1.0.0",
-          "CleanArchTemplate.Shared": "1.0.0",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.4"
-        },
-        "runtime": {
-          "CleanArchTemplate.Infrastructure.dll": {}
         }
       },
       "CleanArchTemplate.Shared/1.0.0": {
@@ -421,19 +361,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "FluentValidation/11.5.1": {
+    "FluentValidation/11.5.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-0h1Q5lNOLLyYTWMJmyNoMqhY4CBRvvUWvJP1R4F2CnmmzuWwvB0A8aVmw5+lOuwYnwUwCRrdeMLbc81F38ahNQ==",
-      "path": "fluentvalidation/11.5.1",
-      "hashPath": "fluentvalidation.11.5.1.nupkg.sha512"
+      "sha512": "sha512-kj/hW/iusp2zq1Vt1YPLgDj6UG0DhoJXGkLwjLwm3j7vUtRF8DVA5vHJfItG3BxDjLWJUR2pvw8fK7rnuysZNA==",
+      "path": "fluentvalidation/11.5.2",
+      "hashPath": "fluentvalidation.11.5.2.nupkg.sha512"
     },
-    "FluentValidation.DependencyInjectionExtensions/11.5.1": {
+    "FluentValidation.DependencyInjectionExtensions/11.5.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-iWM0LS1MDYX06pcjMEQKqHirl2zkjHlNV23mEJSoR1IZI7KQmTa0RcTtGEJpj5+iHvBCfrzP2mYKM4FtRKVb+A==",
-      "path": "fluentvalidation.dependencyinjectionextensions/11.5.1",
-      "hashPath": "fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512"
+      "sha512": "sha512-ycibtdWdluIx0aTgQvO7Kjd5GjNRpD92z4/hEJc8u1luZ5ff1k0JpwPGmL+YFbPVYFk+A6gYIrVI4QdZfSJJdQ==",
+      "path": "fluentvalidation.dependencyinjectionextensions/11.5.2",
+      "hashPath": "fluentvalidation.dependencyinjectionextensions.11.5.2.nupkg.sha512"
     },
     "MediatR/12.0.1": {
       "type": "package",
@@ -512,26 +452,12 @@
       "path": "microsoft.aspnetcore.cryptography.keyderivation/7.0.4",
       "hashPath": "microsoft.aspnetcore.cryptography.keyderivation.7.0.4.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-qs/wCiLjxedv5SByDwBBr60FsKHqFhDMe1tsuOP5FF3rA7/sue37bYFdSLpnkOIOnpwnMv8++T132+E1aipnPw==",
-      "path": "microsoft.aspnetcore.identity.entityframeworkcore/7.0.4",
-      "hashPath": "microsoft.aspnetcore.identity.entityframeworkcore.7.0.4.nupkg.sha512"
-    },
     "Microsoft.AspNetCore.Metadata/7.0.4": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-AxRqILbKo0fwUFqazh88qRaWJfh3OOSOPE6tm/H+IOvX0hrn2M95dukO+ZEk+idL++oOoVkqK30AgUyPAKFF5g==",
       "path": "microsoft.aspnetcore.metadata/7.0.4",
       "hashPath": "microsoft.aspnetcore.metadata.7.0.4.nupkg.sha512"
-    },
-    "Microsoft.EntityFrameworkCore/7.0.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-eNcsY3rft5ERJJcen80Jyg57EScjWZmvhwmFLYXmEOTdVqHG+wQZiMOXnO1b5RH3u2qTQq+Tpci7KGfLAG5Gtg==",
-      "path": "microsoft.entityframeworkcore/7.0.4",
-      "hashPath": "microsoft.entityframeworkcore.7.0.4.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Abstractions/7.0.4": {
       "type": "package",
@@ -540,33 +466,12 @@
       "path": "microsoft.entityframeworkcore.abstractions/7.0.4",
       "hashPath": "microsoft.entityframeworkcore.abstractions.7.0.4.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Analyzers/7.0.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-YRD4bViuaEPEsaBIL52DzXGzLCt3jYoE3wztYEW1QZYDl89hQ+ca0nvBO2mnMHmCXpU/2wlErrUyDp4x5B/3mg==",
-      "path": "microsoft.entityframeworkcore.analyzers/7.0.4",
-      "hashPath": "microsoft.entityframeworkcore.analyzers.7.0.4.nupkg.sha512"
-    },
-    "Microsoft.EntityFrameworkCore.Relational/7.0.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-L41+VonK6L0IurFHopoe5yY+m3MD26OMocKLPPR/XKxnazzZUcGPz0IGJpVnwpZyKVPfEIAnD5vmm60meYr1NA==",
-      "path": "microsoft.entityframeworkcore.relational/7.0.4",
-      "hashPath": "microsoft.entityframeworkcore.relational.7.0.4.nupkg.sha512"
-    },
     "Microsoft.Extensions.Caching.Abstractions/7.0.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-IeimUd0TNbhB4ded3AbgBLQv2SnsiVugDyGV1MvspQFVlA07nDC7Zul7kcwH5jWN3JiTcp/ySE83AIJo8yfKjg==",
       "path": "microsoft.extensions.caching.abstractions/7.0.0",
       "hashPath": "microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Caching.Memory/7.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-xpidBs2KCE2gw1JrD0quHE72kvCaI3xFql5/Peb2GRtUuZX+dYPoK/NTdVMiM67Svym0M0Df9A3xyU0FbMQhHw==",
-      "path": "microsoft.extensions.caching.memory/7.0.0",
-      "hashPath": "microsoft.extensions.caching.memory.7.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration/7.0.0": {
       "type": "package",
@@ -740,11 +645,6 @@
       "sha512": ""
     },
     "CleanArchTemplate.Domain/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "CleanArchTemplate.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -198,15 +198,15 @@
       "mscorlib.dll": "sha256-3H8zsATEgIcRSRoZhWYtgfKT5VniJvhcYxLruf8koAY=",
       "netstandard.dll": "sha256-bbx+pnJNmXZyPqAgESJnWLJsbfuAl0UflLCdl9slPYE=",
       "System.Private.CoreLib.dll": "sha256-pUYF+nr8SzfBMCLc3FM2i\/YivXJlzztdLin+aUsoqP0=",
-      "CleanArchTemplate.Shared.dll": "sha256-xxMLlWbQi\/mx8tc323hUEhXQlgr6fe5hnVSUYYnDHjs=",
-      "CleanArchTemplate.Client.dll": "sha256-B\/hSe5d+WuxEBAAPUF+mMIXfMEwqET8v0Rz+PVSoby8="
+      "CleanArchTemplate.Shared.dll": "sha256-+23OQ\/HVJjlegzpuXuIdEQGG6y3aY6FT59lO1AWP6sQ=",
+      "CleanArchTemplate.Client.dll": "sha256-\/3qeEGUtKf2tlY16I+ve9zBj+ibOYJucbnl\/06nm8pk="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "CleanArchTemplate.Shared.pdb": "sha256-7dA34R0tcRfjTht4e4WTtSOQj5zmqmpRkNTwVYNlZPI=",
-      "CleanArchTemplate.Client.pdb": "sha256-aNds\/Ayu8Nx33kU4hRG1f9wb6iB\/l3eZVk\/SbRs9Uz4="
+      "CleanArchTemplate.Shared.pdb": "sha256-clOW+MeTOiPuh1za5QSBRZbcJOkYG7b9uWQ5LOG9ET8=",
+      "CleanArchTemplate.Client.pdb": "sha256-QbLxOH3nmmKav+VguVquGa5wqE3va0XdoUTujESxkAo="
     },
     "runtime": {
       "dotnet.7.0.4.9h66m8xu50.js": "sha256-3l+4ZYRWpGMbBjNqeIqO9T\/65euaOzIvRlVX2SySvFQ=",
