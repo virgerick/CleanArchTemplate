@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\CleanArchTemplate.Application\CleanArchTemplate.Application.csproj" />
+    <ProjectReference Include="..\Shared\CleanArchTemplate.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Persistences\" />
+    <None Remove="Persistences\Configurations\" />
+    <None Remove="Persistences\Database\" />
+    <None Remove="Persistences\Database\Interceptors\" />
+    <None Remove="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Persistences\" />
+    <Folder Include="Persistences\Configurations\" />
+    <Folder Include="Persistences\Database\" />
+    <Folder Include="Persistences\Database\Interceptors\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.4" />
+  </ItemGroup>
+</Project>

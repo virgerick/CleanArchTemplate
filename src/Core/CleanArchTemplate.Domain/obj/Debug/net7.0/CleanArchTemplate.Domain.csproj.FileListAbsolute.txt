@@ -1,0 +1,12 @@
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/bin/Debug/net7.0/CleanArchTemplate.Domain.deps.json
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/bin/Debug/net7.0/CleanArchTemplate.Domain.dll
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/bin/Debug/net7.0/CleanArchTemplate.Domain.pdb
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/obj/Debug/net7.0/CleanArchTemplate.Domain.csproj.AssemblyReference.cache
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/obj/Debug/net7.0/CleanArchTemplate.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/obj/Debug/net7.0/CleanArchTemplate.Domain.AssemblyInfoInputs.cache
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/obj/Debug/net7.0/CleanArchTemplate.Domain.AssemblyInfo.cs
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/obj/Debug/net7.0/CleanArchTemplate.Domain.csproj.CoreCompileInputs.cache
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/obj/Debug/net7.0/CleanArchTemplate.Domain.dll
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/obj/Debug/net7.0/refint/CleanArchTemplate.Domain.dll
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/obj/Debug/net7.0/CleanArchTemplate.Domain.pdb
+/Users/developer/Projects/.Net/Templates/CleanArchTemplate/src/Core/CleanArchTemplate.Domain/obj/Debug/net7.0/ref/CleanArchTemplate.Domain.dll
