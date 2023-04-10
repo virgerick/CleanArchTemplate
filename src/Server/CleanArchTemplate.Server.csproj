@@ -18,6 +18,9 @@
     <ProjectReference Include="..\Core\CleanArchTemplate.Application\CleanArchTemplate.Application.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\CleanArchTemplate.Infrastructure\CleanArchTemplate.Infrastructure.Abstraction\CleanArchTemplate.Infrastructure.Abstraction.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 

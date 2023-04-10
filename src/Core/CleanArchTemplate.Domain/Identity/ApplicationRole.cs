@@ -16,10 +16,10 @@ public class ApplicationRole : IdentityRole, IAuditableEntity<string>
         RoleClaims = new HashSet<ApplicationRoleClaim>();
     }
 
-    public string Description { get; set; }
+    public string Description { get; set; } = default!;
     public virtual ICollection<ApplicationRoleClaim> RoleClaims { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public string CreatedBy { get; set; }
-    public DateTime? ModifiedAt { get; set; }
-    public string? ModifiedBy { get; set; }
+    public DateTime CreatedAt { get; set; } = default!;
+    public string CreatedBy { get; set; } = default!;
+    public DateTime? ModifiedAt { get; set; } = default!;
+    public string? ModifiedBy { get; set; } = default!;
 }

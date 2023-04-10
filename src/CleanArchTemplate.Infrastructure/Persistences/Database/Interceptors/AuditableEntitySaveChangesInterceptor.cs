@@ -41,26 +41,29 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
         {
             if (entry.State == EntityState.Added)
             {
-                entry.Entity.CreatedBy = _currentUserService.UserId!;
-                entry.Entity.CreatedAt = _dateTime.Now;
+                entry.Entity.ToCreate(_dateTime.Now, _currentUserService.UserId ?? "");
+               /* entry.Entity.CreatedBy = _currentUserService.UserId!;
+                entry.Entity.CreatedAt = _dateTime.Now;*/
             }
         }
         foreach (var entry in context.ChangeTracker.Entries<IModifiable>())
         {
             if (entry.State == EntityState.Modified)
             {
-                entry.Entity.ModifiedBy = _currentUserService.UserId!;
-                entry.Entity.ModifiedAt = _dateTime.Now;
+                entry.Entity.ToModify(_dateTime.Now, _currentUserService.UserId??"");
+                /*entry.Entity.ModifiedBy = _currentUserService.UserId!;
+                entry.Entity.ModifiedAt = _dateTime.Now;*/
             }
         }
         foreach (var entry in context.ChangeTracker.Entries<IDeletable>())
         {
             if (entry.State == EntityState.Deleted)
             {
-                entry.Entity.Deleted = true;
+                entry.Entity.ToDelete(_dateTime.Now, _currentUserService.UserId ?? "");
+                /*entry.Entity.Deleted = true;
                 entry.Entity.DeletedBy = _currentUserService.UserId!;
                 entry.Entity.DeletedAt = _dateTime.Now;
-                entry.State = EntityState.Modified;
+                entry.State = EntityState.Modified;*/
             }
         }
     }

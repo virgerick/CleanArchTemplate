@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchTemplate.Server.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Architecture.Tests", "tests\Architecture.Tests\Architecture.Tests.csproj", "{D4BEF134-4C50-4920-90F0-18B65D5BF716}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchTemplate.Infrastructure.Abstraction", "src\CleanArchTemplate.Infrastructure\CleanArchTemplate.Infrastructure.Abstraction\CleanArchTemplate.Infrastructure.Abstraction.csproj", "{AF9B47BA-13EB-4565-9F94-353A61A45FA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{D4BEF134-4C50-4920-90F0-18B65D5BF716}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4BEF134-4C50-4920-90F0-18B65D5BF716}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4BEF134-4C50-4920-90F0-18B65D5BF716}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF9B47BA-13EB-4565-9F94-353A61A45FA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF9B47BA-13EB-4565-9F94-353A61A45FA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF9B47BA-13EB-4565-9F94-353A61A45FA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF9B47BA-13EB-4565-9F94-353A61A45FA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,5 +107,6 @@ Global
 		{981F8EB1-0FAA-4E47-8FB9-E7D8F6490497} = {76F60331-9CB3-4DBE-B948-AD37F989BD36}
 		{345CE69B-79EE-4062-8996-11061DC3741F} = {76F60331-9CB3-4DBE-B948-AD37F989BD36}
 		{D4BEF134-4C50-4920-90F0-18B65D5BF716} = {76F60331-9CB3-4DBE-B948-AD37F989BD36}
+		{AF9B47BA-13EB-4565-9F94-353A61A45FA5} = {1E87AB53-7D42-4ED6-9F13-173619DC7C4C}
 	EndGlobalSection
 EndGlobal
