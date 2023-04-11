@@ -1,0 +1,7 @@
+﻿namespace CleanArchTemplate.Shared.Requests.Catalog
+{
+    public class GetAllPagedProductsRequest : PagedRequest
+    {
+        public string SearchString { get; set; }
+    }
+}
