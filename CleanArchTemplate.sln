@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchTemplate.Server.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Architecture.Tests", "tests\Architecture.Tests\Architecture.Tests.csproj", "{D4BEF134-4C50-4920-90F0-18B65D5BF716}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchTemplate.Abstraction", "src\CleanArchTemplate.Abstraction\CleanArchTemplate.Abstraction.csproj", "{E8D5F27E-7C4D-4715-9710-BDAB40F97057}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchTemplate.Abstraction", "src\CleanArchTemplate.Abstraction\CleanArchTemplate.Abstraction.csproj", "{E8D5F27E-7C4D-4715-9710-BDAB40F97057}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +107,7 @@ Global
 		{E8D5F27E-7C4D-4715-9710-BDAB40F97057} = {1E87AB53-7D42-4ED6-9F13-173619DC7C4C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_PrefixTranslations = False
 		SolutionGuid = {3B5071C2-7F54-44EF-B54A-04E6F0509A81}
 	EndGlobalSection
 EndGlobal

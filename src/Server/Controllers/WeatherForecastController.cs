@@ -1,6 +1,7 @@
 ﻿using CleanArchTemplate.Shared;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace CleanArchTemplate.Server.Controllers;
 
@@ -14,22 +15,31 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly IStringLocalizer<WeatherForecastController> _localizer;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, IStringLocalizer<WeatherForecastController> localizer)
     {
         _logger = logger;
+        _localizer = localizer;
+        var test = _localizer["Test"];
     }
 
     [HttpGet]
     public IEnumerable<WeatherForecast> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        var request=Request;
+        var weathers= Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             TemperatureC = Random.Shared.Next(-20, 55),
             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
         })
-        .ToArray();
+            .ToArray();
+        foreach (var item in weathers)
+        {
+            item.Summary = _localizer.GetString(item.Summary!);
+        }
+        return weathers;
     }
 }
 

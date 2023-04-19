@@ -1,10 +1,17 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using CleanArchTemplate.Server.Extensions;
+
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
+
+using System.Globalization;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-
+builder.Services.AddGlobalization();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,10 +30,8 @@ app.UseHttpsRedirection();
 
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
-
+app.UseGlobalization();
 app.UseRouting();
-
-
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
