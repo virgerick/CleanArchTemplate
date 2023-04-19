@@ -9,11 +9,11 @@ public static class GlobalizationExtension
 {
     public static IServiceCollection AddGlobalization(this IServiceCollection services)
     {
-        const string defaultCulture = "en";
+        const string defaultCulture = "en-US";
         var supportedCultures = new[]
         {
             new CultureInfo(defaultCulture),
-            new CultureInfo("es")
+            new CultureInfo("es-ES")
         };
         services.Configure<RequestLocalizationOptions>(options =>
         {
@@ -28,13 +28,7 @@ public static class GlobalizationExtension
     public static IApplicationBuilder UseGlobalization(
     this WebApplication app)
     {
-        app.UseRequestLocalization(options =>
-        {
-            var opt = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value;
-            options= opt;
-        }
-            
-            );
+        app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
         return app;
     }
 }
