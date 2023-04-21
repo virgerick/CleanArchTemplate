@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using CleanArchTemplate.Shared.Constants.Localization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 
 using System.Globalization;
@@ -10,11 +11,9 @@ public static class GlobalizationExtension
     public static IServiceCollection AddGlobalization(this IServiceCollection services)
     {
         const string defaultCulture = "en-US";
-        var supportedCultures = new[]
-        {
-            new CultureInfo(defaultCulture),
-            new CultureInfo("es-ES")
-        };
+        var supportedCultures = LocalizationConstants.SupportedLanguages
+            .Select(x=>new CultureInfo(x.Code))
+            .ToList();
         services.Configure<RequestLocalizationOptions>(options =>
         {
             options.DefaultRequestCulture = new RequestCulture(defaultCulture);

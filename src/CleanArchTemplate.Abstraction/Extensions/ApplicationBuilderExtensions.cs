@@ -60,21 +60,7 @@ namespace CleanArchTemplate.Abstraction.Extensions
                 endpoints.MapHub<SignalRHub>(ApplicationConstants.SignalR.HubUrl);
             });
 
-        internal static IApplicationBuilder UseRequestLocalizationByCulture(this IApplicationBuilder app)
-        {
-            var supportedCultures = LocalizationConstants.SupportedLanguages.Select(l => new CultureInfo(l.Code)).ToArray();
-            app.UseRequestLocalization(options =>
-            {
-                options.SupportedUICultures = supportedCultures;
-                options.SupportedCultures = supportedCultures;
-                options.DefaultRequestCulture = new RequestCulture(supportedCultures.First());
-                options.ApplyCurrentCultureToResponseHeaders = true;
-            });
-
-            app.UseMiddleware<RequestCultureMiddleware>();
-
-            return app;
-        }
+     
 
         internal static IApplicationBuilder Initialize(this IApplicationBuilder app, IConfiguration _configuration)
         {
