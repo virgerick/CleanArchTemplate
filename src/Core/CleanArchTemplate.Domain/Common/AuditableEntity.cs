@@ -1,5 +1,4 @@
 ﻿namespace CleanArchTemplate.Domain.Common;
-
 public interface IAuditableEntity : IEntity, ICreatable, IModifiable { }
 public interface IAuditableEntity<TKey> : IEntity<TKey>, IEntity, ICreatable, IModifiable { }
 public interface IAuditableRootEntity<TKey> : IAuditableEntity<TKey>, IDeletable { }

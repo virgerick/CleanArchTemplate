@@ -4,8 +4,8 @@ public interface IDeletable
 {
     public bool Deleted { get; set; }
     public string? DeletedBy { get; set; }
-    public DateTime? DeletedAt { get; set; }
-    public virtual void ToDelete(DateTime at, string by)
+    public DateTimeOffset? DeletedAt { get; set; }
+    public virtual void ToDelete(DateTimeOffset at, string by)
     {
         Deleted = true;
         DeletedAt = at;

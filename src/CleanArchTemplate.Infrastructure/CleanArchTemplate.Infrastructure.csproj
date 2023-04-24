@@ -16,6 +16,7 @@
     <None Remove="Persistences\Database\" />
     <None Remove="Persistences\Database\Interceptors\" />
     <None Remove="Extensions\" />
+    <None Remove="Persistences\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Persistences\" />
@@ -23,6 +24,7 @@
     <Folder Include="Persistences\Database\" />
     <Folder Include="Persistences\Database\Interceptors\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Persistences\Models\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.4" />

@@ -17,9 +17,11 @@
   <ItemGroup>
     <None Remove="Common\" />
     <None Remove="Identity\" />
+    <None Remove="AuditTrails\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="Identity\" />
+    <Folder Include="AuditTrails\" />
   </ItemGroup>
 </Project>

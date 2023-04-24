@@ -4,7 +4,6 @@
     {
         public int PageSize { get; set; }
         public int PageNumber { get; set; }
-
-        public string[] Orderby { get; set; }
+        public string[] Orderby { get; set; } = Array.Empty<string>();
     }
 }

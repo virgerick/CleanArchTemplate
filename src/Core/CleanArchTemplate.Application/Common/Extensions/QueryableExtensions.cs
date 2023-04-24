@@ -9,7 +9,7 @@ namespace CleanArchTemplate.Application.Common.Extensions
 {
     public static class QueryableExtensions
     {
-        public static async Task<PaginatedResult<T>> ToPaginatedListAsync<T>(this IQueryable<T> source, int pageNumber, int pageSize) where T : class
+        public static async Task<ResultPaginated<T>> ToPaginatedListAsync<T>(this IQueryable<T> source, int pageNumber, int pageSize) where T : class
         {
             if (source == null) throw new ApiException();
             pageNumber = pageNumber == 0 ? 1 : pageNumber;
@@ -17,7 +17,7 @@ namespace CleanArchTemplate.Application.Common.Extensions
             int count = await source.CountAsync();
             pageNumber = pageNumber <= 0 ? 1 : pageNumber;
             List<T> items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            return PaginatedResult<T>.Success(items, count, pageNumber, pageSize);
+            return ResultPaginated<T>.Success(items, count, pageNumber, pageSize);
         }
 
         public static IQueryable<T> Specify<T>(this IQueryable<T> query, ISpecification<T> spec) where T : class, IEntity
