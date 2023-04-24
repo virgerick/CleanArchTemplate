@@ -6,6 +6,7 @@ using CleanArchTemplate.Application.Common.Configurations;
 using CleanArchTemplate.Application.Common.Interfaces.Services;
 using CleanArchTemplate.Domain.Identity;
 using CleanArchTemplate.Infrastructure.Persistence.Database;
+using CleanArchTemplate.Shared.Constants.Localization;
 using CleanArchTemplate.Shared.Constants.Permission;
 
 using Microsoft.AspNetCore.Builder;
@@ -94,12 +95,7 @@ namespace CleanArchTemplate.Abstraction.Extensions
             }
         }
 
-        internal static IServiceCollection AddServerLocalization(this IServiceCollection services)
-        {
-            services.TryAddTransient(typeof(IStringLocalizer<>), typeof(ServerLocalizer<>));
-            return services;
-        }
-
+        
         internal static AppConfiguration GetApplicationSettings(
            this IServiceCollection services,
            IConfiguration configuration)
@@ -135,7 +131,7 @@ namespace CleanArchTemplate.Abstraction.Extensions
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "BlazorHero.CleanArchitecture",
+                    Title = "CleanArchitecture",
                     License = new OpenApiLicense
                     {
                         Name = "MIT License",

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using System.Globalization;
-/*
+
 namespace CleanArchTemplate.Abstraction.Extensions
 {
     internal static class ApplicationBuilderExtensions
@@ -82,4 +82,4 @@ namespace CleanArchTemplate.Abstraction.Extensions
             return applicationSettingsConfiguration.Get<AppConfiguration>();
         }
     }
-}*/
+}

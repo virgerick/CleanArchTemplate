@@ -1,4 +1,5 @@
 ﻿using CleanArchTemplate.Application.Common.Interfaces;
+using CleanArchTemplate.Application.Common.Interfaces.Services;
 using CleanArchTemplate.Domain.Common;
 
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +12,11 @@ namespace CleanArchTemplate.Infrastructure.Persistence.Database.Interceptors;
 public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 {
     private readonly ICurrentUserService _currentUserService;
-    private readonly IDateTime _dateTime;
+    private readonly IDateTimeService _dateTime;
 
     public AuditableEntitySaveChangesInterceptor(
         ICurrentUserService currentUserService,
-        IDateTime dateTime)
+        IDateTimeService dateTime)
     {
         _currentUserService = currentUserService;
         _dateTime = dateTime;
@@ -41,7 +42,7 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
         {
             if (entry.State == EntityState.Added)
             {
-                entry.Entity.ToCreate(_dateTime.Now, _currentUserService.UserId ?? "");
+                entry.Entity.ToCreate(_dateTime.NowUtc, _currentUserService.UserId ?? "");
                 /* entry.Entity.CreatedBy = _currentUserService.UserId!;
                  entry.Entity.CreatedAt = _dateTime.Now;*/
             }
@@ -50,7 +51,7 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
         {
             if (entry.State == EntityState.Modified)
             {
-                entry.Entity.ToModify(_dateTime.Now, _currentUserService.UserId ?? "");
+                entry.Entity.ToModify(_dateTime.NowUtc, _currentUserService.UserId ?? "");
                 /*entry.Entity.ModifiedBy = _currentUserService.UserId!;
                 entry.Entity.ModifiedAt = _dateTime.Now;*/
             }
@@ -59,7 +60,7 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
         {
             if (entry.State == EntityState.Deleted)
             {
-                entry.Entity.ToDelete(_dateTime.Now, _currentUserService.UserId ?? "");
+                entry.Entity.ToDelete(_dateTime.NowUtc, _currentUserService.UserId ?? "");
                 /*entry.Entity.Deleted = true;
                 entry.Entity.DeletedBy = _currentUserService.UserId!;
                 entry.Entity.DeletedAt = _dateTime.Now;
