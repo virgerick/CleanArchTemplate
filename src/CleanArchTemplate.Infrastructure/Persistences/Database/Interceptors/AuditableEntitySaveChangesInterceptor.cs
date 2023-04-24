@@ -1,4 +1,5 @@
-﻿using CleanArchTemplate.Application.Common.Interfaces;
+﻿using System.Threading;
+using CleanArchTemplate.Application.Common.Interfaces;
 using CleanArchTemplate.Application.Common.Interfaces.Services;
 using CleanArchTemplate.Domain.AuditTrails;
 using CleanArchTemplate.Domain.Common;
@@ -27,8 +28,13 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
+        var auditEntries = OnBeforeSaveChanges(eventData.Context!);
         UpdateEntities(eventData.Context);
-        return base.SavingChanges(eventData, result);
+        var response = base.SavingChanges(eventData, result);
+        OnAfterSaveChanges(eventData.Context!, auditEntries,CancellationToken.None)
+            .GetAwaiter()
+            .GetResult();
+        return response;
     }
 
     public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
@@ -125,7 +131,8 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
         }
         foreach (var auditEntry in auditEntries.Where(_ => !_.HasTemporaryProperties))
         {
-            context.Set<Audit>().Add(auditEntry.ToAudit());
+            context.Set<Audit>()
+                .Add(auditEntry.ToAudit());
         }
         return auditEntries.Where(_ => _.HasTemporaryProperties).ToList();
     }
