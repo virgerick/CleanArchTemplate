@@ -1,6 +1,6 @@
 ﻿namespace CleanArchTemplate.Shared.Constants.Localization;
 
-    public static class LocalizationConstants
+public static class LocalizationConstants
 {
     public static readonly LanguageCode[] SupportedLanguages = {
             new LanguageCode

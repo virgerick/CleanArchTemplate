@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CleanArchTemplate.Shared.Extensions;
 
 namespace CleanArchTemplate.Shared.Wrapper
 {
@@ -12,26 +13,6 @@ namespace CleanArchTemplate.Shared.Wrapper
 
         public List<T> Data { get; set; }
 
-        internal PaginatedResult(bool succeeded, List<T> data = default, List<string> messages = null, int count = 0, int page = 1, int pageSize = 10)
-        {
-            Data = data;
-            CurrentPage = page;
-            Succeeded = succeeded;
-            PageSize = pageSize;
-            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
-            TotalCount = count;
-        }
-
-        public static PaginatedResult<T> Failure(List<string> messages)
-        {
-            return new PaginatedResult<T>(false, default, messages);
-        }
-
-        public static PaginatedResult<T> Success(List<T> data, int count, int page, int pageSize)
-        {
-            return new PaginatedResult<T>(true, data, null, count, page, pageSize);
-        }
-
         public int CurrentPage { get; set; }
 
         public int TotalPages { get; set; }
@@ -42,5 +23,44 @@ namespace CleanArchTemplate.Shared.Wrapper
         public bool HasPreviousPage => CurrentPage > 1;
 
         public bool HasNextPage => CurrentPage < TotalPages;
+
+        internal PaginatedResult(bool succeeded, List<T> data = default!, List<string> messages = null!, int count = 0, int page = 1, int pageSize = 10)
+        {
+            Data = data;
+            CurrentPage = page;
+            Succeeded = succeeded;
+            PageSize = pageSize;
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            TotalCount = count;
+        }
+
+        public new static PaginatedResult<T> Failure(List<string> messages)
+        {
+            return new PaginatedResult<T>(false, default!, messages);
+        }
+
+        public static PaginatedResult<T> Success(List<T> data, int count, int page, int pageSize)
+        {
+            return new PaginatedResult<T>(true, data, null!, count, page, pageSize);
+        }
+
+
+        public static async Task<PaginatedResult<T>> TryCatch(Func<Task<PaginatedResult<T>>> action, Action onFinally = default!)
+        {
+            try
+            {
+                return await action?.Invoke()!;
+
+            }
+            catch (Exception ex)
+            {
+                return PaginatedResult<T>.Failure(ex.GetMessages().ToList());
+            }
+            finally
+            {
+                onFinally?.Invoke();
+            }
+        }
+
     }
 }
