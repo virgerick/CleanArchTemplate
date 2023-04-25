@@ -1,11 +1,8 @@
 ﻿using System;
-namespace CleanArchTemplate.Infrastructure.Extensions
+namespace CleanArchTemplate.Infrastructure.Extensions;
+
+public static class FluentValidationExtensions
 {
-	public class FluentValidationExtensions
-	{
-		public FluentValidationExtensions()
-		{
-		}
-	}
+	
 }
 

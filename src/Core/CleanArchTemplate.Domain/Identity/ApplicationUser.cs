@@ -5,9 +5,20 @@ using OneOf;
 
 namespace CleanArchTemplate.Domain.Identity;
 
-public class ApplicationUser : IdentityUser
+using System;
+using CleanArchTemplate.Domain.Common;
+public  class ApplicationUser : IdentityUser,IAuditableRootEntity<string>
 {
     private ApplicationUser() { }
+    #region Auditable root
+    public DateTimeOffset CreatedAt { get; set; } = default!;
+    public string CreatedBy { get; set; } = default!;
+    public DateTimeOffset? ModifiedAt { get; set; }
+    public string? ModifiedBy { get; set; }= default!;
+    public bool Deleted { get; set; }= default!;
+    public string? DeletedBy { get; set; }  = default!;
+    public DateTimeOffset? DeletedAt { get; set; } = default!;
+    #endregion
     public static OneOf<ApplicationUser,List<ValidationFailure>> Create(string username,string email,string phoneNumber)
     {
         var user = new ApplicationUser
@@ -23,6 +34,7 @@ public class ApplicationUser : IdentityUser
         return user;
     }
 }
+
 file sealed class ApplicationUserValidator : AbstractValidator<ApplicationUser>
 {
     public ApplicationUserValidator()

@@ -14,10 +14,12 @@ public class ApplicationRole : IdentityRole, IAuditableEntity<string>
     }
     public string Description { get; set; } = default!;
     public virtual ICollection<ApplicationRoleClaim> RoleClaims { get; set; }
-    public DateTimeOffset CreatedAt { get ; set ; }
-    public string CreatedBy { get ; set ; }
-    public DateTimeOffset? ModifiedAt { get ; set ; }
-    public string? ModifiedBy { get ; set ; }
+    #region Auditable
+    public DateTimeOffset CreatedAt { get; set; } = default!;
+    public string CreatedBy { get ; set ; }=default!;
+    public DateTimeOffset? ModifiedAt { get ; set ; }=default!;
+    public string? ModifiedBy { get ; set ; }=default!;
+    #endregion
     public static OneOf<ApplicationRole,IEnumerable<ValidationFailure>> Create(string name,string description)
     {
         var role = new ApplicationRole
