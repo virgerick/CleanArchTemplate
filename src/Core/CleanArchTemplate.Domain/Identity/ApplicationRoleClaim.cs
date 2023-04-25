@@ -11,10 +11,12 @@ public class ApplicationRoleClaim : IdentityRoleClaim<string>, IAuditableEntity<
     public string Description { get;private set; } = default!;
     public string Group { get;private set; } = default!;
     public ApplicationRole? Role { get;private set; } = default!;
+    #region Auditable
     public DateTimeOffset CreatedAt { get ; set ; } = default!;
     public string CreatedBy { get ; set ; } = default!;
     public DateTimeOffset? ModifiedAt { get ; set ; } = default!;
     public string? ModifiedBy { get ; set ; } = default!;
+    #endregion
 
     private ApplicationRoleClaim() : base()
     {

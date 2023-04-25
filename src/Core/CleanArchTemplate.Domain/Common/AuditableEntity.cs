@@ -7,9 +7,9 @@ public abstract class AuditableEntity : AuditableEntity<int> { }
 public abstract class AuditableEntity<TKey> : IAuditableEntity<TKey>
 {
     public TKey Id { get; set; } = default!;
-    public DateTime CreatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
-    public DateTime? ModifiedAt { get; set; }
+    public DateTimeOffset? ModifiedAt { get; set; }
     public string? ModifiedBy { get; set; }
 }
 
@@ -19,5 +19,5 @@ public abstract class AuditableRootEntity<TKey> : AuditableEntity<TKey>, IAudita
 {
     public bool Deleted { get; set; }
     public string? DeletedBy { get; set; }
-    public DateTime? DeletedAt { get; set; }
+    public DateTimeOffset? DeletedAt { get; set; }
 }

@@ -1,16 +1,12 @@
-﻿using BlazorHero.CleanArchitecture.Application.Exceptions;
-using BlazorHero.CleanArchitecture.Shared.Wrapper;
-
+﻿using CleanArchTemplate.Shared.Wrapper;
 using CleanArchTemplate.Application.Common.Exceptions;
-using CleanArchTemplate.Shared.Wrapper;
-
 using Microsoft.AspNetCore.Http;
-
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
+using CleanArchTemplate.Shared.Extensions;
 
 namespace CleanArchTemplate.Abstraction.Middlewares
 {
@@ -33,8 +29,7 @@ namespace CleanArchTemplate.Abstraction.Middlewares
             {
                 var response = context.Response;
                 response.ContentType = "application/json";
-                var responseModel = await Result<string>.FailAsync(error.Message);
-
+                var responseModel = await Result<string>.FailureAsync(error.GetMessages().ToList());
                 switch (error)
                 {
                     case ApiException e:

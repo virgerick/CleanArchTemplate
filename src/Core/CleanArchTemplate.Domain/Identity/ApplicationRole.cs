@@ -30,7 +30,6 @@ public class ApplicationRole : IdentityRole, IAuditableEntity<string>
         };
         var validationResult = new ApplicationRoleValidator().Validate(role);
         if (!validationResult.IsValid) return validationResult.Errors;
-
         return role;
     }
 }

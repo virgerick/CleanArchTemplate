@@ -27,10 +27,28 @@ public class ApplicationDbContext :
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        ConfigureDefaultType(builder);
         var entitiesAssembly = typeof(IEntity).Assembly;
         builder.RegisterAllEntities<IEntity>(entitiesAssembly);
-        builder.ApplyConfigurationsFromAssembly(typeof(IEntity).Assembly);
+        builder.ApplyConfigurationsFromAssembly(typeof(IInfrastructureAssemblyMarkup).Assembly);
         builder.AddPluralizingTableNameConvention();
+    }
+    private void ConfigureDefaultType(ModelBuilder builder)
+    {
+        foreach (var property in builder.Model.GetEntityTypes()
+           .SelectMany(t => t.GetProperties())
+           .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+        {
+            property.SetColumnType("decimal(18,2)");
+        }
+
+        foreach (var property in builder.Model.GetEntityTypes()
+            .SelectMany(t => t.GetProperties())
+            .Where(p => p.Name is "ModifiedBy" or "CreatedBy" or "DeletedBy"))
+        {
+            property.SetColumnType("nvarchar(128)");
+        }
+
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
