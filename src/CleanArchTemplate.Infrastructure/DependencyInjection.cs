@@ -1,8 +1,8 @@
 ﻿namespace CleanArchTemplate.Infrastructure;
-
 using CleanArchTemplate.Infrastructure.Persistence.Database.Interceptors;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 public static class DependencyInjection
 {
@@ -15,5 +15,6 @@ public static class DependencyInjection
         return services
             .AddTransient<AuditableEntitySaveChangesInterceptor>();
     }
+   
 }
 

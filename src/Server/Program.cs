@@ -1,8 +1,8 @@
-﻿using CleanArchTemplate.Server.Extensions;
+﻿
+using CleanArchTemplate.Server.Extensions;
 
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
-
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,12 +12,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddGlobalization();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
@@ -27,7 +31,6 @@ else
 }
 
 app.UseHttpsRedirection();
-
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 app.UseGlobalization();

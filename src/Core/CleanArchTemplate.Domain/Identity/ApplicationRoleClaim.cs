@@ -1,4 +1,5 @@
-﻿using CleanArchTemplate.Domain.Common;
+﻿using System.Security.Claims;
+using CleanArchTemplate.Domain.Common;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
@@ -21,10 +22,11 @@ public class ApplicationRoleClaim : IdentityRoleClaim<string>, IAuditableEntity<
     private ApplicationRoleClaim() : base()
     {
     }
-    public static OneOf<ApplicationRoleClaim, IEnumerable<ValidationFailure>> Create(string claimType, string claimValue,string group="", string description="")
+    public static OneOf<ApplicationRoleClaim, IEnumerable<ValidationFailure>> Create(string claimType, string claimValue,string roleId="",string group="", string description="")
     {
         var claim = new ApplicationRoleClaim
         {
+            RoleId = roleId,
             Group=group,
             Description = description,
             ClaimType=claimType,
@@ -34,6 +36,15 @@ public class ApplicationRoleClaim : IdentityRoleClaim<string>, IAuditableEntity<
         if (!validationResult.IsValid) return validationResult.Errors;
 
         return claim;
+    }
+
+    public void Update(string roleId, string type, string value, string group, string description)
+    {
+        RoleId = roleId;
+        Group = group;
+        Description = description;
+        ClaimType = type;
+        ClaimValue = value;
     }
 }
 

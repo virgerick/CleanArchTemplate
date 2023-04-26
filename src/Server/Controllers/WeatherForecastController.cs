@@ -41,5 +41,9 @@ public class WeatherForecastController : ControllerBase
         }
         return weathers;
     }
-}
+    [HttpPost]
+    public async Task Post(WeatherForecast request)
+    {
 
+    }
+}
