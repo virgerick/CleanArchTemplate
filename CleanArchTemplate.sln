@@ -25,9 +25,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{76F60331
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchTemplate.Abstraction", "src\CleanArchTemplate.Abstraction\CleanArchTemplate.Abstraction.csproj", "{E8D5F27E-7C4D-4715-9710-BDAB40F97057}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchTemplate.UnitTets", "tests\CleanArchTemplate.UnitTets\CleanArchTemplate.UnitTets.csproj", "{019E9E91-6012-4E1E-BAB4-54DF8D8DF44E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchTemplate.UnitTets", "tests\CleanArchTemplate.UnitTets\CleanArchTemplate.UnitTets.csproj", "{019E9E91-6012-4E1E-BAB4-54DF8D8DF44E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchTemplate.IntegrationTests", "tests\CleanArchTemplate.IntegrationTests\CleanArchTemplate.IntegrationTests.csproj", "{1CDA6883-41E9-4425-A9B6-CC73E9D52D5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchTemplate.IntegrationTests", "tests\CleanArchTemplate.IntegrationTests\CleanArchTemplate.IntegrationTests.csproj", "{1CDA6883-41E9-4425-A9B6-CC73E9D52D5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{5919CDA8-A427-4024-98B6-93075562ED31}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B5E65B9E-0043-4207-AFA5-54AA263D3A72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +79,10 @@ Global
 		{1CDA6883-41E9-4425-A9B6-CC73E9D52D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CDA6883-41E9-4425-A9B6-CC73E9D52D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CDA6883-41E9-4425-A9B6-CC73E9D52D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5E65B9E-0043-4207-AFA5-54AA263D3A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5E65B9E-0043-4207-AFA5-54AA263D3A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5E65B9E-0043-4207-AFA5-54AA263D3A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5E65B9E-0043-4207-AFA5-54AA263D3A72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,7 +98,7 @@ Global
 		{1CDA6883-41E9-4425-A9B6-CC73E9D52D5C} = {76F60331-9CB3-4DBE-B948-AD37F989BD36}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_PrefixTranslations = False
 		SolutionGuid = {3B5071C2-7F54-44EF-B54A-04E6F0509A81}
+		RESX_PrefixTranslations = False
 	EndGlobalSection
 EndGlobal
