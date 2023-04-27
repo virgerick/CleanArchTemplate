@@ -21,7 +21,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System.Globalization;
 using System.Net;
 using System.Reflection;
@@ -171,7 +170,7 @@ public static class ServiceCollectionExtensions
                         {
                             c.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                             c.Response.ContentType = "application/json";
-                            var result = JsonConvert.SerializeObject(Result.Failure(localizer["The Token is expired."]));
+                            var result = JsonSerializer.Serialize(Result.Failure(localizer["The Token is expired."]));
                             return c.Response.WriteAsync(result);
                         }
                         else
@@ -184,7 +183,7 @@ public static class ServiceCollectionExtensions
 #else
                                 c.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                                 c.Response.ContentType = "application/json";
-                                var result = JsonConvert.SerializeObject(Result.Failure(localizer["An unhandled error has occurred."]));
+                                var result = JsonSerializer.Serialize(Result.Failure(localizer["An unhandled error has occurred."]));
                                 return c.Response.WriteAsync(result);
 #endif
                         }
@@ -196,7 +195,7 @@ public static class ServiceCollectionExtensions
                         {
                             context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                             context.Response.ContentType = "application/json";
-                            var result = JsonConvert.SerializeObject(Result.Failure(localizer["You are not Authorized."]));
+                            var result = JsonSerializer.Serialize(Result.Failure(localizer["You are not Authorized."]));
                             return context.Response.WriteAsync(result);
                         }
 
@@ -206,7 +205,7 @@ public static class ServiceCollectionExtensions
                     {
                         context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                         context.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject(Result.Failure(localizer["You are not authorized to access this resource."]));
+                        var result = JsonSerializer.Serialize(Result.Failure(localizer["You are not authorized to access this resource."]));
                         return context.Response.WriteAsync(result);
                     },
                 };
