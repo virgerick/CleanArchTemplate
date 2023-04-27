@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  cleanarchtemplate.server:
+    image: ${DOCKER_REGISTRY-}cleanarchtemplateserver
+    build:
+      context: .
+      dockerfile: src/Server/Dockerfile
