@@ -54,6 +54,13 @@ public class IdentityRoleClaimConfiguration : IEntityTypeConfiguration<Applicati
     }
 }
 
+public class IdentityUserRoleConfiguration : IEntityTypeConfiguration<IdentityUserRole<string>>
+{
+    public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder)
+    {
+        builder.ToTable("UserRoles", "Identity");
+    }
+}
 public class IdentityUserTokenConfiguration : IEntityTypeConfiguration<IdentityUserToken<string>>
 {
     public void Configure(EntityTypeBuilder<IdentityUserToken<string>> builder)
