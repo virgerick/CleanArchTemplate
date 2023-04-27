@@ -14,9 +14,9 @@ public class SMTPMailService : IMailService
     private readonly MailConfiguration _config;
     private readonly ILogger<SMTPMailService> _logger;
 
-    public SMTPMailService(IOptionsMonitor<MailConfiguration> config, ILogger<SMTPMailService> logger)
+    public SMTPMailService(IOptions<MailConfiguration> config, ILogger<SMTPMailService> logger)
     {
-        _config = config.CurrentValue;
+        _config = config.Value;
         _logger = logger;
     }
 

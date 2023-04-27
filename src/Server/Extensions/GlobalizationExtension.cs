@@ -12,6 +12,7 @@ using CleanArchTemplate.Server.Localization;
 using CleanArchTemplate.Shared.Constants.Application;
 using CleanArchTemplate.Shared.Constants.Localization;
 using CleanArchTemplate.Shared.Constants.Permission;
+using CleanArchTemplate.Shared.Models;
 using CleanArchTemplate.Shared.Wrapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -69,9 +70,9 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration configuration)
         => services
-            .AddDbContext<ApplicationDbContext>(options => options
-                .UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
-        .AddTransient<IDatabaseSeeder, DatabaseSeeder>();
+            .AddDbContext<ApplicationContext>(options => options
+                .UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        //.AddTransient<IDatabaseSeeder, DatabaseSeeder>();
 
     internal static IServiceCollection AddCurrentUserService(this IServiceCollection services)
     {
@@ -92,7 +93,7 @@ public static class ServiceCollectionExtensions
                 options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = true;
             })
-            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddEntityFrameworkStores<ApplicationContext>()
             .AddDefaultTokenProviders();
         return services;
     }
@@ -122,8 +123,9 @@ public static class ServiceCollectionExtensions
     }
 
     internal static IServiceCollection AddJwtAuthentication(
-        this IServiceCollection services, AppConfiguration config)
+        this IServiceCollection services, IConfiguration configurationg)
     {
+        var config = GetApplicationSettings(configurationg);
         var key = Encoding.UTF8.GetBytes(config.Secret);
         services
             .AddAuthentication(authentication =>
@@ -222,5 +224,10 @@ public static class ServiceCollectionExtensions
             }
         });
         return services;
+    }
+    private static AppConfiguration GetApplicationSettings(IConfiguration configuration)
+    {
+        var applicationSettingsConfiguration = configuration.GetSection(nameof(AppConfiguration));
+        return applicationSettingsConfiguration.Get<AppConfiguration>()!;
     }
 }

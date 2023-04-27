@@ -8,7 +8,7 @@ namespace CleanArchTemplate.Domain.Identity;
 
 public class ApplicationRole : IdentityRole, IAuditableEntity<string>
 {
-    private ApplicationRole() : base()
+    public ApplicationRole() : base()
     {
         RoleClaims = new HashSet<ApplicationRoleClaim>();
     }

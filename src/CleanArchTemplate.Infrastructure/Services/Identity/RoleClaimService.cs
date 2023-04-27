@@ -13,12 +13,12 @@ namespace CleanArchTemplate.Infrastructure.Services.Identity;
 public class RoleClaimService : IRoleClaimService
 {
     private readonly IStringLocalizer<RoleClaimService> _localizer;
-    private readonly ApplicationDbContext _db;
+    private readonly ApplicationContext _db;
 
     public RoleClaimService(
         IStringLocalizer<RoleClaimService> localizer,
         ICurrentUserService currentUserService,
-        ApplicationDbContext db)
+        ApplicationContext db)
     {
         _localizer = localizer;
         _db = db;

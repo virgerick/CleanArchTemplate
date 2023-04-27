@@ -1,5 +1,6 @@
 ﻿namespace CleanArchTemplate.Application;
 
+using CleanArchTemplate.Domain;
 using MediatR.NotificationPublishers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ public static class DependencyInjection
             .AddMediatR(config =>
             {
                 config.RegisterServicesFromAssemblyContaining<IApplicationAssemblyMarkup>();
+                config.RegisterServicesFromAssemblyContaining<IDomainAssemblyMarkup>();
                 config.NotificationPublisher = new ForeachAwaitPublisher();
                 //config.NotificationPublisher = new TaskWhenAllPublisher();
                 

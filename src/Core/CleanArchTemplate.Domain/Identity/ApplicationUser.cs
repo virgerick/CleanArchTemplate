@@ -15,7 +15,7 @@ public  class ApplicationUser : IdentityUser,IAuditableRootEntity<string>
     public bool IsActive { get; set; }
     public string? RefreshToken { get; set; }
     public DateTimeOffset RefreshTokenExpiryTime { get; set; }
-    private ApplicationUser() { }
+    public ApplicationUser() { }
     #region Auditable root
     public DateTimeOffset CreatedAt { get; set; } = default!;
     public string CreatedBy { get; set; } = default!;

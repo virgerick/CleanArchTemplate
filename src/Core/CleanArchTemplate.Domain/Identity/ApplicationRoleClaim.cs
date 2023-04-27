@@ -19,7 +19,7 @@ public class ApplicationRoleClaim : IdentityRoleClaim<string>, IAuditableEntity<
     public string? ModifiedBy { get ; set ; } = default!;
     #endregion
 
-    private ApplicationRoleClaim() : base()
+    public ApplicationRoleClaim() : base()
     {
     }
     public static OneOf<ApplicationRoleClaim, IEnumerable<ValidationFailure>> Create(string claimType, string claimValue,string roleId="",string group="", string description="")

@@ -10,10 +10,10 @@ public static class DependencyInjection
     {
         return services;
     }
-    public static IServiceCollection AddInterceptors(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInterceptors(this IServiceCollection services)
     {
         return services
-            .AddTransient<AuditableEntitySaveChangesInterceptor>();
+            .AddScoped<AuditableEntitySaveChangesInterceptor>();
     }
    
 }

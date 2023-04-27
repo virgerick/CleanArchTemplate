@@ -11,13 +11,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchTemplate.Infrastructure.Persistence.Database;
 
-public class ApplicationDbContext :
+public class ApplicationContext :
     IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, ApplicationRoleClaim, IdentityUserToken<string>>, IApplicationDbContext
 {
     private readonly IMediator _mediator;
     private readonly AuditableEntitySaveChangesInterceptor _auditableEntitySaveChangesInterceptor;
 
-    protected ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,
+    public ApplicationContext(DbContextOptions<ApplicationContext> options,
         IMediator mediator,
         AuditableEntitySaveChangesInterceptor auditableEntitySaveChangesInterceptor) : base(options)
     {

@@ -15,14 +15,14 @@ public class DatabaseSeeder : IDatabaseSeeder
 {
     private readonly ILogger<DatabaseSeeder> _logger;
     private readonly IStringLocalizer<DatabaseSeeder> _localizer;
-    private readonly ApplicationDbContext _db;
+    private readonly ApplicationContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<ApplicationRole> _roleManager;
 
     public DatabaseSeeder(
         UserManager<ApplicationUser> userManager,
         RoleManager<ApplicationRole> roleManager,
-        ApplicationDbContext db,
+        ApplicationContext db,
         ILogger<DatabaseSeeder> logger,
         IStringLocalizer<DatabaseSeeder> localizer)
     {
