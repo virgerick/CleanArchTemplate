@@ -111,10 +111,10 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IRoleClaimService, RoleClaimService>();
         services.AddTransient<ITokenService, IdentityService>();
         services.AddTransient<IRoleService, RoleService>();
-        services.AddTransient<IAccountService, AccountService>();
         services.AddTransient<IUserService, UserService>();
         services.AddScoped<IExcelService, ExcelService>();
         /* Todo:
+        services.AddTransient<IAccountService, AccountService>();
         services.AddTransient<IChatService, ChatService>();
         services.AddTransient<IUploadService, UploadService>();
         services.AddTransient<IAuditService, AuditService>();

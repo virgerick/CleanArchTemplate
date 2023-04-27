@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "6lCh7B0+JBi5yyV6wL4OW1enm3MkiOXe9TXkSKxGtWAGeMu/yfjLXllLX46YUOFQePfGXiEjBl4IfJeS6EiFFQ==",
+  "dgSpecHash": "NUf64/u7yaZIwiSoUBewRmPJGGvdZ6RmkolndSJMRiMKe/SqDGvKebKxM24SweZDpza3/aQrU9fi05GGK/a3Qw==",
   "success": true,
   "projectFilePath": "/Users/developer/Projects/DotNet/Templates/CleanArchTemplate/tests/CleanArchTemplate.IntegrationTests/CleanArchTemplate.IntegrationTests.csproj",
   "expectedPackageFiles": [
     "/Users/developer/.nuget/packages/coverlet.collector/3.2.0/coverlet.collector.3.2.0.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.codecoverage/17.5.0/microsoft.codecoverage.17.5.0.nupkg.sha512",
+    "/Users/developer/.nuget/packages/microsoft.extensions.localization.abstractions/7.0.5/microsoft.extensions.localization.abstractions.7.0.5.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.net.test.sdk/17.5.0/microsoft.net.test.sdk.17.5.0.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "/Users/developer/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",

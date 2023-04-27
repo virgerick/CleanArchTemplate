@@ -8,11 +8,13 @@ using Microsoft.Extensions.Options;
 using System.Globalization;
 using CleanArchTemplate.Application.Common.Interfaces.Common;
 using Microsoft.Extensions.Configuration;
+using CleanArchTemplate.Server.Endpoints.Identity.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var configuration = builder.Configuration;
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services
@@ -23,6 +25,7 @@ builder.Services
     .AddApplicationMediatR()
     .AddDatabase(configuration)
     .AddIdentity()
+    .AddApplicationServices()
     .AddSwaggerGen();
 
 var app = builder.Build();
@@ -47,6 +50,7 @@ app.UseGlobalization();
 app.UseRouting();
 app.MapRazorPages();
 app.MapControllers();
+app.MapGetTokenEndPoint();
 app.MapFallbackToFile("index.html");
 
 app.Run();

@@ -34,8 +34,16 @@
 
   <ItemGroup>
     <None Remove="Localization\" />
+    <None Remove="Endpoints\" />
+    <None Remove="Endpoints\Identity\" />
+    <None Remove="Endpoints\Identity\Account\" />
+    <None Remove="Endpoints\Identity\Token\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Localization\" />
+    <Folder Include="Endpoints\" />
+    <Folder Include="Endpoints\Identity\" />
+    <Folder Include="Endpoints\Identity\Account\" />
+    <Folder Include="Endpoints\Identity\Token\" />
   </ItemGroup>
 </Project>
