@@ -6,6 +6,7 @@ using CleanArchTemplate.Shared.Wrapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace CleanArchTemplate.Server.Endpoints.Identity.Token;
 

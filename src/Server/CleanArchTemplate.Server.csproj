@@ -49,9 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Localization\" />
-    <Folder Include="Endpoints\" />
-    <Folder Include="Endpoints\Identity\" />
     <Folder Include="Endpoints\Identity\Account\" />
-    <Folder Include="Endpoints\Identity\Token\" />
   </ItemGroup>
 </Project>
