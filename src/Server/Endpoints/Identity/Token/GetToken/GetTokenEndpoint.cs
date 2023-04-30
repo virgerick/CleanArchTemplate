@@ -13,15 +13,10 @@ public class GetTokenEndpoint : IMapEndpoint
 {
     public IEndpointConventionBuilder Map(IEndpointRouteBuilder endpoint)
     {
-        return endpoint.MapPost("/token", GetTokenAsync)
+        return endpoint.MapPost("/token", async (TokenRequest request, ITokenService tokenService) => await tokenService.LoginAsync(request) )
+            .WithName("Token")
            .WithTags("Token")
-           .WithName("GetToken")
            .WithDisplayName("GetToken");
-    }
-    private static async Task<Result<TokenResponse>> GetTokenAsync(TokenRequest request, ITokenService tokenService, IStringLocalizer<GetTokenEndpoint> localizer)
-    {
-        var result = await tokenService.LoginAsync(request);
-        return result;
     }
 }
 

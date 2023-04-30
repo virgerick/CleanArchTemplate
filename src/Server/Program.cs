@@ -9,6 +9,7 @@ using System.Globalization;
 using CleanArchTemplate.Application.Common.Interfaces.Common;
 using Microsoft.Extensions.Configuration;
 using CleanArchTemplate.Server.Endpoints.Identity.Token;
+using CleanArchTemplate.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +18,9 @@ var configuration = builder.Configuration;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.AddRegistrars<IServerAssemblyMarkup>();
 builder.Services
-    .AddGlobalization()
+ //   .AddGlobalization()
     .AddSharedInfrastructure(configuration)
     .AddCurrentUserService()
     .AddInterceptors()
@@ -46,7 +48,8 @@ else
 app.UseHttpsRedirection();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
-app.UseGlobalization();
+//app.UseGlobalization();
+app.UseRegistrars<IServerAssemblyMarkup>();
 app.UseRouting();
 app.MapRazorPages();
 app.MapControllers();

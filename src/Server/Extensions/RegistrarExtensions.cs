@@ -31,7 +31,7 @@ public static class RegistrarExtensions
     /// </summary>
     /// <typeparam name="T">Represent the Assembly to scans</typeparam>
     /// <param name="app">It is the web application instance</param>
-    public static void AddRegistrars<T>(this WebApplication app) where T : class
+    public static void UseRegistrars<T>(this WebApplication app) where T : class
     { 
         Type scanningType=typeof(T);
         var registrars = GetRegistrars<IRegistrarApplication>(scanningType);
