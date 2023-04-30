@@ -6,3 +6,13 @@ services:
     build:
       context: .
       dockerfile: src/Server/Dockerfile
+    depends_on:
+      - cleanarchtemplate.db
+    environment:
+      DefaultConnection: "Server=cleanarchtemplate.db;Database=myDb;User Id=sa;Password=Qwerty12345*;"
+
+  cleanarchtemplate.db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Qwerty12345*"
+      ACCEPT_EULA: "Y"
