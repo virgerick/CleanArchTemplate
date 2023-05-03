@@ -5,7 +5,7 @@ dotnet new install .
 ```
 ## Start new Project
 ```
-dotnet new cleanarh -o <project-name>
+dotnet new cleanarch -o <project-name>
 ```
 ## Add migrations
 ```

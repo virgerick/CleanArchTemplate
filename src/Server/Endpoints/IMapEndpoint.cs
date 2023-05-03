@@ -1,7 +1,5 @@
-﻿namespace CleanArchTemplate.Server.Endpoints
+﻿namespace CleanArchTemplate.Server.Endpoints;
+public interface IMapEndpoint
 {
-    public interface IMapEndpoint
-    {
-        public IEndpointConventionBuilder Map(IEndpointRouteBuilder endpoint);
-    }
+    public IEndpointConventionBuilder Map(IEndpointRouteBuilder endpoint);
 }

@@ -1,5 +1,6 @@
 ﻿using CleanArchTemplate.Application.Common.Interfaces.Common;
 using CleanArchTemplate.Server.Endpoints;
+using CleanArchTemplate.Server.Extensions;
 
 namespace CleanArchTemplate.Server.AutoRegistrar;
 
@@ -9,20 +10,9 @@ public class MapEndpointRegistrar:IRegistrarApplication
     {
        if(App is WebApplication app)
         {
-            var endpoints = GetMapEndpoints<IMapEndpoint>(typeof(IServerAssemblyMarkup));
-            foreach (var endpoint in endpoints)
-            {
-                endpoint.Map(app);      
-            }
+            app.UseMapEndpoint();  
         }
 
-    }
-    private static IEnumerable<T> GetMapEndpoints<T>(Type scanningType) where T : IMapEndpoint
-    {
-        return scanningType.Assembly.GetTypes()
-            .Where(t => t.IsAssignableTo(typeof(T)) && !t.IsAbstract && !t.IsInterface)
-            .Select(Activator.CreateInstance)
-            .Cast<T>();
     }
 
 }
