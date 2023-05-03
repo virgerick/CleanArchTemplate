@@ -4,7 +4,7 @@ using CleanArchTemplate.Infrastructure;
 using CleanArchTemplate.Server.Endpoints.Identity.Token;
 using CleanArchTemplate.Server.Extensions;
 
-namespace CleanArchTemplate.Server;
+namespace CleanArchTemplate.Server.AutoRegistrar;
 
 public class ServerRegistrar : IRegistrarApplicationBuilder, IRegistrarApplication
 {
