@@ -1,4 +1,5 @@
-﻿using CleanArchTemplate.Application.Common.Interfaces.Common;
+﻿
+using CleanArchTemplate.Application.Common.Interfaces.Common;
 
 namespace CleanArchTemplate.Server.Extensions;
 
@@ -48,3 +49,4 @@ public static class RegistrarExtensions
             .Cast<T>();
     }
 }
+

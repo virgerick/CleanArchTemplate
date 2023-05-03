@@ -3,7 +3,7 @@ namespace CleanArchTemplate.Domain.AuditTrails;
 
 public class Audit : BaseEntity<Guid>
 {
-    public required string UserId { get; set; }
+    public string UserId { get; set; } = string.Empty;
     public required string Type { get; set; }
     public required string TableName { get; set; }
     public required DateTimeOffset DateTime { get; set; }

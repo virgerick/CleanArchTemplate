@@ -50,7 +50,7 @@ public class ServerRegistrar : IRegistrarApplicationBuilder, IRegistrarApplicati
             app.UseRouting();
             app.MapRazorPages();
             app.MapControllers();
-            app.MapGetTokenEndPoint();
+            app.UseInitialize();
             app.MapFallbackToFile("index.html");
         }
     }

@@ -8,7 +8,7 @@ public class CurrentUserService : ICurrentUserService
 {
     public CurrentUserService(IHttpContextAccessor httpContextAccessor)
     {
-        UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "N/A";
         Claims = httpContextAccessor.HttpContext?.User?.Claims.AsEnumerable().Select(item => new KeyValuePair<string, string>(item.Type, item.Value)).ToList()!;
     }
 

@@ -5,6 +5,7 @@ using CleanArchTemplate.Infrastructure.Persistence.Database;
 using CleanArchTemplate.Shared.Constants.Permission;
 using CleanArchTemplate.Shared.Constants.Role;
 using CleanArchTemplate.Shared.Constants.User;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -15,28 +16,34 @@ public class DatabaseSeeder : IDatabaseSeeder
 {
     private readonly ILogger<DatabaseSeeder> _logger;
     private readonly IStringLocalizer<DatabaseSeeder> _localizer;
-    private readonly ApplicationContext _db;
+    private readonly ApplicationContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<ApplicationRole> _roleManager;
 
     public DatabaseSeeder(
         UserManager<ApplicationUser> userManager,
         RoleManager<ApplicationRole> roleManager,
-        ApplicationContext db,
+        ApplicationContext context,
         ILogger<DatabaseSeeder> logger,
         IStringLocalizer<DatabaseSeeder> localizer)
     {
         _userManager = userManager;
         _roleManager = roleManager;
-        _db = db;
+        _context = context;
         _logger = logger;
         _localizer = localizer;
     }
 
     public void Initialize()
     {
+        Migrate();
         AddAdministrator();
-        _db.SaveChanges();
+        _context.SaveChanges();
+    }
+
+    private void Migrate()
+    {
+        _context.Database.Migrate();
     }
 
     private void AddAdministrator()

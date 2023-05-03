@@ -70,8 +70,8 @@ public static class ServiceCollectionExtensions
         IConfiguration configuration)
         => services
             .AddDbContext<ApplicationContext>(options => options
-                .UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-        //.AddTransient<IDatabaseSeeder, DatabaseSeeder>();
+                .UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
+                .AddTransient<IDatabaseSeeder, DatabaseSeeder>();
 
     internal static IServiceCollection AddCurrentUserService(this IServiceCollection services)
     {
