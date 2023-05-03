@@ -4,7 +4,7 @@
   "classifications": ["Web", "API", "CleanArchitecture"],
   "identity": "CleanArchTemplate.CleanArchitecture",
   "name": "Clean Architecture Template",
-  "shortName": "clnarch",
+  "shortName": "cleanarch",
   "description": "A .NET 7 Clean Architecture template for building scalable and maintainable Web API applications.",
   "tags": {
     "language": "C#",
