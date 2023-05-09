@@ -46,9 +46,11 @@
     <None Remove="Endpoints\Identity\" />
     <None Remove="Endpoints\Identity\Account\" />
     <None Remove="Endpoints\Identity\Token\" />
+    <None Remove="Endpoints\Identity\Token\RefreshToken\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Localization\" />
     <Folder Include="Endpoints\Identity\Account\" />
+    <Folder Include="Endpoints\Identity\Token\RefreshToken\" />
   </ItemGroup>
 </Project>

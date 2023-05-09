@@ -15,14 +15,4 @@ public static class GetTokenEndpoint
     private static async Task<Result<TokenResponse>> GetTokenAsync(TokenRequest request, ITokenService tokenService) => await tokenService.LoginAsync(request);
 
 }
-public static class RefreshTokenEndpoint 
-{
-    public static IEndpointConventionBuilder MapGetRefreshTokenEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/RefreshToken", GetRefreshTokenAsync)
-        .WithName("RefreshToken")
-        .WithTags("Token")
-        .WithDisplayName("Get Refresh Token");
-
-    private static async Task<Result<TokenResponse>> GetRefreshTokenAsync(RefreshTokenRequest request, ITokenService tokenService) => await tokenService.GetRefreshTokenAsync(request);
-
-}
 

@@ -1,4 +1,5 @@
 ﻿using CleanArchTemplate.Server.Endpoints.Identity.Token.GetToken;
+using CleanArchTemplate.Server.Endpoints.Identity.Token.RefreshToken;
 
 namespace CleanArchTemplate.Server.Endpoints.Identity.Token
 {
@@ -6,10 +7,10 @@ namespace CleanArchTemplate.Server.Endpoints.Identity.Token
     {
         public IEndpointConventionBuilder Map(IEndpointRouteBuilder endpoint)
         {
-            var tokenGroup = endpoint.MapGroup("token");
-            tokenGroup.MapGetTokenEndpoint();
-            tokenGroup.MapGetRefreshTokenEndpoint();
-            return tokenGroup;
+            var group = endpoint.MapGroup("token");
+            group.MapGetTokenEndpoint();
+            group.MapGetRefreshTokenEndpoint();
+            return group;
         }
     }
 }

@@ -21,6 +21,17 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.5" />
+    <PackageReference Include="FluentAssertions" Version="6.11.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Server\CleanArchTemplate.Server.csproj" />
+    <ProjectReference Include="..\..\src\Shared\CleanArchTemplate.Shared.csproj" />
+    <ProjectReference Include="..\CleanArchTemplate.IntegrationTests\CleanArchTemplate.IntegrationTests.csproj" />
+    <ProjectReference Include="..\..\src\CleanArchTemplate.Infrastructure\CleanArchTemplate.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Core\CleanArchTemplate.Domain\CleanArchTemplate.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Client\CleanArchTemplate.Client.csproj" />
+    <ProjectReference Include="..\..\src\Core\CleanArchTemplate.Application\CleanArchTemplate.Application.csproj" />
+    <ProjectReference Include="..\..\src\CleanArchTemplate.Abstraction\CleanArchTemplate.Abstraction.csproj" />
+  </ItemGroup>
 </Project>
