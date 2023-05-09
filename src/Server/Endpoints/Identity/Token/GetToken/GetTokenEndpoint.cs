@@ -5,14 +5,24 @@ using CleanArchTemplate.Shared.Wrapper;
 
 namespace CleanArchTemplate.Server.Endpoints.Identity.Token.GetToken;
 
-public class GetTokenEndpoint : IMapEndpoint
+public static class GetTokenEndpoint //: IMapEndpoint
 {
-    public IEndpointConventionBuilder Map(IEndpointRouteBuilder endpoint) => endpoint.MapPost("/token", GetTokenAsync)
+    public static IEndpointConventionBuilder MapGetTokenEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/GetTokenAsync", GetTokenAsync)
         .WithName("Token")
         .WithTags("Token")
         .WithDisplayName("GetToken");
 
-    private async Task<Result<TokenResponse>> GetTokenAsync(TokenRequest request, ITokenService tokenService) => await tokenService.LoginAsync(request);
+    private static async Task<Result<TokenResponse>> GetTokenAsync(TokenRequest request, ITokenService tokenService) => await tokenService.LoginAsync(request);
+
+}
+public static class RefreshTokenEndpoint //: IMapEndpoint
+{
+    public static IEndpointConventionBuilder MapGetRefreshTokenEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/GetRefreshToken", GetRefreshTokenAsync)
+        .WithName("GetRefreshToken")
+        .WithTags("GetRefreshToken")
+        .WithDisplayName("GetRefreshToken");
+
+    private static async Task<Result<TokenResponse>> GetRefreshTokenAsync(RefreshTokenRequest request, ITokenService tokenService) => await tokenService.GetRefreshTokenAsync(request);
 
 }
 
