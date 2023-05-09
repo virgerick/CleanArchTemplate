@@ -40,54 +40,57 @@ public class IdentityService : ITokenService
         _dateTime = dateTime;
     }
 
-    public async Task<Result<TokenResponse>> LoginAsync(TokenRequest model)
+    public  Task<Result<TokenResponse>> LoginAsync(TokenRequest model)
     {
-        var user = await _userManager.FindByEmailAsync(model.Email);
-        if (user == null)
-        {
-            return await Result<TokenResponse>.FailureAsync(_localizer["User Not Found."]);
-        }
-        if (!user.IsActive)
-        {
-            return await Result<TokenResponse>.FailureAsync(_localizer["User Not Active. Please contact the administrator."]);
-        }
-        if (!user.EmailConfirmed)
-        {
-            return await Result<TokenResponse>.FailureAsync(_localizer["E-Mail not confirmed."]);
-        }
-        var passwordValid = await _userManager.CheckPasswordAsync(user, model.Password);
-        if (!passwordValid)
-        {
-            return await Result<TokenResponse>.FailureAsync(_localizer["Invalid Credentials."]);
-        }
-
-        user.RefreshToken = GenerateRefreshToken();
-        user.RefreshTokenExpiryTime = _dateTime.NowUtc.AddHours(7);
-        await _userManager.UpdateAsync(user);
-        var token = await GenerateJwtAsync(user);
-        var response = new TokenResponse { Token = token, RefreshToken = user.RefreshToken, UserImageURL = user.ProfilePictureDataUrl!,RefreshTokenExpiryTime=user.RefreshTokenExpiryTime };
-        return await Result<TokenResponse>.SuccessAsync(response);
+        return Result<TokenResponse>.TryCatch(async () => {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return await Result<TokenResponse>.FailureAsync(_localizer["User Not Found."]);
+            }
+            if (!user.IsActive)
+            {
+                return await Result<TokenResponse>.FailureAsync(_localizer["User Not Active. Please contact the administrator."]);
+            }
+            if (!user.EmailConfirmed)
+            {
+                return await Result<TokenResponse>.FailureAsync(_localizer["E-Mail not confirmed."]);
+            }
+            var passwordValid = await _userManager.CheckPasswordAsync(user, model.Password);
+            if (!passwordValid)
+            {
+                return await Result<TokenResponse>.FailureAsync(_localizer["Invalid Credentials."]);
+            }
+            user.RefreshToken = GenerateRefreshToken();
+            user.RefreshTokenExpiryTime = _dateTime.NowUtc.AddHours(7);
+            await _userManager.UpdateAsync(user);
+            var token = await GenerateJwtAsync(user);
+            var response = new TokenResponse { Token = token, RefreshToken = user.RefreshToken, UserImageURL = user.ProfilePictureDataUrl!,RefreshTokenExpiryTime=user.RefreshTokenExpiryTime };
+            return await Result<TokenResponse>.SuccessAsync(response);
+        });
     }
 
-    public async Task<Result<TokenResponse>> GetRefreshTokenAsync(RefreshTokenRequest model)
+    public  Task<Result<TokenResponse>> GetRefreshTokenAsync(RefreshTokenRequest model)
     {
-        if (model is null)
-        {
-            return await Result<TokenResponse>.FailureAsync(_localizer["Invalid Client Token."]);
-        }
-        var userPrincipal = GetPrincipalFromExpiredToken(model.Token);
-        var userEmail = userPrincipal.FindFirstValue(ClaimTypes.Email);
-        var user = await _userManager.FindByEmailAsync(userEmail!);
-        if (user == null)
-            return await Result<TokenResponse>.FailureAsync(_localizer["User Not Found."]);
-        if (user.RefreshToken != model.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
-            return await Result<TokenResponse>.FailureAsync(_localizer["Invalid Client Token."]);
-        var token = GenerateEncryptedToken(GetSigningCredentials(), await GetClaimsAsync(user));
-        user.RefreshToken = GenerateRefreshToken();
-        await _userManager.UpdateAsync(user);
+        return Result<TokenResponse>.TryCatch(async () => {
+            if (model is null)
+            {
+                return await Result<TokenResponse>.FailureAsync(_localizer["Invalid Client Token."]);
+            }
+            var userPrincipal = GetPrincipalFromExpiredToken(model.Token);
+            var userEmail = userPrincipal.FindFirstValue(ClaimTypes.Email);
+            var user = await _userManager.FindByEmailAsync(userEmail!);
+            if (user == null)
+                return await Result<TokenResponse>.FailureAsync(_localizer["User Not Found."]);
+            if (user.RefreshToken != model.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+                return await Result<TokenResponse>.FailureAsync(_localizer["Invalid Client Token."]);
+            var token = GenerateEncryptedToken(GetSigningCredentials(), await GetClaimsAsync(user));
+            user.RefreshToken = GenerateRefreshToken();
+            await _userManager.UpdateAsync(user);
 
-        var response = new TokenResponse { Token = token, RefreshToken = user.RefreshToken, RefreshTokenExpiryTime = user.RefreshTokenExpiryTime };
-        return await Result<TokenResponse>.SuccessAsync(response);
+            var response = new TokenResponse { Token = token, RefreshToken = user.RefreshToken, RefreshTokenExpiryTime = user.RefreshTokenExpiryTime };
+            return await Result<TokenResponse>.SuccessAsync(response);
+        });
     }
 
     private async Task<string> GenerateJwtAsync(ApplicationUser user)

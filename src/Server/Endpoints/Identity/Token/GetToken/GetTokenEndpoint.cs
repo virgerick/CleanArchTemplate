@@ -5,22 +5,22 @@ using CleanArchTemplate.Shared.Wrapper;
 
 namespace CleanArchTemplate.Server.Endpoints.Identity.Token.GetToken;
 
-public static class GetTokenEndpoint //: IMapEndpoint
+public static class GetTokenEndpoint 
 {
-    public static IEndpointConventionBuilder MapGetTokenEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/GetTokenAsync", GetTokenAsync)
+    public static IEndpointConventionBuilder MapGetTokenEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/GetToken", GetTokenAsync)
         .WithName("Token")
         .WithTags("Token")
-        .WithDisplayName("GetToken");
+        .WithDisplayName("Get Token");
 
     private static async Task<Result<TokenResponse>> GetTokenAsync(TokenRequest request, ITokenService tokenService) => await tokenService.LoginAsync(request);
 
 }
-public static class RefreshTokenEndpoint //: IMapEndpoint
+public static class RefreshTokenEndpoint 
 {
-    public static IEndpointConventionBuilder MapGetRefreshTokenEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/GetRefreshToken", GetRefreshTokenAsync)
-        .WithName("GetRefreshToken")
-        .WithTags("GetRefreshToken")
-        .WithDisplayName("GetRefreshToken");
+    public static IEndpointConventionBuilder MapGetRefreshTokenEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/RefreshToken", GetRefreshTokenAsync)
+        .WithName("RefreshToken")
+        .WithTags("Token")
+        .WithDisplayName("Get Refresh Token");
 
     private static async Task<Result<TokenResponse>> GetRefreshTokenAsync(RefreshTokenRequest request, ITokenService tokenService) => await tokenService.GetRefreshTokenAsync(request);
 
