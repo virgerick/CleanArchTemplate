@@ -25,17 +25,19 @@ public  class ApplicationUser : IdentityUser,IAuditableRootEntity<string>
     public string? DeletedBy { get; set; }  = default!;
     public DateTimeOffset? DeletedAt { get; set; } = default!;
     #endregion
-    public static OneOf<ApplicationUser,List<ValidationFailure>> Create(string username,string email,string firstname,string lastname,string phoneNumber="",string ProfilePictureDataUrl="")
+    public static OneOf<ApplicationUser,List<ValidationFailure>> Create(string username,string email,string firstname,string lastname,string phoneNumber="",bool active=false,bool emailConfirm=false,string ProfilePictureDataUrl="")
     {
         var user = new ApplicationUser
         {
-            FirstName=firstname,
-            LastName=lastname,
-            UserName=username,
-            NormalizedUserName=username.ToUpper(),
-            Email=email,
-            NormalizedEmail=email.ToUpper(),
-            PhoneNumber=phoneNumber
+            FirstName = firstname,
+            LastName = lastname,
+            UserName = username,
+            NormalizedUserName = username.ToUpper(),
+            Email = email,
+            NormalizedEmail = email.ToUpper(),
+            PhoneNumber = phoneNumber,
+            IsActive = active,
+            EmailConfirmed=emailConfirm
         };
         var validationResult = new ApplicationUserValidator().Validate(user);
         if (!validationResult.IsValid) return validationResult.Errors;

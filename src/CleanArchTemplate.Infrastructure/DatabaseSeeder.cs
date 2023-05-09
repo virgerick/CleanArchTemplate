@@ -67,7 +67,7 @@ public class DatabaseSeeder : IDatabaseSeeder
             }
             //Check if User Exists
             ApplicationUser superUser = default!;
-            ApplicationUser.Create("superadmmin", "superadmin@yopmail.com", "Super","Administrator")
+            ApplicationUser.Create("superadmmin", "superadmin@yopmail.com", "Super","Administrator","",true,true)
             .Switch(user => superUser = user, _ => { });
 
             var superUserInDb = await _userManager.FindByEmailAsync(superUser.Email!);
