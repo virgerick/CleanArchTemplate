@@ -34,4 +34,10 @@
     <ProjectReference Include="..\..\src\Core\CleanArchTemplate.Application\CleanArchTemplate.Application.csproj" />
     <ProjectReference Include="..\..\src\CleanArchTemplate.Abstraction\CleanArchTemplate.Abstraction.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Invoices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Invoices\" />
+  </ItemGroup>
 </Project>

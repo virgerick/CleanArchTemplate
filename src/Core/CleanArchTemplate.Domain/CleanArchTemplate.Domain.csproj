@@ -20,10 +20,12 @@
     <None Remove="Common\" />
     <None Remove="Identity\" />
     <None Remove="AuditTrails\" />
+    <None Remove="Invoices\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="Identity\" />
     <Folder Include="AuditTrails\" />
+    <Folder Include="Invoices\" />
   </ItemGroup>
 </Project>
