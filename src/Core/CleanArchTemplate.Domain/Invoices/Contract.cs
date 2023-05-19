@@ -12,14 +12,14 @@ public class Contract
 
     protected Contract() { } // Constructor protegido para EF Core
 
-    public static Contract Create(ContractId id, DateTime startDate, DateTime endDate, ContractType type, ClientId clientId)
+    public static Contract Create(ContractId id, DateTime startDate, DateTime endDate, ContractType type, CustomerId clientId)
     {
         if (startDate >= endDate)
         {
             throw new ArgumentException("End date must be greater than start date.", nameof(endDate));
         }
 
-        return new Contract { Id = id, StartDate = startDate, EndDate = endDate, Type = type, ClientId = clientId };
+        return new Contract { Id = id, StartDate = startDate, EndDate = endDate, Type = type, CustomerId = clientId };
     }
     public void ExtendContract(DateTime newEndDate)
     {
