@@ -43,7 +43,7 @@ public class DatabaseSeeder : IDatabaseSeeder
 
     private void Migrate()
     {
-        //_context.Database.Migrate();
+        _context.Database.Migrate();
     }
 
     private void AddAdministrator()

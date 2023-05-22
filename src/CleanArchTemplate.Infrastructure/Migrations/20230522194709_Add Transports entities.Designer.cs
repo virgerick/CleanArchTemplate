@@ -4,6 +4,7 @@ using CleanArchTemplate.Infrastructure.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanArchTemplate.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230522194709_Add Transports entities")]
+    partial class AddTransportsentities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +38,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
@@ -44,13 +47,13 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("ModifiedAt")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -78,7 +81,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
@@ -90,7 +93,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
@@ -102,7 +105,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -127,7 +130,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -139,7 +142,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -152,7 +155,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("OriginAccountId")
                         .HasColumnType("uniqueidentifier");
@@ -217,7 +220,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
@@ -229,7 +232,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -238,7 +241,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -268,7 +271,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
@@ -277,7 +280,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -287,7 +290,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -308,7 +311,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
@@ -321,7 +324,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -545,7 +548,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
@@ -557,7 +560,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("IssueDate")
                         .HasColumnType("datetime2");
@@ -566,7 +569,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -585,7 +588,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("InvoiceId")
                         .HasColumnType("int");
@@ -594,7 +597,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -625,7 +628,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
@@ -634,7 +637,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
                         .IsRequired()
@@ -644,7 +647,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlateNumber")
                         .IsRequired()
@@ -673,7 +676,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Destination")
                         .IsRequired()
@@ -689,7 +692,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Origin")
                         .IsRequired()
@@ -713,7 +716,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
@@ -722,7 +725,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("DriverId")
                         .HasColumnType("uniqueidentifier");
@@ -731,7 +734,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

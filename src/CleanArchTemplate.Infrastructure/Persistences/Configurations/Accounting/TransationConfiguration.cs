@@ -14,10 +14,14 @@ public sealed class TransationConfiguration : IEntityTypeConfiguration<Transacti
 
         builder.HasOne(x => x.OriginAccount)
             .WithMany()
-            .HasForeignKey(x => x.OriginAccountId);
-
+            .HasConstraintName("FK_Transactions_Accounts_OriginAccountId")
+            .HasForeignKey(x => x.OriginAccountId)
+            .OnDelete(DeleteBehavior.NoAction);
+            
         builder.HasOne(x => x.DestinationAccount)
             .WithMany()
-            .HasForeignKey(x => x.DestinationAccountId);
+             .HasConstraintName("FK_Transactions_Accounts_DestinationAccountId")
+            .HasForeignKey(x => x.DestinationAccountId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

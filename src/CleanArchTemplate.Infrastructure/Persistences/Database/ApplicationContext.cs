@@ -27,9 +27,9 @@ public class ApplicationContext :
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        ConfigureDefaultType(builder);
         var entitiesAssembly = typeof(IEntity).Assembly;
         builder.RegisterAllEntities<IEntity>(entitiesAssembly);
+        ConfigureDefaultType(builder);
         builder.ApplyConfigurationsFromAssembly(typeof(IInfrastructureAssemblyMarkup).Assembly);
         builder.AddPluralizingTableNameConvention();
     }
