@@ -1,13 +1,15 @@
-﻿namespace CleanArchTemplate.Domain.Invoices;
+﻿using CleanArchTemplate.Domain.Common;
 
-public class Account
+namespace CleanArchTemplate.Domain.Invoices;
+public record AccountId(Guid Value);
+public class Account : AuditableRootEntity<AccountId>
 {
-    public int Id { get; set; }
+    private List<Transaction> _transactions;
+
     public string AccountName { get; set; }
     public string AccountType { get; set; }
     public decimal Balance { get; set; }
-
-    public ICollection<Transaction> Transactions { get; set; }
+    public IReadOnlyList<Transaction> Transactions { get => _transactions;  }
     public void Deposit(decimal amaunt)
     {
         Balance += amaunt;
