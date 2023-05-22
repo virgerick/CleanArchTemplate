@@ -1,12 +1,17 @@
-﻿namespace CleanArchTemplate.Domain.Invoices;
+﻿
 
-public class Customer
+using CleanArchTemplate.Domain.Common;
+using CleanArchTemplate.Domain.Contracts;
+
+namespace CleanArchTemplate.Domain.Customers;
+public record struct CustomerId(Guid Value);
+public class Customer:AuditableRootEntity<CustomerId>
 {
-    public CustomerId Id { get; private set; }
+    private List<Contract> _contracts = new();
     public string Name { get; private set; }
     public string Email { get; private set; }
     public Address Address { get; private set; }
-    public ICollection<Contract> Contracts { get; private set; }
+    public IReadOnlyList<Contract> Contracts => _contracts;
 
     protected Customer() { } // Constructor protegido para EF Core
 

@@ -139,7 +139,8 @@ public class RoleService : IRoleService
         var roles = await _roleManager.Roles
             .Select(MapResponse)
             .SingleOrDefaultAsync(x => x.Id == id);
-        return await Result<RoleResponse>.SuccessAsync(roles);
+
+        return await Result<RoleResponse>.SuccessAsync(roles!);
     }
 
     public async Task<Result<string>> SaveAsync(RoleRequest request)

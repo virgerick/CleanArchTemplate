@@ -1,14 +1,19 @@
-﻿namespace CleanArchTemplate.Domain.Invoices;
+﻿using CleanArchTemplate.Domain.Common;
+using CleanArchTemplate.Domain.Customers;
+using CleanArchTemplate.Domain.Services;
 
-public class Contract
+namespace CleanArchTemplate.Domain.Contracts;
+public record struct ContractId(Guid Value);
+public class Contract : AuditableRootEntity<ContractId>
 {
-    public ContractId Id { get; private set; }
+    private List<Service> _services;
+
     public DateTime StartDate { get; private set; }
     public DateTime EndDate { get; private set; }
     public ContractType Type { get; private set; }
     public CustomerId CustomerId { get; private set; }
     public Customer Customer { get; private set; }
-    public ICollection<Service> Services { get; private set; }
+    public IEnumerable<Service> Services { get => _services; }
 
     protected Contract() { } // Constructor protegido para EF Core
 

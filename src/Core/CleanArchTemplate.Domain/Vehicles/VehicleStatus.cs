@@ -2,19 +2,33 @@
 
 public abstract record VehicleStatus
 {
-    public static string Available = nameof(AvailableStatus);
-    public static string Maintenance = nameof(MaintenanceStatus);
-    public static string OutOfService = nameof(OutOfServiceStatus);
+    public const string Available = nameof(Available);
+    public const string Maintenance = nameof(Maintenance);
+    public const string OutOfService = nameof(OutOfService);
 
     public string Status { get; }
 
     public VehicleStatus(string status)
     {
-        if (status != Available && status != Maintenance && status != OutOfService)
-        {
-            throw new ArgumentException($"Invalid vehicle status: {status}");
-        }
+       
 
         Status = status;
     }
+    public static IEnumerable<VehicleStatus> Supported
+    {
+        get
+        {
+            yield return new AvailableStatus();
+            yield return new MaintenanceStatus();
+            yield return new OutOfServiceStatus();
+        }
+    }
+
+    public static VehicleStatus Create(string status)
+    {
+        return Supported.SingleOrDefault(x=>x.Status==status) ?? throw new ArgumentException($"Invalid vehicle status: {status}");
+    }
 }
+public record AvailableStatus() : VehicleStatus(VehicleStatus.Available);
+public record MaintenanceStatus() : VehicleStatus(VehicleStatus.Maintenance);
+public record OutOfServiceStatus() : VehicleStatus(VehicleStatus.OutOfService);

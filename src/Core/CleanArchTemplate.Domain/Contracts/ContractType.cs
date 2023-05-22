@@ -1,4 +1,4 @@
-﻿namespace CleanArchTemplate.Domain.Invoices;
+﻿namespace CleanArchTemplate.Domain.Contracts;
 
 public abstract record ContractType
 {
@@ -9,11 +9,23 @@ public abstract record ContractType
 
     public ContractType(string type)
     {
-        if (type != Trip && type != Monthly)
-        {
-            throw new ArgumentException($"Invalid contract type: {type}");
-        }
-
         Type = type;
     }
+    public static IEnumerable<ContractType> Supported
+    {
+        get
+        {
+            yield return new TripContract();
+            yield return new MonthlyContract();
+        }
+    }
+    public static ContractType Create(string type)
+    {
+        var found = Supported.SingleOrDefault(x => x.Type == type);
+        if(found is null ) throw new ArgumentException($"Invalid contract type: {type}");
+        return found;
+
+    }
 }
+public record TripContract() : ContractType(ContractType.Trip);
+public record MonthlyContract() : ContractType(ContractType.Monthly);

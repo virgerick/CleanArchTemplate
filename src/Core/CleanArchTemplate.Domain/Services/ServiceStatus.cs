@@ -1,4 +1,4 @@
-﻿namespace CleanArchTemplate.Domain.Invoices;
+﻿namespace CleanArchTemplate.Domain.Services;
 
 public abstract record ServiceStatus
 {
@@ -12,11 +12,28 @@ public abstract record ServiceStatus
 
     public ServiceStatus(string status)
     {
-        if (status != Scheduled && status != InProgress && status != Completed)
-        {
-            throw new ArgumentException($"Invalid service status: {status}");
-        }
-
+        
         Status = status;
     }
+    public static IEnumerable<ServiceStatus> Supported{
+        get
+        {
+            yield return new ActiveStatus();
+            yield return new InactiveStatus();
+            yield return new InProgressStatus();
+            yield return new ScheduledStatus();
+            yield return new CompletedStatus();
+        }
+    }
+    public static ServiceStatus Create(string status)
+    {
+        var found = Supported.SingleOrDefault(x => x.Status == status);
+        if(found is null)throw new ArgumentException($"Invalid service status: {status}");
+        return found;
+    }
 }
+public record ActiveStatus() : ServiceStatus(ServiceStatus.Active);
+public record InactiveStatus() : ServiceStatus(ServiceStatus.Inactive);
+public record InProgressStatus() : ServiceStatus(ServiceStatus.InProgress);
+public record ScheduledStatus() : ServiceStatus(ServiceStatus.Scheduled);
+public record CompletedStatus() : ServiceStatus(ServiceStatus.Completed);

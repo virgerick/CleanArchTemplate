@@ -1,15 +1,28 @@
-﻿namespace CleanArchTemplate.Domain.Invoices;
+﻿using CleanArchTemplate.Domain.Common;
 
-public class Transaction
+namespace CleanArchTemplate.Domain.Accounting;
+public record struct TransactionId(Guid Value);
+public class Transaction : AuditableRootEntity<TransactionId>
 {
-    public int Id { get; set; }
-    public DateTime Date { get; set; }
-    public string Description { get; set; }
-    public float Amount { get; set; }
+    private Transaction() { } // EF Core requires a private parameterless constructor
 
-    public int OriginAccountId { get; set; }
-    public Account OriginAccount { get; set; }
+    public Transaction(Account originAccount, Account destinationAccount, decimal amount, string description)
+    {
+        Date = DateTime.UtcNow;
+        Amount = amount;
+        Description = description;
 
-    public int DestinationAccountId { get; set; }
-    public Account DestinationAccount { get; set; }
+        OriginAccount = originAccount;
+        DestinationAccount = destinationAccount;
+    }
+
+    public DateTime Date { get; private set; }
+    public string Description { get; private set; }
+    public decimal Amount { get; private set; }
+
+    public AccountId OriginAccountId { get; private set; }
+    public Account OriginAccount { get; private set; }
+
+    public AccountId DestinationAccountId { get; private set; }
+    public Account DestinationAccount { get; private set; }
 }

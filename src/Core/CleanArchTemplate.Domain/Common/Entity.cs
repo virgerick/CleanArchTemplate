@@ -29,5 +29,5 @@ public abstract class BaseEntity<TKey> : IEntity<TKey>
         _domainEvents.Clear();
     }
 }
-
 public abstract class BaseEntity : BaseEntity<int> { }
+

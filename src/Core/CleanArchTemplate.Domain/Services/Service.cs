@@ -1,8 +1,12 @@
-﻿namespace CleanArchTemplate.Domain.Invoices;
+﻿using CleanArchTemplate.Domain.Common;
+using CleanArchTemplate.Domain.Invoices;
+using CleanArchTemplate.Domain.Routes;
 
-public class Service
+namespace CleanArchTemplate.Domain.Services;
+public record struct ServiceId(Guid Value);
+public class Service:AuditableRootEntity<ServiceId>
 {
-    public ServiceId Id { get; private set; }
+  
     public string Name { get; private set; }
     public decimal Price { get; private set; }
     public ServiceStatus Status { get; private set; }

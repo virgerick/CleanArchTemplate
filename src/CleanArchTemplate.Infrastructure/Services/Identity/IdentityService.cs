@@ -172,7 +172,7 @@ public class IdentityService : ITokenService
 
     private SigningCredentials GetSigningCredentials()
     {
-        var secret = Encoding.UTF8.GetBytes(_appConfig.Secret);
+        var secret = Encoding.UTF8.GetBytes(_appConfig.Secret ?? "vbhvjnmvhvcbnfdbvvbnmcbnfvnbvmngjhgyuvmng78iy79uih789hjkbhjghjt678vjh67uguyt678tg");
         return new SigningCredentials(new SymmetricSecurityKey(secret), SecurityAlgorithms.HmacSha256);
     }
 }

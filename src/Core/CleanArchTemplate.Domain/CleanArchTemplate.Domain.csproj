@@ -20,12 +20,26 @@
     <None Remove="Common\" />
     <None Remove="Identity\" />
     <None Remove="AuditTrails\" />
+    <None Remove="Accounting\" />
+    <None Remove="Contracts\" />
+    <None Remove="Customers\" />
+    <None Remove="Drivers\" />
     <None Remove="Invoices\" />
+    <None Remove="Routes\" />
+    <None Remove="Services\" />
+    <None Remove="Vehicles\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="Identity\" />
     <Folder Include="AuditTrails\" />
+    <Folder Include="Accounting\" />
+    <Folder Include="Contracts\" />
+    <Folder Include="Customers\" />
+    <Folder Include="Drivers\" />
     <Folder Include="Invoices\" />
+    <Folder Include="Routes\" />
+    <Folder Include="Services\" />
+    <Folder Include="Vehicles\" />
   </ItemGroup>
 </Project>

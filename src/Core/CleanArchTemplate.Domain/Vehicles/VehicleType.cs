@@ -10,11 +10,23 @@ public abstract record VehicleType
 
     public VehicleType(string type)
     {
-        if (type != Car && type != Truck && type != Bus)
-        {
-            throw new ArgumentException($"Invalid vehicle type: {type}");
-        }
-
         Type = type;
     }
+    public static IEnumerable<VehicleType> Supported{
+        get{
+                yield return new BusType();
+                yield return new CarType();
+                yield return new TruckType();
+            }
+    }
+    public static VehicleType Create(string type)
+    {
+        var found = Supported.SingleOrDefault(x => x.Type == type);
+        if(found is null)   throw new ArgumentException($"Invalid vehicle type: {type}");
+        return found;
+    }
 }
+
+public record BusType() : VehicleType(VehicleType.Bus);
+public record CarType() : VehicleType(VehicleType.Car);
+public record TruckType() : VehicleType(VehicleType.Truck);

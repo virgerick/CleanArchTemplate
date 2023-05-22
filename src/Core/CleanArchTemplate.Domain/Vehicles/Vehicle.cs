@@ -1,8 +1,10 @@
-﻿namespace CleanArchTemplate.Domain.Invoices;
+﻿using CleanArchTemplate.Domain.Common;
+using CleanArchTemplate.Domain.Services;
 
-public class Vehicle
+namespace CleanArchTemplate.Domain.Invoices;
+public record struct VehicleId(Guid Value);
+public class Vehicle:AuditableRootEntity<VehicleId>
 {
-    public VehicleId Id { get; private set; }
     public string PlateNumber { get; private set; }
     public string Brand { get; private set; }
     public string Model { get; private set; }

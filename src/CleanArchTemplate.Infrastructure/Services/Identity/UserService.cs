@@ -127,6 +127,7 @@ public class UserService : IUserService
             .Where(u => u.Id == userId)
             .Select(MapResponse)
             .FirstOrDefaultAsync();
+            if(user is null) throw new Exception("No found.");
         return await Result<UserResponse>.SuccessAsync(user);
     }
 

@@ -1,8 +1,10 @@
-﻿namespace CleanArchTemplate.Domain.Invoices;
+﻿using CleanArchTemplate.Domain.Common;
+using CleanArchTemplate.Domain.Services;
 
-public class InvoiceLine
+namespace CleanArchTemplate.Domain.Invoices;
+public record struct InvoiceLineId(Guid Value);
+public class InvoiceLine:AuditableEntity<InvoiceLineId>
 {
-    public InvoiceLineId Id { get; private set; }
     public InvoiceId InvoiceId { get; private set; }
     public Invoice Invoice { get; private set; }
     public ServiceId ServiceId { get; private set; }
