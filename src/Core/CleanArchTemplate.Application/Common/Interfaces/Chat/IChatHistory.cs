@@ -1,4 +1,5 @@
 ﻿using System;
+using CleanArchTemplate.Domain.Common;
 
 namespace CleanArchTemplate.Application.Common.Interfaces.Chat
 {
@@ -8,8 +9,8 @@ namespace CleanArchTemplate.Application.Common.Interfaces.Chat
         public string FromUserId { get; set; }
         public string ToUserId { get; set; }
         public string Message { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public TUser FromUser { get; set; }
-        public TUser ToUser { get; set; }
+        public DateTimeOffset CreateAt { get; set; }
+        public TUser? FromUser { get; set; }
+        public TUser? ToUser { get; set; }
     }
 }

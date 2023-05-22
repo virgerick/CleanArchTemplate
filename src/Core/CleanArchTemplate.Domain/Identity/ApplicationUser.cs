@@ -25,12 +25,12 @@ public  class ApplicationUser : IdentityUser,IAuditableRootEntity<string>
     public string? DeletedBy { get; set; }  = default!;
     public DateTimeOffset? DeletedAt { get; set; } = default!;
     #endregion
-    public static OneOf<ApplicationUser,List<ValidationFailure>> Create(string username,string email,string firstname,string lastname,string phoneNumber="",bool active=false,bool emailConfirm=false,string ProfilePictureDataUrl="")
+    public static OneOf<ApplicationUser,List<ValidationFailure>> Create(string username,string email,string firstName,string lastName,string phoneNumber="",bool active=false,bool emailConfirm=false,string ProfilePictureDataUrl="")
     {
         var user = new ApplicationUser
         {
-            FirstName = firstname,
-            LastName = lastname,
+            FirstName = firstName,
+            LastName = lastName,
             UserName = username,
             NormalizedUserName = username.ToUpper(),
             Email = email,

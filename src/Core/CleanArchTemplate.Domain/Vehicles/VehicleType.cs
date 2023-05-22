@@ -25,6 +25,8 @@ public abstract record VehicleType
         if(found is null)   throw new ArgumentException($"Invalid vehicle type: {type}");
         return found;
     }
+    public static implicit operator VehicleType(string type) => Create(type);
+    public static implicit operator string(VehicleType type) => type.Type;
 }
 
 public record BusType() : VehicleType(VehicleType.Bus);

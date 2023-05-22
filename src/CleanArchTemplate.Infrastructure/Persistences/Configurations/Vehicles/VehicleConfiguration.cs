@@ -9,6 +9,7 @@ public sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
     {
         builder.Property(x => x.Id)
         .HasConversion(x => x.Value, value =>new VehicleId(value));
+        
         builder.Property(x => x.Type)
         .HasConversion(x => x.Type, type => VehicleType.Create(type));
         builder.Property(x => x.Status)
