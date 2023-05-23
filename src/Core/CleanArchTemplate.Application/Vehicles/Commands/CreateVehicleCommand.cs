@@ -20,20 +20,28 @@ public sealed class CreateVehicleCommandHandler : IRequestHandler<CreateVehicleC
     }
     public async Task<OneOf<Guid, Exception>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
     {
-        var repo =_context.Set<Vehicle>();
-        var existed=await repo.AnyAsync(x => x.PlateNumber == request.plateNumber);
-        if(existed) return new Exception($"There is an existing vehicle with the  plateNumber: '{request.plateNumber}' ");
-        Vehicle create = null!;
-        List<ValidationFailure> validationErrors=new();
-        Vehicle.Create(request.plateNumber, request.brand, request.model, request.type)
-        .Switch(
-            vehicle => create = vehicle,
-            errors => validationErrors.AddRange(errors)
-        );
-        if(validationErrors.Any()) 
-            return new ValidationException(validationErrors);
-        repo.Add(create);
-        await _context.SaveChangesAsync(cancellationToken);
-        return create.Id.Value;
+        try
+        {
+            var repo = _context.Set<Vehicle>();
+            var existed = await repo.AnyAsync(x => x.PlateNumber == request.plateNumber);
+            if (existed) return new Exception($"There is an existing vehicle with the  plateNumber: '{request.plateNumber}' ");
+            Vehicle create = null!;
+            List<ValidationFailure> validationErrors = new();
+            Vehicle.Create(request.plateNumber, request.brand, request.model, request.type)
+            .Switch(
+                vehicle => create = vehicle,
+                errors => validationErrors.AddRange(errors)
+            );
+            if (validationErrors.Any())
+                return new ValidationException(validationErrors);
+            repo.Add(create);
+            await _context.SaveChangesAsync(cancellationToken);
+            return create.Id.Value;
+        }
+        catch (System.Exception ex)
+        {
+            return ex;
+        }
+
     }
 }

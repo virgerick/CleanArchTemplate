@@ -84,11 +84,11 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 
             var auditEntry = new AuditEntry(entry)
             {
-                DateTime =_dateTime.NowUtc ,
+                DateTime = _dateTime.NowUtc,
                 TableName = entry.Entity.GetType().Name,
-                UserId = _currentUserService.UserId
-                
-            };
+                UserId = _currentUserService.UserId.Equals(string.Empty) ? null : _currentUserService.UserId
+
+        };
             auditEntries.Add(auditEntry);
             foreach (var property in entry.Properties)
             {

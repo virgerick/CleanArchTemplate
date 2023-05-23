@@ -165,3 +165,32 @@ public class Result<T> : Result, IResult<T>
     }
 
 }
+public class Result<TSuccess,TError> 
+where TSuccess : class 
+where TError :Exception
+{
+    private TSuccess _data = default!;
+    private TError _error = default!;
+    private bool _succeeded=false;
+    public Result(TSuccess data)
+    {   _succeeded = true;
+        _data = data;
+    }
+    public Result(TError error)
+    {
+        _succeeded = false;
+        _error = error;
+    }
+    public static implicit operator Result<TSuccess, TError>(TSuccess success) => new(success);
+    public static implicit operator Result<TSuccess, TError>(TError error) => new(error);
+    public TResult Match<TResult>(Func<TSuccess, TResult> onSuccess, Func<TError, TResult> onError)
+     => _succeeded ? onSuccess(_data) : onError(_error);
+    public void Switch(Action<TSuccess> onSuccess, Action<TError> onError){
+        if(_succeeded){
+             onSuccess.Invoke(_data);
+            return;
+        }
+        onError.Invoke(_error);
+    } 
+    
+}

@@ -14,7 +14,7 @@ public class AuditEntry
     }
     public required DateTimeOffset DateTime { get; set; }
     public EntityEntry Entry { get; }
-    public required string UserId { get; set; }
+    public  string? UserId { get; set; }
     public required string TableName { get; set; }
     public Dictionary<string, object> KeyValues { get; } = new();
     public Dictionary<string, object> OldValues { get; } = new();
