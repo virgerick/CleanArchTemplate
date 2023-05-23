@@ -28,6 +28,9 @@ public abstract record VehicleStatus
     {
         return Supported.SingleOrDefault(x=>x.Status==status) ?? throw new ArgumentException($"Invalid vehicle status: {status}");
     }
+    public static implicit operator string(VehicleStatus status) => status.Status;
+    public static implicit operator VehicleStatus(string status) => Create(status);
+
 }
 public record AvailableStatus() : VehicleStatus(VehicleStatus.Available);
 public record MaintenanceStatus() : VehicleStatus(VehicleStatus.Maintenance);

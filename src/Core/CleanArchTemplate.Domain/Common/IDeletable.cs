@@ -5,18 +5,20 @@ public interface IDeletable
     public bool Deleted { get; set; }
     public string? DeletedBy { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
-    public virtual void ToDelete(DateTimeOffset at, string by)
+}
+public static class DeletableExtension{
+    public static void ToDelete(this IDeletable deletable,DateTimeOffset at, string by)
     {
-        Deleted = true;
-        DeletedAt = at;
-        DeletedBy = by;
+        deletable.Deleted = true;
+        deletable.DeletedAt = at;
+        deletable.DeletedBy = by;
     }
-    public virtual void ToRestore()
+    public static void ToRestore(this IDeletable deletable)
     {
-        if (Deleted)
+        if (deletable.Deleted)
         {
             throw new InvalidOperationException("Invalid Operation this record is already deleted");
         }
-        Deleted = false;
+        deletable.Deleted = false;
     }
 }

@@ -63,5 +63,23 @@ public class ResultPaginated<T> : Result,IResultPaginated<T>
             onFinally?.Invoke();
         }
     }
+    public static  ResultPaginated<T> TryCatch(
+        Func<ResultPaginated<T>> action,
+        Action onFinally = default!)
+    {
+        try
+        {
+            return  action.Invoke()!;
+
+        }
+        catch (Exception ex)
+        {
+            return ResultPaginated<T>.Failure(ex.GetMessages().ToList());
+        }
+        finally
+        {
+            onFinally?.Invoke();
+        }
+    }
 
 }

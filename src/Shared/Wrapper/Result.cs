@@ -14,52 +14,52 @@ public class Result : IResult
 
     public bool Succeeded { get; set; }
 
-    public static IResult Failure()
+    public static Result Failure()
     {
         return new Result { Succeeded = false };
     }
 
-    public static IResult Failure(string message)
+    public static Result Failure(string message)
     {
         return new Result { Succeeded = false, Messages = new List<string> { message } };
     }
 
-    public static IResult Failure(List<string> messages)
+    public static Result Failure(List<string> messages)
     {
         return new Result { Succeeded = false, Messages = messages };
     }
 
-    public static Task<IResult> FailureAsync()
+    public static Task<Result> FailureAsync()
     {
         return Task.FromResult(Failure());
     }
 
-    public static Task<IResult> FailureAsync(string message)
+    public static Task<Result> FailureAsync(string message)
     {
         return Task.FromResult(Failure(message));
     }
 
-    public static Task<IResult> FailureAsync(List<string> messages)
+    public static Task<Result> FailureAsync(List<string> messages)
     {
         return Task.FromResult(Failure(messages));
     }
 
-    public static IResult Success()
+    public static Result Success()
     {
         return new Result { Succeeded = true };
     }
 
-    public static IResult Success(string message)
+    public static Result Success(string message)
     {
         return new Result { Succeeded = true, Messages = new List<string> { message } };
     }
 
-    public static Task<IResult> SuccessAsync()
+    public static Task<Result> SuccessAsync()
     {
         return Task.FromResult(Success());
     }
 
-    public static Task<IResult> SuccessAsync(string message)
+    public static Task<Result> SuccessAsync(string message)
     {
         return Task.FromResult(Success(message));
     }

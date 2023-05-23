@@ -1,5 +1,3 @@
-
-using System.Collections.Generic;
 using CleanArchTemplate.Application.Common.Interfaces;
 using CleanArchTemplate.Domain.Invoices;
 using FluentValidation;

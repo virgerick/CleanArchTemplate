@@ -98,4 +98,20 @@ public class ResultList<T> : Result, IResultList<T>
             onFinally?.Invoke();
         }
     }
+    public static  ResultList<T> TryCatch(Func<ResultList<T>> action,Action onFinally=default!)
+    {
+        try
+        {
+            return  action.Invoke();
+
+        }
+        catch (Exception ex)
+        {
+            return ResultList<T>.Failure(ex.GetMessages().ToList());
+        }
+        finally
+        {
+            onFinally?.Invoke();
+        }
+    }
 }
