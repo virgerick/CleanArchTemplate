@@ -6,7 +6,7 @@ namespace CleanArchTemplate.Domain.Contracts;
 public record struct ContractId(Guid Value);
 public class Contract : AuditableRootEntity<ContractId>
 {
-    private List<Service> _services;
+    private List<Service> _services=new();
 
     public DateTime StartDate { get; private set; }
     public DateTime EndDate { get; private set; }
