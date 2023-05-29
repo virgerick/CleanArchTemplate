@@ -29,12 +29,15 @@ public sealed class EditVehicleCommandHandler : IRequestHandler<EditVehicleComma
         found.Update(request.plateNumber, request.brand, request.model, request.type)
         .Switch(
             value=>hasChange=value,
-            errors=>validationErrors.AddRange(errors)
+            validationErrors.AddRange
         );
-        if(validationErrors.Any()) return new ValidationException(validationErrors);
+        if(validationErrors.Any())
+            return new ValidationException(validationErrors);
+
         if(hasChange){
             await _context.SaveChangesAsync(cancellationToken);
         }
+
         return found.Id.Value;
     }
 }

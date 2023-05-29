@@ -18,14 +18,12 @@ public class Vehicle:AuditableRootEntity<VehicleId>
     public VehicleStatus Status { get; private set; }
     public ICollection<Service> Services { get; private set; }
 
-    protected Vehicle() {
-        Id = VehicleId.NewId();
-    } // Constructor protegido para EF Core
+    protected Vehicle(){} // Constructor protegido para EF Core
 
     public static OneOf<Vehicle,List<ValidationFailure>> Create(string plateNumber, string brand, string model, string type)
     {
         var validator = new VehicleValidation();
-        var vehicle= new Vehicle { PlateNumber = plateNumber, Brand = brand, Model = model, Type = type, Status = new AvailableStatus() };
+        var vehicle= new Vehicle { Id = VehicleId.NewId(), PlateNumber = plateNumber, Brand = brand, Model = model, Type = type, Status = new AvailableStatus() };
         var validationResult= validator.Validate(vehicle);
         if(!validationResult.IsValid) return validationResult.Errors;
         return vehicle;
@@ -43,9 +41,15 @@ public class Vehicle:AuditableRootEntity<VehicleId>
 
     public void Deactivate()
     {
-        Status = new  OutOfServiceStatus();
+        Status = VehicleStatus.OutOfService;
     }
-
+    public void Activate()
+    {
+        Status = VehicleStatus.Available;
+    }
+    public void Maintenance(){
+        Status= VehicleStatus.Maintenance;;
+    }
     public OneOf<bool,List<ValidationFailure>> Update(string plateNumber, string brand, string model, string type)
     {
         var changed = false;

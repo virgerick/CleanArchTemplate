@@ -47,10 +47,22 @@
     <None Remove="Endpoints\Identity\Account\" />
     <None Remove="Endpoints\Identity\Token\" />
     <None Remove="Endpoints\Identity\Token\RefreshToken\" />
+    <None Remove="Endpoints\Vehicles\EditVehicle\" />
+    <None Remove="Endpoints\Vehicles\DeleteVehicle\" />
+    <None Remove="Endpoints\Vehicles\MaintenanceVehicle\" />
+    <None Remove="Endpoints\Vehicles\ActivateVehicle\" />
+    <None Remove="Endpoints\Vehicles\RestoreVehicle\" />
+    <None Remove="Endpoints\Vehicles\GetVehicleById\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Localization\" />
     <Folder Include="Endpoints\Identity\Account\" />
     <Folder Include="Endpoints\Identity\Token\RefreshToken\" />
+    <Folder Include="Endpoints\Vehicles\EditVehicle\" />
+    <Folder Include="Endpoints\Vehicles\DeleteVehicle\" />
+    <Folder Include="Endpoints\Vehicles\MaintenanceVehicle\" />
+    <Folder Include="Endpoints\Vehicles\ActivateVehicle\" />
+    <Folder Include="Endpoints\Vehicles\RestoreVehicle\" />
+    <Folder Include="Endpoints\Vehicles\GetVehicleById\" />
   </ItemGroup>
 </Project>

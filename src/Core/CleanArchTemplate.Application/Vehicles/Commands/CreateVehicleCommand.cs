@@ -1,5 +1,6 @@
 using CleanArchTemplate.Application.Common.Interfaces;
 using CleanArchTemplate.Domain.Invoices;
+using CleanArchTemplate.Shared.Wrapper;
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
@@ -12,8 +13,6 @@ public record struct CreateVehicleCommand(string plateNumber, string brand, stri
 public sealed class CreateVehicleCommandHandler : IRequestHandler<CreateVehicleCommand, OneOf<Guid, Exception>>
 {
     private readonly IApplicationDbContext _context;
-
-
     public CreateVehicleCommandHandler(IApplicationDbContext context)
     {
         _context = context;

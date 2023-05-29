@@ -47,6 +47,9 @@ public class Result : IResult
     public static Result Success()
     {
         return new Result { Succeeded = true };
+    }public static Result<T> Success<T>(T data)
+    {
+        return new Result<T> { Data=data, Succeeded = true };
     }
 
     public static Result Success(string message)

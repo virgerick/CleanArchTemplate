@@ -11,7 +11,7 @@ public static class CreateVehicleEndpoint
         .WithName("CreateVehicle")
         .WithTags("Vehicle")
         .WithDisplayName("Create a new Vehicle");
-        public static async ValueTask<Result<Guid>> GetVehicleAsync(ISender Mediator,CreateVehicleRequest request,CancellationToken cancellationToken=default){
+        public static async ValueTask<Result<Guid>> GetVehicleAsync(ISender Mediator,CreateEditVehicleRequest request,CancellationToken cancellationToken=default){
         (string plateNumber, string brand, string model, string type) = request;
         var query = new CreateVehicleCommand(plateNumber,brand,model,type);
         var result = await Mediator.Send(query, cancellationToken);
