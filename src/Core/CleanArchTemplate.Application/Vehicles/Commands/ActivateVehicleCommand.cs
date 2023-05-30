@@ -21,15 +21,16 @@ public sealed class ActivateVehicleCommandHandler : IRequestHandler<ActivateVehi
     {
         try
         {
+            var id = new VehicleId(request.Id);
             var vehicle = await _context.Set<Vehicle>()
-            .SingleOrDefaultAsync(x => x.Id.Value == request.Id,cancellationToken);
+            .SingleOrDefaultAsync(x => x.Id == id,cancellationToken);
             if(vehicle is null) return new Exception($"Vehicle '({request.Id})' not found.");
             vehicle.Activate();
             await _context.SaveChangesAsync(cancellationToken);
             return Result.Success();
 
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             return ex;
         }

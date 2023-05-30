@@ -24,7 +24,7 @@ public sealed class DeleteVehicleCommandHandler : IRequestHandler<DeleteVehicleC
             var repo = _context.Set<Vehicle>();
             var found = await repo.FindAsync(id, cancellationToken);
             if (found is null) return new Exception($"Vehicle '({request.Id})' not found.");
-            if (found.Deleted) return new Exception($"Vehicle ({request.Id}) is a");
+            if (found.Deleted) return new Exception($"Vehicle ({request.Id}) is alrady deleted.");
             repo.Remove(found);
             await _context.SaveChangesAsync(cancellationToken);
             return Result.Success();

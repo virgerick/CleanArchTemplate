@@ -1,10 +1,15 @@
-﻿namespace CleanArchTemplate.Shared.Enums
+﻿namespace CleanArchTemplate.Shared.Enums;
+
+public enum AuditType : byte
 {
-    public enum AuditType : byte
-    {
-        None = 0,
-        Create = 1,
-        Update = 2,
-        Delete = 3
-    }
+    None = 0,
+    Create = 1,
+    Update = 2,
+    Delete = 3
+}
+
+public enum LoaderType : byte {
+    Clock,
+    Hamster,
+    HoneyComb
 }

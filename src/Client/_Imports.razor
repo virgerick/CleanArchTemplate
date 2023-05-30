@@ -7,8 +7,11 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Http
 @using Microsoft.JSInterop
 @using CleanArchTemplate.Client
+@using CleanArchTemplate.Client.Extensions
 @using CleanArchTemplate.Client.Shared
+@using CleanArchTemplate.Client.Shared.Components
 @using CleanArchTemplate.Client.Services
+@using CleanArchTemplate.Shared.Enums;
 @using CleanArchTemplate.Shared.Wrapper;
 @using CleanArchTemplate.Shared.Models;
 @using CleanArchTemplate.Shared.Requests;
@@ -20,3 +23,4 @@
 @inject NotificationService NotificationService
 @inject NotificationService NotificationService
 @inject ContextMenuService ContextMenuService
+@inject LoadingService LoadingService

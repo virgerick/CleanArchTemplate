@@ -19,5 +19,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Common\" />
+    <None Remove="Mapping\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mapping\" />
   </ItemGroup>
 </Project>

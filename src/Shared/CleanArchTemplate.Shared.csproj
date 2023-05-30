@@ -11,9 +11,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Extensions\" />
+    <None Remove="Requests\Customers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="Requests\Customers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.editorconfig" Link=".editorconfig" />

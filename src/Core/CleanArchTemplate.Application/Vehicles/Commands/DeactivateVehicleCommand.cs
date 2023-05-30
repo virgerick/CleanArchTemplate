@@ -21,8 +21,9 @@ public sealed class DeactivateVehicleCommandHandler : IRequestHandler<Deactivate
     {
         try
         {
+            var id = new VehicleId(request.Id);
             var vehicle = await _context.Set<Vehicle>()
-            .SingleOrDefaultAsync(x => x.Id.Value == request.Id,cancellationToken);
+            .SingleOrDefaultAsync(x => x.Id == id,cancellationToken);
             if(vehicle is null) return new Exception($"Vehicle '({request.Id})' not found.");
             vehicle.Deactivate();
             await _context.SaveChangesAsync(cancellationToken);

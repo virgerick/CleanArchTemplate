@@ -35,11 +35,30 @@
     <None Remove="Services\" />
     <None Remove="Extensions\" />
     <None Remove="Pages\Vehicle\Components\" />
+    <None Remove="Shared\Components\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Vehicle\" />
     <Folder Include="Services\" />
     <Folder Include="Extensions\" />
     <Folder Include="Pages\Vehicle\Components\" />
+    <Folder Include="Shared\Components\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Shared\Components\HoneyCombLoader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Shared\Components\ClockLoader.razor.css">
+      <DependentUpon>ClockLoader.cshtml</DependentUpon>
+    </None>
+    <None Update="Shared\Components\ClockLoader.razor.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </None>
+    <None Update="Shared\CloudLoader.razor.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </None>
+    <None Update="Shared\Components\ClockLoader.razor.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </None>
   </ItemGroup>
 </Project>

@@ -19,10 +19,11 @@ public sealed class EditVehicleCommandHandler : IRequestHandler<EditVehicleComma
     public async Task<OneOf<Guid, Exception>> Handle(EditVehicleCommand request, CancellationToken cancellationToken)
     {
         var repo = _context.Set<Vehicle>();
+        var vehicleId = new VehicleId(request.Id);
         var found = await repo
-        .SingleOrDefaultAsync(x=>x.Id.Value==request.Id, cancellationToken);
+        .SingleOrDefaultAsync(x=>x.Id == vehicleId, cancellationToken);
         if(found is null) return new Exception($"The Vehicle ('{request.Id}') was not found.");
-        var existingPlate =await repo.AnyAsync(x => x.PlateNumber == request.plateNumber && x.Id.Value != request.Id);
+        var existingPlate =await repo.AnyAsync(x => x.PlateNumber == request.plateNumber && x.Id != vehicleId);
         if(existingPlate) return new Exception($"There is an existing vehicle with the  plateNumber: '{request.plateNumber}'.");
         List<ValidationFailure> validationErrors = new();
         bool hasChange = false;

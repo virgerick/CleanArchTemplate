@@ -15,9 +15,9 @@ public static class DeletableExtension{
     }
     public static void ToRestore(this IDeletable deletable)
     {
-        if (deletable.Deleted)
+        if (!deletable.Deleted)
         {
-            throw new InvalidOperationException("Invalid Operation this record is already deleted");
+            throw new InvalidOperationException("Invalid Operation this record is not deleted yet." );
         }
         deletable.Deleted = false;
     }

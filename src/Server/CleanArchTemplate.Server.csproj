@@ -53,6 +53,7 @@
     <None Remove="Endpoints\Vehicles\ActivateVehicle\" />
     <None Remove="Endpoints\Vehicles\RestoreVehicle\" />
     <None Remove="Endpoints\Vehicles\GetVehicleById\" />
+    <None Remove="Endpoints\Vehicles\GetDeletedVehicle\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Localization\" />
@@ -64,5 +65,6 @@
     <Folder Include="Endpoints\Vehicles\ActivateVehicle\" />
     <Folder Include="Endpoints\Vehicles\RestoreVehicle\" />
     <Folder Include="Endpoints\Vehicles\GetVehicleById\" />
+    <Folder Include="Endpoints\Vehicles\GetDeletedVehicle\" />
   </ItemGroup>
 </Project>

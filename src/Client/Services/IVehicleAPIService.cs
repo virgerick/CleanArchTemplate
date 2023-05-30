@@ -13,9 +13,9 @@ public interface IVehicleAPIService
     [Get("/Vehicle/{Id}")]
     public Task<Result<VehicleResponse>> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default);
     [Post("/Vehicle/")]
-    public Task<Result<Guid>> CreateAsync(CreateEditVehicleRequest request, CancellationToken cancellationToken = default);
+    public Task<Result<Guid>> CreateAsync([Body]CreateEditVehicleRequest request, CancellationToken cancellationToken = default);
     [Put("/Vehicle/{Id}")]
-    public Task<Result<Guid>> EditAsync(Guid Id, CreateEditVehicleRequest request, CancellationToken cancellationToken = default);
+    public Task<Result<Guid>> EditAsync(Guid Id, [Body]CreateEditVehicleRequest request, CancellationToken cancellationToken = default);
     [Delete("/Vehicle/{Id}")]
     public Task<Result<Guid>> DeleteAsync(Guid Id, CancellationToken cancellationToken = default);
     [Patch("/Vehicle/Restore/{Id}")]

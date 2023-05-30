@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+﻿using CleanArchTemplate.Client.Services;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Radzen;
 
 namespace CleanArchTemplate.Client.Extensions;
@@ -11,6 +12,9 @@ public static class RadzenExtension
         builder.Services.AddScoped<NotificationService>();
         builder.Services.AddScoped<TooltipService>();
         builder.Services.AddScoped<ContextMenuService>();
+        //
+        builder.Services.AddSingleton<LoadingService>();
+
         return builder;
     }
 }
