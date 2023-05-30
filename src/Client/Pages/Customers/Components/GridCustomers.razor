@@ -1,0 +1,277 @@
+﻿<RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Add New Order"
+              Click="@InsertRow" Disabled=@(customerToInsert != null || customerToUpdate != null) />
+
+<RadzenDataGrid @ref="customersGrid" AllowAlternatingRows="true" AllowFiltering="true" AllowPaging="true" PageSize="5"
+                AllowSorting="true" EditMode="DataGridEditMode.Single" Responsive="true" Data="@customers" TItem="CustomerResponse"
+                RowUpdate="@OnUpdateRow" RowCreate="@OnCreateRow" Sort="@Reset" Page="@Reset" Filter="@Reset" ColumnWidth="200px">
+    <EmptyTemplate>
+        <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
+    </EmptyTemplate>
+    <Columns>
+        <RadzenDataGridColumn TItem="CustomerResponse" Property="Name" Title="Name" Frozen="true">
+            <EditTemplate Context="customer">
+                <RadzenTextBox @bind-Value="customer.Name" Style="width:100%; display: block"
+                               Name="Name" />
+                <RadzenRequiredValidator Text="Name is required" Component="Name" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="CustomerResponse" Property="Email" Title="Email" Frozen>
+            <EditTemplate Context="customer">
+                <RadzenTextBox @bind-Value="customer.Email" Style="width:100%; display: block" Name="Email " />
+                <RadzenRequiredValidator Text="Email is required" Component="Email" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="CustomerResponse" Property="Address.Street" Title="Street">
+            <EditTemplate Context="customer">
+                <RadzenTextBox @bind-Value="customer.Address.Street" Style="width:100%; display: block" Name="Street" />
+                <RadzenRequiredValidator Text="Street is required" Component="Street" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="CustomerResponse" Property="Address.City" Title="City">
+            <EditTemplate Context="customer">
+                <RadzenTextBox @bind-Value="customer.Address.City" Style="width:100%; display: block" Name="City" />
+                <RadzenRequiredValidator Text="City is required" Component="City" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="CustomerResponse" Property="Address.State" Title="State">
+            <EditTemplate Context="customer">
+                <RadzenTextBox @bind-Value="customer.Address.State" Style="width:100%; display: block" Name="State" />
+                <RadzenRequiredValidator Text="State is required" Component="State" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="CustomerResponse" Property="Address.ZipCode" Title="ZipCode">
+            <EditTemplate Context="customer">
+                <RadzenTextBox @bind-Value="customer.Address.ZipCode" Style="width:100%; display: block" Name="ZipCode" />
+                <RadzenRequiredValidator Text="ZipCode is required" Component="ZipCode" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+
+        <RadzenDataGridColumn TItem="CustomerResponse" Property="Deleted" Title="Deleted" Filterable="true" FilterProperty="Deleted">
+            <Template Context="customer">
+                @(customer.Deleted ? "Yes":"No")
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="CustomerResponse" Context="customer" Filterable="false" Sortable="false"
+                              TextAlign="TextAlign.Right" Width="156px">
+            <Template Context="customer">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" Click="@(args => EditRow(customer))" @onclick:stopPropagation="true">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat"
+                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
+                              Click="@(args => DeleteRow(customer))" @onclick:stopPropagation="true" Visible="!customer.Deleted">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Warning" Icon="restore_from_trash" Variant="Variant.Flat"
+                              Shade="Shade.Darker" Size="ButtonSize.Medium" class="my-1 ms-1" Visible="customer.Deleted"
+                              Click="@(args => ResoreRow(customer))">
+
+                </RadzenButton>
+            </Template>
+            <EditTemplate Context="customer">
+                <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" Click="@((args) => SaveRow(customer))">
+                </RadzenButton>
+                <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(customer))">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Visible="!customer.Deleted"
+                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
+                              Click="@(args => DeleteRow(customer))">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Warning" Icon="restore_from_trash" Variant="Variant.Flat"
+                              Shade="Shade.Darker" Size="ButtonSize.Medium" class="my-1 ms-1" Visible="customer.Deleted"
+                              Click="@(args => ResoreRow(customer))">
+
+                </RadzenButton>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+    </Columns>
+
+</RadzenDataGrid>
+
+
+@code{
+    RadzenDataGrid<CustomerResponse> customersGrid = null!;
+    IEnumerable<CustomerResponse> customers = null!;
+
+
+
+    CustomerResponse customerToInsert = null!;
+    CustomerResponse customerToUpdate = null!;
+    void Reset()
+    {
+        customerToInsert = null!;
+        customerToUpdate = null!;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await GetCustomersAsync();
+    }
+
+    async Task GetCustomersAsync()
+    {
+        LoadingService.Show();
+        try
+        {
+            var result = await CustomerApiService.GetAsync();
+            result.ThrowIfNotSucceded();
+            customers = result.Items.AsQueryable();
+        }
+        catch (Exception ex)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
+
+        }
+        finally
+        {
+            LoadingService.Hide();
+        }
+    }
+
+    async Task EditRow(CustomerResponse customer)
+    {
+        customerToUpdate = customer;
+        await customersGrid.EditRow(customer);
+    }
+
+    async Task OnUpdateRow(CustomerResponse customer)
+    {
+        try
+        {
+            LoadingService.Show();
+            if (customer == customerToInsert)
+            {
+                customerToInsert = null!;
+            }
+            customerToUpdate = null!;
+
+
+            await GetCustomersAsync();
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Customer updated successfully" });
+        }
+        catch (Exception ex)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
+        }
+        finally
+        {
+            LoadingService.Hide();
+        }
+
+    }
+    async Task SaveRow(CustomerResponse customer)
+    {
+        await customersGrid.UpdateRow(customer);
+    }
+
+    void CancelEdit(CustomerResponse customer)
+    {
+        if (customer == customerToInsert)
+        {
+            customerToInsert = null;
+        }
+
+        customerToUpdate = null;
+        customersGrid.CancelEditRow(customer);
+    }
+
+    async Task DeleteRow(CustomerResponse customer)
+    {
+        var confirmed = await DialogService.Confirm($"Are you sure to delete the Customer '{customer.Name}'?");
+        if (confirmed == false)
+        {
+
+            return;
+        }
+
+        if (customer == customerToInsert)
+        {
+            customerToInsert = null;
+        }
+
+        if (customer == customerToUpdate)
+        {
+            customerToUpdate = null;
+        }
+        customersGrid.CancelEditRow(customer);
+        await OnDeleteRow(customer);
+        await customersGrid.Reload();
+
+    }
+
+    async Task InsertRow()
+    {
+        customerToInsert = new CustomerResponse();
+        await customersGrid.InsertRow(customerToInsert);
+    }
+
+    async Task OnCreateRow(CustomerResponse customer)
+    {
+        try
+        {
+            LoadingService.Show();
+            customerToInsert = null!;
+            var result = await CustomerApiService.CreateAsync(customer.Map());
+            result.ThrowIfNotSucceded();
+            await GetCustomersAsync();
+
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Customer created successfully" });
+        }
+        catch (Exception ex)
+        {
+            await customersGrid.EditRow(customer);
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
+        }
+        finally
+        {
+            LoadingService.Hide();
+        }
+    }
+    async Task OnDeleteRow(CustomerResponse customer)
+    {
+        try
+        {
+            LoadingService.Show();
+            customerToInsert = null!;
+            var result = await CustomerApiService.DeleteAsync(customer.Id);
+            result.ThrowIfNotSucceded();
+            await GetCustomersAsync();
+
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Customer deleted successfully" });
+        }
+        catch (Exception ex)
+        {
+            await customersGrid.EditRow(customer);
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
+        }
+        finally
+        {
+            LoadingService.Hide();
+        }
+    }
+    async Task ResoreRow(CustomerResponse customer)
+    {
+        try
+        {
+            var confirmed = await DialogService.Confirm($"Are you sure to restore the Customer '{customer.Name}'?");
+            if (!confirmed.Value) return;
+            LoadingService.Show();
+            customerToInsert = null!;
+            var result = await CustomerApiService.RestoreAsync(customer.Id);
+            result.ThrowIfNotSucceded();
+            await GetCustomersAsync();
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Customer restored successfully" });
+        }
+        catch (Exception ex)
+        {
+            await customersGrid.EditRow(customer);
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
+        }
+        finally
+        {
+            LoadingService.Hide();
+        }
+    }
+}
