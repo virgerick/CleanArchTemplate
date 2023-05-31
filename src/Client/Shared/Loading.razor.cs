@@ -9,7 +9,7 @@ namespace CleanArchTemplate.Client.Shared;
 
 public partial class Loading
 {
-    LoaderType type = LoaderType.Clock;
+    /*LoaderType type = LoaderType.Clock;
     RenderFragment Loader => type switch
     {
         LoaderType.Clock => new RenderFragment(builder => {
@@ -24,7 +24,7 @@ public partial class Loading
             builder.OpenComponent(0, typeof(HoneyCombLoader));
             builder.CloseComponent();
         }),
-    };
+    };*/
 
     protected override Task OnInitializedAsync()
     {
@@ -33,7 +33,7 @@ public partial class Loading
     }
     public void Handler()
     {
-        type=type.GetRandomValue();
+        //type=type.GetRandomValue();
         StateHasChanged();
     }
 }

@@ -13,11 +13,17 @@
     <None Remove="Extensions\" />
     <None Remove="Requests\Customers\" />
     <None Remove="Mapping\" />
+    <None Remove="Responses\Drivers\" />
+    <None Remove="Responses\Vehicles\" />
+    <None Remove="Requests\Drivers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Requests\Customers\" />
     <Folder Include="Mapping\" />
+    <Folder Include="Responses\Drivers\" />
+    <Folder Include="Responses\Vehicles\" />
+    <Folder Include="Requests\Drivers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.editorconfig" Link=".editorconfig" />

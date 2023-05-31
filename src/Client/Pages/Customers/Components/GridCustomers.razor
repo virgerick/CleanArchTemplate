@@ -1,4 +1,4 @@
-﻿<RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Add New Order"
+﻿<RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Add new Customer"
               Click="@InsertRow" Disabled=@(customerToInsert != null || customerToUpdate != null) />
 
 <RadzenDataGrid @ref="customersGrid" AllowAlternatingRows="true" AllowFiltering="true" AllowPaging="true" PageSize="5"
@@ -17,8 +17,9 @@
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="CustomerResponse" Property="Email" Title="Email" Frozen>
             <EditTemplate Context="customer">
-                <RadzenTextBox @bind-Value="customer.Email" Style="width:100%; display: block" Name="Email " />
-                <RadzenRequiredValidator Text="Email is required" Component="Email" Popup="true" />
+                <RadzenTextBox @bind-Value="customer.Email" Style="width:100%; display: block" Name="Email" />
+                <RadzenRequiredValidator  Text="Email is required" Component="Email" Popup="true" />
+                <RadzenEmailValidator Text="Email doesn't  have a valid format." Component="Email" Popup/>
             </EditTemplate>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="CustomerResponse" Property="Address.Street" Title="Street">
@@ -147,6 +148,8 @@
             }
             customerToUpdate = null!;
 
+            var result = await CustomerApiService.EditAsync(customer.Id,customer.Map());
+            result.ThrowIfNotSucceded();
 
             await GetCustomersAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Customer updated successfully" });

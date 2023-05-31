@@ -20,8 +20,10 @@
   <ItemGroup>
     <None Remove="Common\" />
     <None Remove="Mapping\" />
+    <None Remove="Drivers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mapping\" />
+    <Folder Include="Drivers\" />
   </ItemGroup>
 </Project>
