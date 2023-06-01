@@ -1,0 +1,251 @@
+﻿<RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Add new Driver"
+              Click="@InsertRow" Disabled=@(DriverToInsert != null || DriverToUpdate != null) />
+
+<RadzenDataGrid @ref="driversGrid" AllowAlternatingRows="true" AllowFiltering="true" AllowPaging="true" PageSize="5"
+                AllowSorting="true" EditMode="DataGridEditMode.Single" Responsive="true" Data="@drivers" TItem="DriverResponse"
+                RowUpdate="@OnUpdateRow" RowCreate="@OnCreateRow" Sort="@Reset" Page="@Reset" Filter="@Reset" ColumnWidth="200px">
+    <EmptyTemplate>
+        <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
+    </EmptyTemplate>
+    <Columns>
+        <RadzenDataGridColumn TItem="DriverResponse" Property="Name" Title="Name" >
+            <EditTemplate Context="Driver">
+                <RadzenTextBox @bind-Value="Driver.Name" Style="width:100%; display: block"
+                               Name="Name" />
+                <RadzenRequiredValidator Text="Name is required" Component="Name" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="DriverResponse" Property="PhoneNumber" Title="PhoneNumber" >
+            <EditTemplate Context="Driver">
+                <RadzenTextBox @bind-Value="Driver.PhoneNumber" Style="width:100%; display: block" Name="PhoneNumber" />
+                <RadzenRequiredValidator  Text="Phone is required" Component="PhoneNumber" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="DriverResponse" Property="License" Title="License" >
+            <EditTemplate Context="Driver">
+                <RadzenTextBox @bind-Value="Driver.License" Style="width:100%; display: block" Name="License" />
+                <RadzenRequiredValidator  Text="License is required" Component="License" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="DriverResponse" Property="HireDate" Title="HireDate">
+            <EditTemplate Context="Driver">
+                <RadzenDatePicker @bind-Value="Driver.HireDate" Style="width:100%; display: block" Name="HireDate" ShowTime="false" />
+                <RadzenRequiredValidator Text="HireDate is required" Component="HireDate" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="DriverResponse" Context="Driver" Filterable="false" Sortable="false"
+                              TextAlign="TextAlign.Right" Width="156px">
+            <Template Context="Driver">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" Click="@(args => EditRow(Driver))" @onclick:stopPropagation="true">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat"
+                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
+                              Click="@(args => DeleteRow(Driver))" @onclick:stopPropagation="true">
+                </RadzenButton>
+            </Template>
+            <EditTemplate Context="Driver">
+                <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" Click="@((args) => SaveRow(Driver))">
+                </RadzenButton>
+                <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(Driver))">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" 
+                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
+                              Click="@(args => DeleteRow(Driver))">
+                </RadzenButton>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+    </Columns>
+
+</RadzenDataGrid>
+
+
+@code{
+    RadzenDataGrid<DriverResponse> driversGrid = null!;
+    IEnumerable<DriverResponse> drivers = null!;
+
+
+
+    DriverResponse DriverToInsert = null!;
+    DriverResponse DriverToUpdate = null!;
+    void Reset()
+    {
+        DriverToInsert = null!;
+        DriverToUpdate = null!;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await GetdriversAsync();
+    }
+
+    async Task GetdriversAsync()
+    {
+        LoadingService.Show();
+        try
+        {
+            var result = await DriverApiService.GetAsync();
+            result.ThrowIfNotSucceded();
+            drivers = result.Items.AsQueryable();
+        }
+        catch (Exception ex)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
+
+        }
+        finally
+        {
+            LoadingService.Hide();
+        }
+    }
+
+    async Task EditRow(DriverResponse Driver)
+    {
+        DriverToUpdate = Driver;
+        await driversGrid.EditRow(Driver);
+    }
+
+    async Task OnUpdateRow(DriverResponse Driver)
+    {
+        try
+        {
+            LoadingService.Show();
+            if (Driver == DriverToInsert)
+            {
+                DriverToInsert = null!;
+            }
+            DriverToUpdate = null!;
+
+            var result = await DriverApiService.EditAsync(Driver.Id,Driver.Map());
+            result.ThrowIfNotSucceded();
+
+            await GetdriversAsync();
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver updated successfully" });
+        }
+        catch (Exception ex)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
+        }
+        finally
+        {
+            LoadingService.Hide();
+        }
+
+    }
+    async Task SaveRow(DriverResponse Driver)
+    {
+        await driversGrid.UpdateRow(Driver);
+    }
+
+    void CancelEdit(DriverResponse Driver)
+    {
+        if (Driver == DriverToInsert)
+        {
+            DriverToInsert = null;
+        }
+
+        DriverToUpdate = null;
+        driversGrid.CancelEditRow(Driver);
+    }
+
+    async Task DeleteRow(DriverResponse Driver)
+    {
+        var confirmed = await DialogService.Confirm($"Are you sure to delete the Driver '{Driver.Name}'?");
+        if (confirmed == false)
+        {
+
+            return;
+        }
+
+        if (Driver == DriverToInsert)
+        {
+            DriverToInsert = null;
+        }
+
+        if (Driver == DriverToUpdate)
+        {
+            DriverToUpdate = null;
+        }
+        driversGrid.CancelEditRow(Driver);
+        await OnDeleteRow(Driver);
+        await driversGrid.Reload();
+
+    }
+
+    async Task InsertRow()
+    {
+        DriverToInsert = new DriverResponse { HireDate= DateTime.Now };
+        await driversGrid.InsertRow(DriverToInsert);
+    }
+
+    async Task OnCreateRow(DriverResponse Driver)
+    {
+        try
+        {
+            LoadingService.Show();
+            DriverToInsert = null!;
+            var result = await DriverApiService.CreateAsync(Driver.Map());
+            result.ThrowIfNotSucceded();
+            await GetdriversAsync();
+
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver created successfully" });
+        }
+        catch (Exception ex)
+        {
+            await driversGrid.EditRow(Driver);
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
+        }
+        finally
+        {
+            LoadingService.Hide();
+        }
+    }
+    async Task OnDeleteRow(DriverResponse Driver)
+    {
+        try
+        {
+            LoadingService.Show();
+            DriverToInsert = null!;
+            var result = await DriverApiService.DeleteAsync(Driver.Id);
+            result.ThrowIfNotSucceded();
+            await GetdriversAsync();
+
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver deleted successfully" });
+        }
+        catch (Exception ex)
+        {
+            await driversGrid.EditRow(Driver);
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
+        }
+        finally
+        {
+            LoadingService.Hide();
+        }
+    }
+    async Task ResoreRow(DriverResponse Driver)
+    {
+        try
+        {
+            var confirmed = await DialogService.Confirm($"Are you sure to restore the Driver '{Driver.Name}'?");
+            if (!confirmed.Value) return;
+            LoadingService.Show();
+            DriverToInsert = null!;
+            var result = await DriverApiService.RestoreAsync(Driver.Id);
+            result.ThrowIfNotSucceded();
+            await GetdriversAsync();
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver restored successfully" });
+        }
+        catch (Exception ex)
+        {
+            await driversGrid.EditRow(Driver);
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
+        }
+        finally
+        {
+            LoadingService.Hide();
+        }
+    }
+}

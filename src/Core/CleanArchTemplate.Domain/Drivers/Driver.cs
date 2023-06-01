@@ -15,13 +15,13 @@ public class Driver : AuditableEntity<DriverId>
     public ICollection<Service> Services { get; set; } = new List<Service>();
     private Driver()
     {
-
+        
     }
     public static OneOf<Driver, List<ValidationFailure>> Create(string name, string phoneNumber, string license, DateTime hireDate)
     {
         var driver = new Driver()
         {
-
+            Id = DriverId.NewId(),
             Name = name,
             PhoneNumber = phoneNumber,
             License = license,
@@ -63,7 +63,9 @@ public class Driver : AuditableEntity<DriverId>
     }
 
 }
-public record struct DriverId(Guid Value);
+public record struct DriverId(Guid Value) {
+    public static DriverId NewId() => new DriverId(Guid.NewGuid());
+};
 file class DriverValidator : AbstractValidator<Driver>
 {
     public DriverValidator()

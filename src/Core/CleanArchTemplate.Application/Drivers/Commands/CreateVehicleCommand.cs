@@ -25,6 +25,7 @@ public sealed class CreateDriverCommandHandler : IRequestHandler<CreateDriverCom
         try
         {
             var repo = _context.Set<Driver>();
+            if (repo.Any(x => x.Name == request.Name)) return new Exception($"There is an existing driver named: '{request.Name}' ");
             Driver create = null!;
             List<ValidationFailure> validationErrors = new();
             Driver.Create(request.Name,request.PhoneNumber,request.License,request.HireDate)

@@ -17,7 +17,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.5" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.5" />
-    <PackageReference Include="Radzen.Blazor" Version="4.11.2" />
+    <PackageReference Include="Radzen.Blazor" Version="4.12.0" />
     <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
     <PackageReference Include="Refit" Version="6.3.2" />
   </ItemGroup>
@@ -36,6 +36,7 @@
     <None Remove="Extensions\" />
     <None Remove="Pages\Vehicle\Components\" />
     <None Remove="Shared\Components\" />
+    <None Remove="Pages\Drivers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Vehicle\" />
@@ -43,6 +44,7 @@
     <Folder Include="Extensions\" />
     <Folder Include="Pages\Vehicle\Components\" />
     <Folder Include="Shared\Components\" />
+    <Folder Include="Pages\Drivers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Shared\Components\HoneyCombLoader.cshtml" />
