@@ -2,6 +2,7 @@
 
 using CleanArchTemplate.Domain.Common;
 using CleanArchTemplate.Domain.Contracts;
+using CleanArchTemplate.Domain.Services;
 using OneOf;
 
 namespace CleanArchTemplate.Domain.Customers;
@@ -9,10 +10,12 @@ public record struct CustomerId(Guid Value);
 public class Customer:AuditableRootEntity<CustomerId>
 {
     private List<Contract> _contracts = new();
+    private List<Service> _services = new();
     public string Name { get; private set; }
     public string Email { get; private set; }
     public Address Address { get; private set; }
     public IReadOnlyList<Contract> Contracts => _contracts;
+    public IReadOnlyList<Service> Services => _services;
 
     protected Customer() { } // Constructor protegido para EF Core
 

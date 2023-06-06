@@ -14,6 +14,7 @@ public static class RadzenExtension
         builder.Services.AddScoped<ContextMenuService>();
         //
         builder.Services.AddSingleton<LoadingService>();
+        builder.Services.AddScoped<ProccessExcecutorService>();
 
         return builder;
     }

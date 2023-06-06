@@ -8,15 +8,14 @@ namespace CleanArchTemplate.Domain.Drivers;
 
 public class Driver : AuditableEntity<DriverId>
 {
+    private List<Service> _services=new();
+
     public string Name { get; private set; }
     public string PhoneNumber { get; private set; }
     public string License { get; private set; }
     public DateTime HireDate { get; private set; }
-    public ICollection<Service> Services { get; set; } = new List<Service>();
-    private Driver()
-    {
-        
-    }
+    public IReadOnlyList<Service> Services => _services;
+    private Driver(){}
     public static OneOf<Driver, List<ValidationFailure>> Create(string name, string phoneNumber, string license, DateTime hireDate)
     {
         var driver = new Driver()

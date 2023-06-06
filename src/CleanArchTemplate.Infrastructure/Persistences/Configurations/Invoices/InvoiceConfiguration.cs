@@ -1,5 +1,6 @@
 using CleanArchTemplate.Domain.Customers;
 using CleanArchTemplate.Domain.Invoices;
+using CleanArchTemplate.Domain.Routes;
 using CleanArchTemplate.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

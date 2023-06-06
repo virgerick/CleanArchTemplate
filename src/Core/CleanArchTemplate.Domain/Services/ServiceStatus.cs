@@ -10,7 +10,7 @@ public abstract record ServiceStatus
 
     public string Status { get; }
 
-    public ServiceStatus(string status)
+    private protected ServiceStatus(string status)
     {
         
         Status = status;
@@ -31,6 +31,8 @@ public abstract record ServiceStatus
         if(found is null)throw new ArgumentException($"Invalid service status: {status}");
         return found;
     }
+    public static implicit operator ServiceStatus(string status) => Create(status);
+    public static implicit operator string(ServiceStatus status) => status.Status;
 }
 public record ActiveStatus() : ServiceStatus(ServiceStatus.Active);
 public record InactiveStatus() : ServiceStatus(ServiceStatus.Inactive);

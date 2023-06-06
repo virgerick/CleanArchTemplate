@@ -1,5 +1,4 @@
-﻿
-namespace CleanArchTemplate.Client.Services;
+﻿namespace CleanArchTemplate.Client.Services;
 
 public class LoadingService
 {
@@ -27,7 +26,6 @@ public class LoadingService
     private void NotifyStateChanged()
     {
         OnChange?.Invoke();
-        _logger.LogInformation($"It's {(IsLoading == false ? "" : "not" )} loading...");
     }
     public void Show() {
         IsLoading = true;

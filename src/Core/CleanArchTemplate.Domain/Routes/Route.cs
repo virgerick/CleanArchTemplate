@@ -1,13 +1,17 @@
 ﻿using CleanArchTemplate.Domain.Common;
-using CleanArchTemplate.Domain.Services;
+using CleanArchTemplate.Domain.Invoices;
 
 namespace CleanArchTemplate.Domain.Routes;
-public record RouteId(Guid Value);
+public record struct RouteId(Guid Value) {
+    public static RouteId NewId() => new RouteId(Guid.NewGuid());
+};
 public class Route:AuditableEntity<RouteId>
 {
     public string Origin { get; set; }
     public string Destination { get; set; }
     public float Distance { get; set; }
     public float EstimatedTime { get; set; }
-    public ICollection<Service> Services { get; set; }
+    public decimal Amount { get; set; }
+    public InvoiceLineId InvoiceLineId { get; set; }
+    public InvoiceLine? InvoiceLine { get; set; }
 }

@@ -63,44 +63,35 @@
 
 
 @code{
-    RadzenDataGrid<DriverResponse> driversGrid = null!;
-    IEnumerable<DriverResponse> drivers = null!;
+        RadzenDataGrid<DriverResponse> driversGrid = null!;
+        IEnumerable<DriverResponse> drivers = null!;
 
 
 
-    DriverResponse DriverToInsert = null!;
-    DriverResponse DriverToUpdate = null!;
-    void Reset()
-    {
-        DriverToInsert = null!;
-        DriverToUpdate = null!;
-    }
+        DriverResponse DriverToInsert = null!;
+        DriverResponse DriverToUpdate = null!;
+        void Reset()
+        {
+            DriverToInsert = null!;
+            DriverToUpdate = null!;
+        }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await GetdriversAsync();
+        await GetDriversAsync();
     }
 
-    async Task GetdriversAsync()
+    async Task GetDriversAsync()
     {
-        LoadingService.Show();
-        try
+        await Excecutor.Run(async () =>
         {
             var result = await DriverApiService.GetAsync();
             result.ThrowIfNotSucceded();
             drivers = result.Items.AsQueryable();
-        }
-        catch (Exception ex)
-        {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
-
-        }
-        finally
-        {
-            LoadingService.Hide();
-        }
+        });
     }
+
 
     async Task EditRow(DriverResponse Driver)
     {
@@ -110,29 +101,18 @@
 
     async Task OnUpdateRow(DriverResponse Driver)
     {
-        try
+        await Excecutor.Run(async () =>
         {
-            LoadingService.Show();
             if (Driver == DriverToInsert)
             {
                 DriverToInsert = null!;
             }
             DriverToUpdate = null!;
-
-            var result = await DriverApiService.EditAsync(Driver.Id,Driver.Map());
+            var result = await DriverApiService.EditAsync(Driver.Id, Driver.Map());
             result.ThrowIfNotSucceded();
-
-            await GetdriversAsync();
+            await GetDriversAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver updated successfully" });
-        }
-        catch (Exception ex)
-        {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
-        }
-        finally
-        {
-            LoadingService.Hide();
-        }
+        });
 
     }
     async Task SaveRow(DriverResponse Driver)
@@ -154,9 +134,8 @@
     async Task DeleteRow(DriverResponse Driver)
     {
         var confirmed = await DialogService.Confirm($"Are you sure to delete the Driver '{Driver.Name}'?");
-        if (confirmed == false)
+        if (!confirmed.Value)
         {
-
             return;
         }
 
@@ -183,69 +162,42 @@
 
     async Task OnCreateRow(DriverResponse Driver)
     {
-        try
+        await Excecutor.Run(async () =>
         {
-            LoadingService.Show();
             DriverToInsert = null!;
             var result = await DriverApiService.CreateAsync(Driver.Map());
             result.ThrowIfNotSucceded();
-            await GetdriversAsync();
-
+            await GetDriversAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver created successfully" });
-        }
-        catch (Exception ex)
-        {
-            await driversGrid.EditRow(Driver);
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
-        }
-        finally
-        {
-            LoadingService.Hide();
-        }
+        });
     }
     async Task OnDeleteRow(DriverResponse Driver)
     {
-        try
+        await Excecutor.Run(async () =>
         {
-            LoadingService.Show();
+
             DriverToInsert = null!;
             var result = await DriverApiService.DeleteAsync(Driver.Id);
             result.ThrowIfNotSucceded();
-            await GetdriversAsync();
+            await GetDriversAsync();
 
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver deleted successfully" });
-        }
-        catch (Exception ex)
-        {
-            await driversGrid.EditRow(Driver);
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
-        }
-        finally
-        {
-            LoadingService.Hide();
-        }
+        });
     }
+
     async Task ResoreRow(DriverResponse Driver)
     {
-        try
+
+        var confirmed = await DialogService.Confirm($"Are you sure to restore the Driver '{Driver.Name}'?");
+        if (!confirmed.Value) return;
+
+        await Excecutor.Run(async () =>
         {
-            var confirmed = await DialogService.Confirm($"Are you sure to restore the Driver '{Driver.Name}'?");
-            if (!confirmed.Value) return;
-            LoadingService.Show();
             DriverToInsert = null!;
             var result = await DriverApiService.RestoreAsync(Driver.Id);
             result.ThrowIfNotSucceded();
-            await GetdriversAsync();
+            await GetDriversAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver restored successfully" });
-        }
-        catch (Exception ex)
-        {
-            await driversGrid.EditRow(Driver);
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
-        }
-        finally
-        {
-            LoadingService.Hide();
-        }
+        });
     }
 }

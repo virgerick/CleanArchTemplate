@@ -16,6 +16,7 @@
     <None Remove="Responses\Drivers\" />
     <None Remove="Responses\Vehicles\" />
     <None Remove="Requests\Drivers\" />
+    <None Remove="Responses\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
@@ -24,6 +25,7 @@
     <Folder Include="Responses\Drivers\" />
     <Folder Include="Responses\Vehicles\" />
     <Folder Include="Requests\Drivers\" />
+    <Folder Include="Responses\Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.editorconfig" Link=".editorconfig" />

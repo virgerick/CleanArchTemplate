@@ -37,6 +37,8 @@
     <None Remove="Pages\Vehicle\Components\" />
     <None Remove="Shared\Components\" />
     <None Remove="Pages\Drivers\" />
+    <None Remove="Pages\Auth\" />
+    <None Remove="Shared\Layouts\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Vehicle\" />
@@ -45,6 +47,8 @@
     <Folder Include="Pages\Vehicle\Components\" />
     <Folder Include="Shared\Components\" />
     <Folder Include="Pages\Drivers\" />
+    <Folder Include="Pages\Auth\" />
+    <Folder Include="Shared\Layouts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Shared\Components\HoneyCombLoader.cshtml" />

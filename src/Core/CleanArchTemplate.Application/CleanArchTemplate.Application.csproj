@@ -21,9 +21,11 @@
     <None Remove="Common\" />
     <None Remove="Mapping\" />
     <None Remove="Drivers\" />
+    <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mapping\" />
     <Folder Include="Drivers\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>
