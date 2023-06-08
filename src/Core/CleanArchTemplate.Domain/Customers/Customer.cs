@@ -2,6 +2,7 @@
 
 using CleanArchTemplate.Domain.Common;
 using CleanArchTemplate.Domain.Contracts;
+using CleanArchTemplate.Domain.Invoices;
 using CleanArchTemplate.Domain.Services;
 using OneOf;
 
@@ -9,13 +10,16 @@ namespace CleanArchTemplate.Domain.Customers;
 public record struct CustomerId(Guid Value);
 public class Customer:AuditableRootEntity<CustomerId>
 {
-    private List<Contract> _contracts = new();
+    private List<Contract> _contracts=new();
     private List<Service> _services = new();
+    private List<Invoice> _invoices = new();
+
     public string Name { get; private set; }
     public string Email { get; private set; }
     public Address Address { get; private set; }
-    public IReadOnlyList<Contract> Contracts => _contracts;
-    public IReadOnlyList<Service> Services => _services;
+    public IReadOnlyList<Contract> Contracts { get => _contracts;  }
+    public IReadOnlyList<Service> Services { get => _services;  }
+    public IReadOnlyList<Invoice> Invoices { get => _invoices;  }
 
     protected Customer() { } // Constructor protegido para EF Core
 
@@ -76,4 +80,11 @@ public class Customer:AuditableRootEntity<CustomerId>
     }
 
 
+}
+public class CustomerService
+{
+    public CustomerId CustomerId { get; set; }
+    public Customer Customer { get; set; }
+    public ServiceId ServiceId { get; set; }
+    public Service Service { get; set; }
 }

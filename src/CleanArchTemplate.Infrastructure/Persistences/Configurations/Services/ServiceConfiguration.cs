@@ -25,6 +25,11 @@ public sealed class ServiceConfiguration : IEntityTypeConfiguration<Service>
             .WithMany(x => x.Services);
         builder.HasMany(x => x.Customers)
             .WithMany(x => x.Services);
+
+        builder.HasMany(x => x.InvoiceLines)
+            .WithOne(x => x.Service)
+            .HasForeignKey(x=>x.ServiceId)
+            .OnDelete(DeleteBehavior.NoAction);
             
 
     }

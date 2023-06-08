@@ -12,6 +12,7 @@ public class Route:AuditableEntity<RouteId>
     public float Distance { get; set; }
     public float EstimatedTime { get; set; }
     public decimal Amount { get; set; }
-    public InvoiceLineId InvoiceLineId { get; set; }
-    public InvoiceLine? InvoiceLine { get; set; }
+    public VehicleId VehicleId { get; set; }
+    public Vehicle? Vehicle { get; set; }
+
 }

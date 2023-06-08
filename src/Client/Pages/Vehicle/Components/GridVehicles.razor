@@ -44,7 +44,7 @@ Click="@InsertRow" Disabled=@(vehicleToInsert != null || vehicleToUpdate != null
                 <RadzenRequiredValidator Text="Status is required" Component="Status" Popup="true" />
             </EditTemplate>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="VehicleResponse" Property="Deleted" Title="Deleted" Filterable="true" FilterProperty="Deleted">
+        <RadzenDataGridColumn TItem="VehicleResponse" Property="Deleted" Title="Deleted" Filterable="true" FilterProperty="Deleted" >
             <Template Context="vehicle">
                @(vehicle.Deleted ? "Yes":"No")
             </Template>
