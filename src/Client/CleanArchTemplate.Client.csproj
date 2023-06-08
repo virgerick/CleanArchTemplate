@@ -16,10 +16,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.5" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.5" />
-    <PackageReference Include="Radzen.Blazor" Version="4.12.0" />
+    <PackageReference Include="Radzen.Blazor" Version="4.13.0" />
     <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
     <PackageReference Include="Refit" Version="6.3.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.5" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +41,7 @@
     <None Remove="Pages\Drivers\" />
     <None Remove="Pages\Auth\" />
     <None Remove="Shared\Layouts\" />
+    <None Remove="Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Vehicle\" />
@@ -49,6 +52,7 @@
     <Folder Include="Pages\Drivers\" />
     <Folder Include="Pages\Auth\" />
     <Folder Include="Shared\Layouts\" />
+    <Folder Include="Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Shared\Components\HoneyCombLoader.cshtml" />
