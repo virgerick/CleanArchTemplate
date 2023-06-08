@@ -22,6 +22,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.5" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,9 +40,9 @@
     <None Remove="Pages\Vehicle\Components\" />
     <None Remove="Shared\Components\" />
     <None Remove="Pages\Drivers\" />
-    <None Remove="Pages\Auth\" />
     <None Remove="Shared\Layouts\" />
     <None Remove="Authentication\" />
+    <None Remove="Pages\Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Vehicle\" />
@@ -50,9 +51,9 @@
     <Folder Include="Pages\Vehicle\Components\" />
     <Folder Include="Shared\Components\" />
     <Folder Include="Pages\Drivers\" />
-    <Folder Include="Pages\Auth\" />
     <Folder Include="Shared\Layouts\" />
     <Folder Include="Authentication\" />
+    <Folder Include="Pages\Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Shared\Components\HoneyCombLoader.cshtml" />

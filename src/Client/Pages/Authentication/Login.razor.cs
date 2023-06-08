@@ -30,20 +30,20 @@ using CleanArchTemplate.Shared.Extensions;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
 
-namespace CleanArchTemplate.Client.Pages.Auth;
+namespace CleanArchTemplate.Client.Pages.Authentication;
 
 public partial class Login
 {
     
     TokenRequest Token=new();
-
-    protected override async Task OnInitializedAsync()
+ 
+    protected override void OnInitialized()
     {
-        var state = await _stateProvider.GetAuthenticationStateAsync();
-        if (state != new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity())))
+        if (_stateProvider.AuthenticationStateUser.Identity!.IsAuthenticated)
         {
-            _navigationManager.NavigateTo("/");
+            _navigationManager.NavigateToBackward();
         }
+
     }
 
     async Task OnLogin(LoginArgs args)
@@ -53,7 +53,7 @@ public partial class Login
             var request = new TokenRequest { Email = args.Username, Password = args.Password };
             var result = await AuthenticationManager.Login(request);
             result.ThrowIfNotSucceded();
-            Console.WriteLine(result.ToJsonSerialize());
+            _navigationManager.NavigateToBackward();
 
 
         });

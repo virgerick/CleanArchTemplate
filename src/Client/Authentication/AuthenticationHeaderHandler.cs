@@ -37,7 +37,7 @@ public class BlazorStateProvider : AuthenticationStateProvider
 {
     private readonly HttpClient _httpClient;
     private readonly ILocalStorageService _localStorage;
-
+    public ClaimsPrincipal AuthenticationStateUser { get; set; } = new ClaimsPrincipal(new ClaimsIdentity());
     public BlazorStateProvider(
         HttpClient httpClient,
         ILocalStorageService localStorage)
@@ -58,7 +58,6 @@ public class BlazorStateProvider : AuthenticationStateProvider
     {
         var anonymousUser = new ClaimsPrincipal(new ClaimsIdentity());
         var authState = Task.FromResult(new AuthenticationState(anonymousUser));
-
         NotifyAuthenticationStateChanged(authState);
     }
 
@@ -69,7 +68,7 @@ public class BlazorStateProvider : AuthenticationStateProvider
         return authenticationStateProviderUser;
     }
 
-    public ClaimsPrincipal AuthenticationStateUser { get; set; } = new();
+   
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {

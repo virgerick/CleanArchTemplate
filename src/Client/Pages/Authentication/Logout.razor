@@ -1,0 +1,15 @@
+﻿@page "/authentication/logout"
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {  
+        await Excecutor.Run(async () =>
+        {
+            var result = await AuthenticationManager.Logout();
+            result.ThrowIfNotSucceded();
+            _navigationManager.NavigateToBackward();
+        });
+
+    }
+}
+
