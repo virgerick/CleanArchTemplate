@@ -4,9 +4,19 @@
 <RadzenContextMenu />
 <RadzenTooltip />
 <Loading />
-<div >
+<RadzenLayout>
+
+    <RadzenBody>
+        <div class="rz-p-5 rz-m-5">
+            @Body
+        </div>
+    </RadzenBody>
+    <RadzenFooter>
+    </RadzenFooter>
+</RadzenLayout>
+<RadzenStack>
     @Body
-</div>
+</RadzenStack>
 
 @code {
 
