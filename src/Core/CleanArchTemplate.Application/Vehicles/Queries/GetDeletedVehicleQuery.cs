@@ -24,7 +24,7 @@ public sealed class GetDeletedVehicleQueryHandler : IRequestHandler<GetDeletedVe
         {
             return await _context.Set<Vehicle>()
                  .Where(x => x.Deleted)
-                 .Select(x => new VehicleResponse(x.Id.Value, x.PlateNumber, x.Brand, x.Model, x.Type, x.Status,x.Deleted))
+                 .Select(x => new VehicleResponse(x.Id.Value, x.PlateNumber, x.Model.Brand.Name, x.Model.Name, x.Model.Type.Name, x.Status,x.Deleted))
                  .ToResultListAsync(cancellationToken);
         }
         catch (Exception ex)

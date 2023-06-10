@@ -74,7 +74,7 @@ public partial class GridVehicles
                 vehicleToInsert = null!;
             }
             vehicleToUpdate = null!;
-            var result = await VehicleApiService.EditAsync(vehicle.Id,new(vehicle.PlateNumber, vehicle.Brand, vehicle.Model, vehicle.Type));
+            var result = await VehicleApiService.EditAsync(vehicle.Id,new());//Todo:Passing right parameter
             result.ThrowIfNotSucceded();
             
             await GetVehiclesAsync();
@@ -140,7 +140,7 @@ public partial class GridVehicles
         {
             LoadingService.Show();
             vehicleToInsert = null!;
-            var result = await VehicleApiService.CreateAsync(new(vehicle.PlateNumber, vehicle.Brand, vehicle.Model, vehicle.Type));
+            var result = await VehicleApiService.CreateAsync(new());//Todo:Passing parameters to constructor
             result.ThrowIfNotSucceded();
             await GetVehiclesAsync();
            

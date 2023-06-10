@@ -13,7 +13,7 @@ public static class GetVehicleEndPoint
         .WithDisplayName("Edit Vehicle");
 
         public static async ValueTask<Result<Guid>> EditVehicleAsync(Guid Id, CreateEditVehicleRequest request, ISender Mediator,CancellationToken cancellationToken=default){
-        var query = new EditVehicleCommand(Id,request.plateNumber,request.brand,request.model,request.type);
+        var query = new EditVehicleCommand(Id,request.plateNumber,request.modelId,request.color);
         var result = await Mediator.Send(query, cancellationToken);
         return result.Match(
             response => Result.Success(response),

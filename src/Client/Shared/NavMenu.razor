@@ -1,10 +1,18 @@
 ﻿<AuthorizeView>
     <Authorized>
         <RadzenPanelMenu >
-            <RadzenPanelMenuItem Text="Home" Icon="home" Path="/"/>
-            <RadzenPanelMenuItem Text="Customers" Icon="contacts" Path="/customers"/>
+            <RadzenPanelMenuItem Text="Dashboard" Icon="dashboard" Path="/"/>
+            <RadzenPanelMenuItem Text="Accounting" Icon="currency_exchange" >
+                <RadzenPanelMenuItem Text="Accounts" Icon="savings" Path="/accounting/accounts"/>
+                <RadzenPanelMenuItem Text="Receivables" Icon="price_check" Path="/accounting/Receivables"/>
+                <RadzenPanelMenuItem Text="Charges" Icon="credit_card_off" Path="/accounting/Charges"/>
+            </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="Vehicles" Icon="commute" Path="/vehicles"/>
             <RadzenPanelMenuItem Text="Drivers" Icon="minor_crash" Path="/drivers"/>
+            <RadzenPanelMenuItem Text="Customers" Icon="contacts" Path="/customers"/>
+            <RadzenPanelMenuItem Text="Suppliers" Icon="local_shipping" Path="/Suppliers"/>
+            <RadzenPanelMenuItem Text="Services" Icon="room_service" Path="/Services"/>
+            <RadzenPanelMenuItem Text="Routes"  Icon="directions" Path="/Routes"/>
         </RadzenPanelMenu>
     </Authorized>
     <NotAuthorized>

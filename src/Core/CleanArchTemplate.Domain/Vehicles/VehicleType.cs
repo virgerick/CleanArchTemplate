@@ -1,34 +1,21 @@
-﻿namespace CleanArchTemplate.Domain.Invoices;
+﻿using CleanArchTemplate.Domain.Common;
 
-public abstract record VehicleType
+namespace CleanArchTemplate.Domain.Invoices;
+public record struct VehicleTypeId(Guid Value);
+
+public  class VehicleType :AuditableEntity<VehicleTypeId>
 {
-    public static string Car = nameof(Car);
-    public static string Truck = nameof(Truck);
-    public static string Bus = nameof(Bus);
+    private List<Model> _models=new();
 
-    public string Type { get; }
+    public string Name { get; set; }
+    private VehicleType(){}
+    private VehicleType(string name)
+    {
+        Name = name;
+    }
+    public IReadOnlyList<Model> Models { get => _models;  }
 
-    public VehicleType(string type)
-    {
-        Type = type;
-    }
-    public static IEnumerable<VehicleType> Supported{
-        get{
-                yield return new BusType();
-                yield return new CarType();
-                yield return new TruckType();
-            }
-    }
-    public static VehicleType Create(string type)
-    {
-        var found = Supported.SingleOrDefault(x => x.Type == type);
-        if(found is null)   throw new ArgumentException($"Invalid vehicle type: {type}");
-        return found;
-    }
-    public static implicit operator VehicleType(string type) => Create(type);
-    public static implicit operator string(VehicleType type) => type.Type;
+
+    public static VehicleType Create(string name)=>new VehicleType(name);
 }
 
-public record BusType() : VehicleType(VehicleType.Bus);
-public record CarType() : VehicleType(VehicleType.Car);
-public record TruckType() : VehicleType(VehicleType.Truck);

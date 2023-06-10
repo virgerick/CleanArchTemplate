@@ -24,7 +24,7 @@ public sealed class GetVehicleByIdQueryHandler : IRequestHandler<GetVehicleByIdQ
             var vehicleId = new VehicleId(request.Id);
             var found = await _context.Set<Vehicle>()
                 .Where(x => !x.Deleted && x.Id == vehicleId)
-            .Select(x => new VehicleResponse(x.Id.Value, x.PlateNumber, x.Brand, x.Model, x.Type, x.Status,x.Deleted))
+            .Select(x => new VehicleResponse(x.Id.Value, x.PlateNumber, x.Model.Brand.Name, x.Model.Name, x.Model.Type.Name, x.Status,x.Deleted))
             .FirstOrDefaultAsync(cancellationToken);
             if (found is null) return new Exception($"Vehicle ({request.Id}) was not found.");
             return Result<VehicleResponse>.Success(found);

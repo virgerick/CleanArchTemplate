@@ -12,8 +12,8 @@ public static class CreateVehicleEndpoint
         .WithTags("Vehicle")
         .WithDisplayName("Create a new Vehicle");
         public static async ValueTask<Result<Guid>> GetVehicleAsync(ISender Mediator,CreateEditVehicleRequest request,CancellationToken cancellationToken=default){
-        (string plateNumber, string brand, string model, string type) = request;
-        var query = new CreateVehicleCommand(plateNumber,brand,model,type);
+       (string plateNumber, Guid modelId, string color) = request;
+        var query = new CreateVehicleCommand(plateNumber,modelId,color);
         var result = await Mediator.Send(query, cancellationToken);
         return result.Match<Result<Guid>>(
             id => Result<Guid>.Success(id),

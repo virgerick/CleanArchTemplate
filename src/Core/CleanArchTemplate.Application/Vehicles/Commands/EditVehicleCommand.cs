@@ -7,7 +7,7 @@ using CleanArchTemplate.Application.Common.Interfaces;
 using CleanArchTemplate.Domain.Invoices;
 
 namespace CleanArchTemplate.Application.Vehicles.Commands;
-public record struct EditVehicleCommand(Guid Id, string plateNumber, string brand, string model, string type) : IRequest<OneOf<Guid, Exception>>;
+public record struct EditVehicleCommand(Guid Id, string plateNumber, Guid modelId, string color) : IRequest<OneOf<Guid, Exception>>;
 public sealed class EditVehicleCommandHandler : IRequestHandler<EditVehicleCommand, OneOf<Guid, Exception>>
 {
     private readonly IApplicationDbContext _context;
@@ -27,7 +27,8 @@ public sealed class EditVehicleCommandHandler : IRequestHandler<EditVehicleComma
         if(existingPlate) return new Exception($"There is an existing vehicle with the  plateNumber: '{request.plateNumber}'.");
         List<ValidationFailure> validationErrors = new();
         bool hasChange = false;
-        found.Update(request.plateNumber, request.brand, request.model, request.type)
+        var modelId = new Domain.ModelId(request.modelId);
+        found.Update(request.plateNumber,modelId,request.color)
         .Switch(
             value=>hasChange=value,
             validationErrors.AddRange
