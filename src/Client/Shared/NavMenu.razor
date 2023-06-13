@@ -7,7 +7,12 @@
                 <RadzenPanelMenuItem Text="Receivables" Icon="price_check" Path="/accounting/Receivables"/>
                 <RadzenPanelMenuItem Text="Charges" Icon="credit_card_off" Path="/accounting/Charges"/>
             </RadzenPanelMenuItem>
-            <RadzenPanelMenuItem Text="Vehicles" Icon="commute" Path="/vehicles"/>
+            <RadzenPanelMenuItem Text="Vehicles" Icon="commute">
+                <RadzenPanelMenuItem Text="Brands" Icon="garage"  Path="/VehiclesBrands"/>
+                <RadzenPanelMenuItem Text="Models" Icon="minor_crash"  Path="/VehiclesModels"/>
+                <RadzenPanelMenuItem Text="Types" Icon="electric_car"  Path="VehiclesTypes"/>
+                <RadzenPanelMenuItem Text="Vehicles" Icon="commute"  Path="/Vehicles"/>
+            </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="Drivers" Icon="minor_crash" Path="/drivers"/>
             <RadzenPanelMenuItem Text="Customers" Icon="contacts" Path="/customers"/>
             <RadzenPanelMenuItem Text="Suppliers" Icon="local_shipping" Path="/Suppliers"/>
@@ -19,3 +24,4 @@
 
     </NotAuthorized>
 </AuthorizeView>
+

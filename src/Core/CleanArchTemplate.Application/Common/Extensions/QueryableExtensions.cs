@@ -19,7 +19,7 @@ namespace CleanArchTemplate.Application.Common.Extensions
             List<T> items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return ResultPaginated<T>.Success(items, count, pageNumber, pageSize);
         }
-        public static  Task<ResultList<T>> ToResultListAsync<T>(this IQueryable<T> source, CancellationToken cancellationToken=default) where T : class
+        public static  Task<ResultList<T>> ToResultListAsync<T>(this IQueryable<T> source, CancellationToken cancellationToken=default)
         {
             return ResultList<T>.TryCatch(async () =>
             {

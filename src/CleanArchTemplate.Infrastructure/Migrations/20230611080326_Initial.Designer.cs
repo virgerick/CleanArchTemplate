@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanArchTemplate.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230608223918_Initial")]
+    [Migration("20230611080326_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -208,6 +208,36 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Audits");
+                });
+
+            modelBuilder.Entity("CleanArchTemplate.Domain.Brand", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("ModifiedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("CleanArchTemplate.Domain.Contracts.Contract", b =>
@@ -634,7 +664,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Brand")
+                    b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -654,9 +684,8 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ModelId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset?>("ModifiedAt")
                         .HasColumnType("datetimeoffset");
@@ -672,13 +701,78 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModelId");
+
+                    b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("CleanArchTemplate.Domain.Invoices.VehicleType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<DateTimeOffset?>("ModifiedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vehicles");
+                    b.ToTable("VehicleTypes");
+                });
+
+            modelBuilder.Entity("CleanArchTemplate.Domain.Model", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BrandId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<DateTimeOffset?>("ModifiedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("Models");
                 });
 
             modelBuilder.Entity("CleanArchTemplate.Domain.Routes.Route", b =>
@@ -1000,6 +1094,36 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     b.Navigation("Service");
                 });
 
+            modelBuilder.Entity("CleanArchTemplate.Domain.Invoices.Vehicle", b =>
+                {
+                    b.HasOne("CleanArchTemplate.Domain.Model", "Model")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("ModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Model");
+                });
+
+            modelBuilder.Entity("CleanArchTemplate.Domain.Model", b =>
+                {
+                    b.HasOne("CleanArchTemplate.Domain.Brand", "Brand")
+                        .WithMany("Models")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CleanArchTemplate.Domain.Invoices.VehicleType", "Type")
+                        .WithMany("Models")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brand");
+
+                    b.Navigation("Type");
+                });
+
             modelBuilder.Entity("CleanArchTemplate.Domain.Routes.Route", b =>
                 {
                     b.HasOne("CleanArchTemplate.Domain.Invoices.Vehicle", "Vehicle")
@@ -1092,6 +1216,11 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     b.Navigation("Transactions");
                 });
 
+            modelBuilder.Entity("CleanArchTemplate.Domain.Brand", b =>
+                {
+                    b.Navigation("Models");
+                });
+
             modelBuilder.Entity("CleanArchTemplate.Domain.Contracts.Contract", b =>
                 {
                     b.Navigation("Services");
@@ -1117,6 +1246,16 @@ namespace CleanArchTemplate.Infrastructure.Migrations
             modelBuilder.Entity("CleanArchTemplate.Domain.Invoices.Vehicle", b =>
                 {
                     b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("CleanArchTemplate.Domain.Invoices.VehicleType", b =>
+                {
+                    b.Navigation("Models");
+                });
+
+            modelBuilder.Entity("CleanArchTemplate.Domain.Model", b =>
+                {
+                    b.Navigation("Vehicles");
                 });
 
             modelBuilder.Entity("CleanArchTemplate.Domain.Services.Service", b =>

@@ -43,6 +43,8 @@
     <None Remove="Shared\Layouts\" />
     <None Remove="Authentication\" />
     <None Remove="Pages\Authentication\" />
+    <None Remove="Pages\Vehicle\Type\" />
+    <None Remove="Pages\Vehicle\Type\Components\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Vehicle\" />
@@ -54,6 +56,8 @@
     <Folder Include="Shared\Layouts\" />
     <Folder Include="Authentication\" />
     <Folder Include="Pages\Authentication\" />
+    <Folder Include="Pages\Vehicle\Type\" />
+    <Folder Include="Pages\Vehicle\Type\Components\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Shared\Components\HoneyCombLoader.cshtml" />

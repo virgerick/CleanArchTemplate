@@ -22,10 +22,16 @@
     <None Remove="Mapping\" />
     <None Remove="Drivers\" />
     <None Remove="Services\" />
+    <None Remove="Vehicles\Types\" />
+    <None Remove="Vehicles\Types\Commands\" />
+    <None Remove="Vehicles\Types\Queries\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mapping\" />
     <Folder Include="Drivers\" />
     <Folder Include="Services\" />
+    <Folder Include="Vehicles\Types\" />
+    <Folder Include="Vehicles\Types\Commands\" />
+    <Folder Include="Vehicles\Types\Queries\" />
   </ItemGroup>
 </Project>
