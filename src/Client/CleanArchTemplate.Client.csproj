@@ -45,6 +45,8 @@
     <None Remove="Pages\Authentication\" />
     <None Remove="Pages\Vehicle\Type\" />
     <None Remove="Pages\Vehicle\Type\Components\" />
+    <None Remove="Pages\Vehicle\Brands\" />
+    <None Remove="Pages\Vehicle\Brands\Components\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Vehicle\" />
@@ -58,6 +60,8 @@
     <Folder Include="Pages\Authentication\" />
     <Folder Include="Pages\Vehicle\Type\" />
     <Folder Include="Pages\Vehicle\Type\Components\" />
+    <Folder Include="Pages\Vehicle\Brands\" />
+    <Folder Include="Pages\Vehicle\Brands\Components\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Shared\Components\HoneyCombLoader.cshtml" />

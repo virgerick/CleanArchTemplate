@@ -166,7 +166,7 @@ public class Result<T> : Result, IResult<T>
             onFinally?.Invoke();
         }
     }
-
+    public static implicit operator Result<T>(T data) => Success<T>(data);
 }
 public class Result<TSuccess,TError> 
 where TSuccess : class 

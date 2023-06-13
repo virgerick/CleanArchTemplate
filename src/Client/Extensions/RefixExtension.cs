@@ -11,6 +11,7 @@ public static class RefixExtension
     {
 
         
+        builder.ConfigureRefitClientFor<IBrandApiService>();
         builder.ConfigureRefitClientFor<ITokenApiService>();
         builder.ConfigureRefitClientFor<IVehicleAPIService>();
         builder.ConfigureRefitClientFor<IVehicleTypeAPIService>();
