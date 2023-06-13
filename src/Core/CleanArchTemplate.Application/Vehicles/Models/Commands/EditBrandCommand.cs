@@ -22,13 +22,14 @@ public sealed class EditModelCommandHandler : IRequestHandler<EditModelCommand, 
     {
         var repo = _context.Set<Model>();
         var ModelId = new ModelId(request.Id);
+        var brandId = new BrandId(request.BrandId);
+        var typeId = new VehicleTypeId(request.TypeId);
+        var existed = await repo.AnyAsync(x => x.Id != ModelId && x.Name.ToLower().Contains(request.Name.ToLower()) && x.TypeId == typeId && x.BrandId == brandId && x.Year == request.Year);
+        if (existed) return new Exception($"There is an existing Model with the  name: '{request.Name}'.");
+
         var found = await repo
         .SingleOrDefaultAsync(x=>x.Id == ModelId, cancellationToken);
         if(found is null) return new Exception($"The Model ('{request.Id}') was not found.");
-        var existingPlate =await repo.AnyAsync(x => x.Name == request.Name && x.Id != ModelId);
-        if(existingPlate) return new Exception($"There is an existing Model with the  plateNumber: '{request.Name}'.");
-        var brandId = new BrandId(request.BrandId);
-        var typeId = new VehicleTypeId(request.TypeId);
         bool hasChange = found.Update(request.Name, request.Year, brandId, typeId);
         
         if(hasChange){

@@ -23,12 +23,13 @@ public sealed class CreateModelCommandHandler : IRequestHandler<CreateModelComma
         try
         {
             var repo = _context.Set<Model>();
-            var existed = await repo.AnyAsync(x => x.Name == request.Name);
+            var brandId = new BrandId(request.BrandId);
+            var typeId = new VehicleTypeId(request.TypeId);
+            var existed = await repo.AnyAsync(x => x.Name.ToLower().Contains(request.Name.ToLower())&&x.TypeId==typeId &&x.BrandId==brandId&& x.Year==request.Year);
             if (existed) return new Exception($"There is an existing Model with the  name: '{request.Name}' ");
             Model create = null!;
             List<ValidationFailure> validationErrors = new();
-            var brandId = new BrandId(request.BrandId);
-            var typeId = new VehicleTypeId(request.TypeId);
+           
             create=Model.Create(request.Name,request.Year,brandId,typeId);
             repo.Add(create);
             await _context.SaveChangesAsync(cancellationToken);
