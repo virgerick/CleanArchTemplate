@@ -47,6 +47,7 @@
     <None Remove="Pages\Vehicle\Type\Components\" />
     <None Remove="Pages\Vehicle\Brands\" />
     <None Remove="Pages\Vehicle\Brands\Components\" />
+    <None Remove="Pages\Vehicle\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Vehicle\" />
@@ -62,6 +63,7 @@
     <Folder Include="Pages\Vehicle\Type\Components\" />
     <Folder Include="Pages\Vehicle\Brands\" />
     <Folder Include="Pages\Vehicle\Brands\Components\" />
+    <Folder Include="Pages\Vehicle\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Shared\Components\HoneyCombLoader.cshtml" />

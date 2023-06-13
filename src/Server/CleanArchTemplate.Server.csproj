@@ -58,6 +58,7 @@
     <None Remove="Endpoints\VehicleTypes\" />
     <None Remove="Endpoints\Brands\" />
     <None Remove="Endpoints\Models\" />
+    <None Remove="Endpoints\Models\GetDefault\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Localization\" />
@@ -74,5 +75,6 @@
     <Folder Include="Endpoints\VehicleTypes\" />
     <Folder Include="Endpoints\Brands\" />
     <Folder Include="Endpoints\Models\" />
+    <Folder Include="Endpoints\Models\GetDefault\" />
   </ItemGroup>
 </Project>

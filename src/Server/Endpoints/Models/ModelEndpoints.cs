@@ -2,6 +2,7 @@
 using CleanArchTemplate.Server.Endpoints.Models.Create;
 using CleanArchTemplate.Server.Endpoints.Models.DeleteModel;
 using CleanArchTemplate.Server.Endpoints.Models.EditModel;
+using CleanArchTemplate.Server.Endpoints.Models.GetDefault;
 using CleanArchTemplate.Server.Endpoints.Models.GetModel;
 using CleanArchTemplate.Server.Endpoints.Models.GetModelById;
 
@@ -12,6 +13,7 @@ public class ModelEndpoints : IMapEndpoint
     {
         var group=endpoint.MapGroup("/Model")
             .WithTags("Model");
+        group.MapGetModelDefaultEndpoint();
         group.MapGetModelEndpoint();
         group.MapGetModelByIdEndpoint();
         group.MapCreateModelEndpoint();

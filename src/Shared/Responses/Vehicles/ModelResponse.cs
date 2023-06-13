@@ -22,3 +22,4 @@ public class ModelResponse
     public Guid BrandId { get;  set; }
     public Guid TypeId { get;  set; }
 }
+public record  ModelDefaultResponse(ModelResponse[] Models, BrandResponse[] Brands,IdNameResponse[] VehicleTypes);
