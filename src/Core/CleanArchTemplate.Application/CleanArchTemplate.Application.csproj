@@ -26,6 +26,7 @@
     <None Remove="Vehicles\Types\Commands\" />
     <None Remove="Vehicles\Types\Queries\" />
     <None Remove="Vehicles\Brands\" />
+    <None Remove="Vehicles\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mapping\" />
@@ -35,5 +36,6 @@
     <Folder Include="Vehicles\Types\Commands\" />
     <Folder Include="Vehicles\Types\Queries\" />
     <Folder Include="Vehicles\Brands\" />
+    <Folder Include="Vehicles\Models\" />
   </ItemGroup>
 </Project>

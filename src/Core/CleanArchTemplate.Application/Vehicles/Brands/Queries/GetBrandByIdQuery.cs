@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 
-namespace CleanArchTemplate.Application.Brands.Brands.Queries;
+namespace CleanArchTemplate.Application.Vehicles.Brands.Queries;
 using Response = OneOf<Result<BrandResponse>, Exception>;
 public record struct GetBrandByIdQuery(Guid Id):IRequest<Response>;
 public sealed class GetBrandByIdQueryHandler : IRequestHandler<GetBrandByIdQuery, Response>

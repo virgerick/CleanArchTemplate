@@ -1,9 +1,6 @@
-﻿using System;
-using CleanArchTemplate.Application.Brands.Brands.Queries;
-using CleanArchTemplate.Application.Vehicles.Types.Queries;
-using CleanArchTemplate.Domain;
+﻿
+using CleanArchTemplate.Application.Vehicles.Brands.Queries;
 using CleanArchTemplate.Shared.Extensions;
-using CleanArchTemplate.Shared.Responses;
 using CleanArchTemplate.Shared.Responses.Vehicles;
 using CleanArchTemplate.Shared.Wrapper;
 using MediatR;
