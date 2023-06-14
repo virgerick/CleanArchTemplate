@@ -1,5 +1,6 @@
 ﻿using CleanArchTemplate.Application.Common.Extensions;
 using CleanArchTemplate.Application.Common.Interfaces;
+using CleanArchTemplate.Application.Mapping;
 using CleanArchTemplate.Domain.Invoices;
 using CleanArchTemplate.Shared.Responses.Vehicles;
 using CleanArchTemplate.Shared.Wrapper;
@@ -24,7 +25,7 @@ public sealed class GetDeletedVehicleQueryHandler : IRequestHandler<GetDeletedVe
         {
             return await _context.Set<Vehicle>()
                  .Where(x => x.Deleted)
-                 .Select(x => new VehicleResponse(x.Id.Value, x.PlateNumber, x.Model.Brand.Name, x.Model.Name, x.Model.Type.Name, x.Status,x.Deleted))
+                 .Select(x => x.Map())
                  .ToResultListAsync(cancellationToken);
         }
         catch (Exception ex)

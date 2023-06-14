@@ -13,40 +13,40 @@ Click="@InsertRow" Disabled=@(vehicleToInsert != null || vehicleToUpdate != null
     <Columns>
         <RadzenDataGridColumn TItem="VehicleResponse" Property="PlateNumber" Title="Plate Number" Frozen="true">
             <EditTemplate Context="vehicle">
-                <RadzenTextBox @bind-Value="vehicle.PlateNumber" Style="width:100%; display: block"
-                               Name="PlateNumber" />
+                <RadzenTextBox @bind-Value="vehicle.PlateNumber" Style="width:100%; display: block" Name="PlateNumber" />
                 <RadzenRequiredValidator Text="PlateNumber is required" Component="PlateNumber" Popup="true" />
             </EditTemplate>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="VehicleResponse" Property="Type" Title="Type">
-            <EditTemplate Context="vehicle">
-                <RadzenDropDown Data="Types" @bind-Value="vehicle.Type" Style="width:100%; display: block"
-                                Name="Type" />
-                <RadzenRequiredValidator Text="Type is required" Component="Type" Popup="true" />
+        <RadzenDataGridColumn TItem="VehicleResponse" Property="ModelId" Title="Model" Width="220px">
+            <Template Context="Model">
+                @(Models.SingleOrDefault(x=>x.Id== Model.ModelId)!.Name ?? "")
+            </Template>
+            <EditTemplate Context="Model">
+                <RadzenDropDown @bind-Value="Model.ModelId" Data="@Models" ValueProperty="Id" Style="width:100%; display: block;">
+                    <Template>
+                        @context.Name - @context.Year
+                    </Template>
+                </RadzenDropDown>
             </EditTemplate>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="VehicleResponse" Property="Brand" Title="Brand">
+        <RadzenDataGridColumn TItem="VehicleResponse" Property="Color" Title="Color">
             <EditTemplate Context="vehicle">
-                <RadzenTextBox @bind-Value="vehicle.Brand" Style="width:100%; display: block" Name="Brand" />
-                <RadzenRequiredValidator Text="Brand is required" Component="Brand" Popup="true" />
-            </EditTemplate>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="VehicleResponse" Property="Model" Title="Model">
-            <EditTemplate Context="vehicle">
-                <RadzenTextBox @bind-Value="vehicle.Model" Style="width:100%; display: block" Name="Model" />
-                <RadzenRequiredValidator Text="Model is required" Component="Model" Popup="true" />
+                <RadzenTextBox @bind-Value="vehicle.Color"
+                            Name="Color" />
+                <RadzenRequiredValidator Text="Color is required" Component="Color" Popup="true" />
             </EditTemplate>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="VehicleResponse" Property="Status" Title="Status">
             <EditTemplate Context="vehicle">
-                <RadzenDropDown Data="Status" @bind-Value="vehicle.Status" 
+                <RadzenDropDown Data="Status" @bind-Value="vehicle.Status"
                                 Name="Status" />
                 <RadzenRequiredValidator Text="Status is required" Component="Status" Popup="true" />
             </EditTemplate>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="VehicleResponse" Property="Deleted" Title="Deleted" Filterable="true" FilterProperty="Deleted" >
+
+        <RadzenDataGridColumn TItem="VehicleResponse" Property="Deleted" Title="Deleted" Filterable="true" FilterProperty="Deleted">
             <Template Context="vehicle">
-               @(vehicle.Deleted ? "Yes":"No")
+                @(vehicle.Deleted ? "Yes":"No")
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="VehicleResponse" Context="vehicle" Filterable="false" Sortable="false"
@@ -62,7 +62,6 @@ Click="@InsertRow" Disabled=@(vehicleToInsert != null || vehicleToUpdate != null
                 <RadzenButton ButtonStyle="ButtonStyle.Warning" Icon="restore_from_trash" Variant="Variant.Flat"
                               Shade="Shade.Darker" Size="ButtonSize.Medium" class="my-1 ms-1" Visible="vehicle.Deleted"
                               Click="@(args => ResoreRow(vehicle))">
-                   
                 </RadzenButton>
             </Template>
             <EditTemplate Context="vehicle">
@@ -73,7 +72,7 @@ Click="@InsertRow" Disabled=@(vehicleToInsert != null || vehicleToUpdate != null
                               Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(vehicle))">
                 </RadzenButton>
                 <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Visible="!vehicle.Deleted"
-                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" 
+                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
                               Click="@(args => DeleteRow(vehicle))">
                 </RadzenButton>
                 <RadzenButton ButtonStyle="ButtonStyle.Warning" Icon="restore_from_trash" Variant="Variant.Flat"

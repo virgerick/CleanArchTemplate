@@ -9,7 +9,7 @@ namespace CleanArchTemplate.Server.Endpoints.Models.GetDefault
 {
 	public static class GetDefault
 	{
-        public static IEndpointConventionBuilder MapGetModelDefaultEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/GetDefault", GetModelAsync)
+        public static IEndpointConventionBuilder MapGetModelDefaultEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/Default", GetModelAsync)
        .WithName("GetDefault")
        .WithTags("Model")
        .WithDisplayName("Get Model Default");

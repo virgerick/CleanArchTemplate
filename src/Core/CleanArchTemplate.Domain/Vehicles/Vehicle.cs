@@ -13,9 +13,9 @@ public class Vehicle:AuditableRootEntity<VehicleId>
 {
     public string PlateNumber { get; private set; }
     public ModelId ModelId { get; set; }
-    public Model Model { get; private set; }
     public string Color { get; private set; }
     public VehicleStatus Status { get; private set; }
+    public Model Model { get; private set; }
     public ICollection<Service> Services { get; private set; }
 
     protected Vehicle(){} // Constructor protegido para EF Core

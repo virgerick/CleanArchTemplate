@@ -9,7 +9,7 @@ namespace CleanArchTemplate.Client.Services;
 
 public interface IModelAPIService
 {
-    [Get("/Model/GetDefault")]
+    [Get("/Model/Default")]
     public Task<Result<ModelDefaultResponse>> GetDefaultAsync(CancellationToken cancellationToken=default);
     [Get("/Model/")]
     public Task<ResultList<ModelResponse>> GetAsync(CancellationToken cancellationToken=default);

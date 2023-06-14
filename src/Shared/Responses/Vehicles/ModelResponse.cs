@@ -6,7 +6,6 @@ public class ModelResponse
     {
 
     }
-
     public ModelResponse(Guid id, string name, int year, Guid brandId, Guid typeId)
     {
         Id = id;

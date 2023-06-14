@@ -1,5 +1,6 @@
 using CleanArchTemplate.Application.Common.Extensions;
 using CleanArchTemplate.Application.Common.Interfaces;
+using CleanArchTemplate.Application.Mapping;
 using CleanArchTemplate.Domain;
 using CleanArchTemplate.Domain.Invoices;
 using CleanArchTemplate.Shared.Responses;
@@ -23,7 +24,7 @@ public sealed class GetModelQueryHandler : IRequestHandler<GetModelQuery, Respon
         try
         {
            return await _context.Set<Model>()
-                .Select(x => new ModelResponse(x.Id.Value, x.Name, x.Year, x.BrandId.Value, x.TypeId.Value))
+                .Select(x => x.Map())
                 .ToResultListAsync(cancellationToken);
         }
         catch (Exception ex)

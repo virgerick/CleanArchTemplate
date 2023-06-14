@@ -10,6 +10,8 @@ public interface IVehicleAPIService
 {
     [Get("/Vehicle/")]
     public Task<ResultList<VehicleResponse>> GetAsync(CancellationToken cancellationToken=default);
+    [Get("/Vehicle/Default")]
+    public Task<Result<VehicleDefaultResponse>> GetDefaultAsync(CancellationToken cancellationToken=default);
     [Get("/Vehicle/{Id}")]
     public Task<Result<VehicleResponse>> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default);
     [Post("/Vehicle/")]

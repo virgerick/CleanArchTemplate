@@ -15,6 +15,7 @@ public class VehicleEndpoints : IMapEndpoint
         var group=endpoint.MapGroup("/Vehicle")
             .WithTags("Vehicle");
         group.MapGetVehicleEndpoint();
+        group.MapGetVehicleDefaultEndpoint();
         group.MapGetDeletedVehicleEndpoint();
         group.MapGetVehicleByIdEndpoint();
         group.MapCreateVehicleEndpoint();

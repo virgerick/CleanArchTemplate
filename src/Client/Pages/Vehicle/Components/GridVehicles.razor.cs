@@ -12,12 +12,7 @@ public partial class GridVehicles
 {
     RadzenDataGrid<VehicleResponse> vehiclesGrid = null!;
     IEnumerable<VehicleResponse> vehicles = null!;
-    List<string> Types = new()
-    {
-        "Car",
-        "Truck",
-        "Bus"
-    };
+    IEnumerable<ModelResponse> Models =null!;
     List<string> Status = new()
     {
         "Available",
@@ -36,17 +31,18 @@ public partial class GridVehicles
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await GetVehiclesAsync();
+        await GetDefaultVehiclesAsync();
     }
 
-    async Task GetVehiclesAsync()
+    async Task GetDefaultVehiclesAsync()
     {
         LoadingService.Show();
         try
         {
-            var result = await VehicleApiService.GetAsync();
+            var result = await VehicleApiService.GetDefaultAsync();
             result.ThrowIfNotSucceded();
-            vehicles = result.Items.AsQueryable();
+            vehicles = result.Data.Vehicles.AsQueryable();
+            Models = result.Data.Models.AsQueryable();
         }
         catch (Exception ex)
         {
@@ -74,10 +70,10 @@ public partial class GridVehicles
                 vehicleToInsert = null!;
             }
             vehicleToUpdate = null!;
-            var result = await VehicleApiService.EditAsync(vehicle.Id,new());//Todo:Passing right parameter
+            var result = await VehicleApiService.EditAsync(vehicle.Id,new(vehicle.PlateNumber,vehicle.ModelId,vehicle.Color));
             result.ThrowIfNotSucceded();
             
-            await GetVehiclesAsync();
+            await GetDefaultVehiclesAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Vehicle updated successfully" });
         }
         catch (Exception ex)
@@ -140,9 +136,9 @@ public partial class GridVehicles
         {
             LoadingService.Show();
             vehicleToInsert = null!;
-            var result = await VehicleApiService.CreateAsync(new());//Todo:Passing parameters to constructor
+            var result = await VehicleApiService.CreateAsync(new(vehicle.PlateNumber, vehicle.ModelId, vehicle.Color));
             result.ThrowIfNotSucceded();
-            await GetVehiclesAsync();
+            await GetDefaultVehiclesAsync();
            
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Vehicle created successfully" });
         }
@@ -163,7 +159,7 @@ public partial class GridVehicles
             vehicleToInsert = null!;
             var result = await VehicleApiService.DeleteAsync(vehicle.Id);
             result.ThrowIfNotSucceded();
-            await GetVehiclesAsync();
+            await GetDefaultVehiclesAsync();
            
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Vehicle deleted successfully" });
         }
@@ -186,7 +182,7 @@ public partial class GridVehicles
             vehicleToInsert = null!;
             var result = await VehicleApiService.RestoreAsync(vehicle.Id);
             result.ThrowIfNotSucceded();
-            await GetVehiclesAsync();
+            await GetDefaultVehiclesAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Vehicle restored successfully" });
         }
         catch (Exception ex)
