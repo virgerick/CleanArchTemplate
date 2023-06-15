@@ -21,9 +21,9 @@ public class VehicleResponse
 
     public Guid Id { get; set; }
     public string PlateNumber { get; set; }
-    public string Color { get; set; } = "";
+    public string? Color { get; set; } 
     public string Status { get; set; }
-    public Guid ModelId { get; set; }
+    public Guid? ModelId { get; set; }
     public string Model { get; set; }
     public string Brand { get; set; }
     public int? Year { get; set; }

@@ -70,7 +70,7 @@ public partial class GridVehicles
                 vehicleToInsert = null!;
             }
             vehicleToUpdate = null!;
-            var result = await VehicleApiService.EditAsync(vehicle.Id,new(vehicle.PlateNumber,vehicle.ModelId,vehicle.Color));
+            var result = await VehicleApiService.EditAsync(vehicle.Id,new(vehicle.PlateNumber,vehicle.ModelId!.Value,vehicle.Color!));
             result.ThrowIfNotSucceded();
             
             await GetDefaultVehiclesAsync();
@@ -136,7 +136,7 @@ public partial class GridVehicles
         {
             LoadingService.Show();
             vehicleToInsert = null!;
-            var result = await VehicleApiService.CreateAsync(new(vehicle.PlateNumber, vehicle.ModelId, vehicle.Color));
+            var result = await VehicleApiService.CreateAsync(new(vehicle.PlateNumber, vehicle.ModelId!.Value, vehicle.Color!));
             result.ThrowIfNotSucceded();
             await GetDefaultVehiclesAsync();
            

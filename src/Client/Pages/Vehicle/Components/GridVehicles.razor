@@ -11,42 +11,51 @@ Click="@InsertRow" Disabled=@(vehicleToInsert != null || vehicleToUpdate != null
         <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
     </EmptyTemplate>
     <Columns>
-        <RadzenDataGridColumn TItem="VehicleResponse" Property="PlateNumber" Title="Plate Number" Frozen="true">
+        <RadzenDataGridColumn TItem="VehicleResponse" Property="PlateNumber" Title="Plate Number" >
             <EditTemplate Context="vehicle">
                 <RadzenTextBox @bind-Value="vehicle.PlateNumber" Style="width:100%; display: block" Name="PlateNumber" />
-                <RadzenRequiredValidator Text="PlateNumber is required" Component="PlateNumber" Popup="true" />
+                <RadzenRequiredValidator Text="Plate number is required" Component="PlateNumber" Popup="true" />
             </EditTemplate>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="VehicleResponse" Property="ModelId" Title="Model" Width="220px">
             <Template Context="Model">
-                @(Models.SingleOrDefault(x=>x.Id== Model.ModelId)!.Name ?? "")
+                <RadzenLabel>
+                @(Models.SingleOrDefault(x => x.Id == Model.ModelId)!.Name ?? "") -@(Models.SingleOrDefault(x => x.Id == Model.ModelId)!.Year.ToString() ?? "")
+
+                </RadzenLabel>
             </Template>
             <EditTemplate Context="Model">
-                <RadzenDropDown @bind-Value="Model.ModelId" Data="@Models" ValueProperty="Id" Style="width:100%; display: block;">
+                <RadzenDropDown @bind-Value="Model.ModelId" Data="@Models"
+                                ValueProperty="Id"  Style="width:100%; display: block;" Name="ModelId">
                     <Template>
                         @context.Name - @context.Year
                     </Template>
                 </RadzenDropDown>
+                <RadzenRequiredValidator Text="Model is required" Component="ModelId" Popup="true"/>
             </EditTemplate>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="VehicleResponse" Property="Color" Title="Color">
             <EditTemplate Context="vehicle">
-                <RadzenTextBox @bind-Value="vehicle.Color"
-                            Name="Color" />
+                <RadzenTextBox @bind-Value="vehicle.Color"  Style="width:100%; display: block;"
+                            Name="Color">
+
+                </RadzenTextBox>
                 <RadzenRequiredValidator Text="Color is required" Component="Color" Popup="true" />
             </EditTemplate>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="VehicleResponse" Property="Status" Title="Status">
             <EditTemplate Context="vehicle">
-                <RadzenDropDown Data="Status" @bind-Value="vehicle.Status"
-                                Name="Status" />
+                <RadzenDropDown Data="Status" @bind-Value="vehicle.Status"  Style="width:100%; display: block;"
+                                Name="Status">
+
+                </RadzenDropDown>
                 <RadzenRequiredValidator Text="Status is required" Component="Status" Popup="true" />
             </EditTemplate>
         </RadzenDataGridColumn>
 
-        <RadzenDataGridColumn TItem="VehicleResponse" Property="Deleted" Title="Deleted" Filterable="true" FilterProperty="Deleted">
+        <RadzenDataGridColumn TItem="VehicleResponse" Property="Deleted" Title="Available" Filterable="true" FilterProperty="Deleted">
             <Template Context="vehicle">
-                @(vehicle.Deleted ? "Yes":"No")
+                <RadzenIcon Icon="@(vehicle.Deleted?"clear":"check_circle")" IconStyle="@(vehicle.Deleted?IconStyle.Danger:IconStyle.Success)" />
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="VehicleResponse" Context="vehicle" Filterable="false" Sortable="false"
