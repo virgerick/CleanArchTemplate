@@ -3,13 +3,15 @@ using Radzen;
 
 namespace CleanArchTemplate.Client.Services;
 
-public class ProccessExcecutorService {
+public class ProcessExecutorService {
+    private readonly ILogger<ProcessExecutorService> _logger;
     private readonly LoadingService _loadingService;
     private readonly DialogService _dialogService;
     private readonly NotificationService _notificationService;
-    public ProccessExcecutorService(LoadingService loadingService,DialogService dialogService,NotificationService notificationService)
+    public ProcessExecutorService(ILogger<ProcessExecutorService> logger,LoadingService loadingService,DialogService dialogService,NotificationService notificationService)
     {
-       _loadingService = loadingService;
+        this._logger = logger;
+        _loadingService = loadingService;
        _dialogService = dialogService;
        _notificationService = notificationService;
     }
@@ -31,6 +33,7 @@ public class ProccessExcecutorService {
         }
     }
     private void HandlerException(Exception exception, Action<Exception>? onCatch) {
+        _logger.LogError(exception.Message);
         _notificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error,
             Detail = exception.Message });
         onCatch?.Invoke(exception);

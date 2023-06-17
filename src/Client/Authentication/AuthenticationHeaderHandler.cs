@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components.Authorization;
 using Blazored.LocalStorage;
+using CleanArchTemplate.Client.Services.LocalStorages;
 
 namespace CleanArchTemplate.Client.Authentication;
 
@@ -13,7 +14,7 @@ public class AuthenticationHeaderHandler : DelegatingHandler
 {
     private readonly ILocalStorageService localStorage;
 
-    public AuthenticationHeaderHandler(ILocalStorageService localStorage)
+    public AuthenticationHeaderHandler(IEncrytedLocalStorageService localStorage)
         => this.localStorage = localStorage;
 
     protected override async Task<HttpResponseMessage> SendAsync(
@@ -40,7 +41,7 @@ public class BlazorStateProvider : AuthenticationStateProvider
     public ClaimsPrincipal AuthenticationStateUser { get; set; } = new ClaimsPrincipal(new ClaimsIdentity());
     public BlazorStateProvider(
         HttpClient httpClient,
-        ILocalStorageService localStorage)
+        IEncrytedLocalStorageService localStorage)
     {
         _httpClient = httpClient;
         _localStorage = localStorage;

@@ -21,8 +21,13 @@
         <div class="rz-p-4">
             @Body
         </div>
+     
     </RadzenBody>
     <RadzenFooter>
+        @if (MainState.UserLogged != null)
+        {
+           <label>@MainState.UserLogged.RefreshTokenExpiryTime</label>
+        }
     </RadzenFooter>
 </RadzenLayout>
 @code {

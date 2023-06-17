@@ -48,6 +48,9 @@
     <None Remove="Pages\Vehicle\Brands\" />
     <None Remove="Pages\Vehicle\Brands\Components\" />
     <None Remove="Pages\Vehicle\Models\" />
+    <None Remove="Storages\" />
+    <None Remove="Services\LocalStorages\" />
+    <None Remove="Services\Crypto\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Vehicle\" />
@@ -64,9 +67,14 @@
     <Folder Include="Pages\Vehicle\Brands\" />
     <Folder Include="Pages\Vehicle\Brands\Components\" />
     <Folder Include="Pages\Vehicle\Models\" />
+    <Folder Include="Storages\" />
+    <Folder Include="Services\LocalStorages\" />
+    <Folder Include="wwwroot\scripts\" />
+    <Folder Include="Services\Crypto\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Shared\Components\HoneyCombLoader.cshtml" />
+    <Content Remove="wwwroot\scripts\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Shared\Components\ClockLoader.razor.css">

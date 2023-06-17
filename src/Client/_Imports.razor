@@ -14,6 +14,7 @@
 @using CleanArchTemplate.Client.Shared
 @using CleanArchTemplate.Client.Shared.Layouts
 @using CleanArchTemplate.Client.Shared.Components
+@using CleanArchTemplate.Client.Storages
 @using CleanArchTemplate.Client.Services
 @using CleanArchTemplate.Shared.Enums;
 @using CleanArchTemplate.Shared.Wrapper;
@@ -31,9 +32,10 @@
 @inject NotificationService NotificationService
 @inject ContextMenuService ContextMenuService
 @inject LoadingService LoadingService
-@inject ProccessExcecutorService Excecutor
+@inject ProcessExecutorService Excecutor
 
 @inject IAuthenticationManager AuthenticationManager
 @inject NavigationManager _navigationManager
 @inject BlazorStateProvider _stateProvider
-@inject IAuthorizationService _authorizationService 
+@inject IAuthorizationService _authorizationService
+@inject MainStorage MainState

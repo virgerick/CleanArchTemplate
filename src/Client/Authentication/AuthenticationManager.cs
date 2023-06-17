@@ -5,6 +5,7 @@ using CleanArchTemplate.Shared.Constants.Storage;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
 using Blazored.LocalStorage;
+using CleanArchTemplate.Client.Services.LocalStorages;
 
 namespace CleanArchTemplate.Client.Authentication;
 
@@ -17,7 +18,7 @@ public class AuthenticationManager : IAuthenticationManager
 
     public AuthenticationManager(
        ITokenApiService tokenApiService,
-        ILocalStorageService localStorage,
+        IEncrytedLocalStorageService localStorage,
         AuthenticationStateProvider authenticationStateProvider,
         IStringLocalizer<AuthenticationManager> localizer)
     {

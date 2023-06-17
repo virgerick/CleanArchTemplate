@@ -1,11 +1,14 @@
 ﻿using System.Reflection;
 using Blazored.LocalStorage;
 using CleanArchTemplate.Client.Authentication;
+using CleanArchTemplate.Client.Services.Crypto;
+using CleanArchTemplate.Client.Services.LocalStorages;
+using CleanArchTemplate.Client.Storages;
 using CleanArchTemplate.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace CleanArchTemplate.Client.Extensions;
 
@@ -25,7 +28,11 @@ public static class ServiceProviderExtentions
             //.AddScoped<ClientPreferenceManager>()
             .AddScoped<BlazorStateProvider>()
             .AddScoped<IAuthenticationManager, AuthenticationManager>()
-            .AddScoped<AuthenticationStateProvider, BlazorStateProvider>();
+            .AddScoped<AuthenticationStateProvider, BlazorStateProvider>()
+            .AddSubtleCrypto(opt =>
+            opt.Key = "FwCvfdOhoJm5sB/XBMCoM05CM4J/3VC8P0PROIgFNJ/+mPJfzv0ivfMG2a156sd14@#@#$@>NJKBiknqwhodmnMKLNDjklanojHifUlhdXkdsljf")
+            .AddScoped<IEncrytedLocalStorageService, EncrytedLocalStorageService>()
+            .AddScoped<MainStorage>();
 
         return builder;
     }
