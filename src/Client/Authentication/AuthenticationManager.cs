@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
 using Blazored.LocalStorage;
 using CleanArchTemplate.Client.Services.LocalStorages;
+using CleanArchTemplate.Shared.Extensions;
 
 namespace CleanArchTemplate.Client.Authentication;
 
@@ -45,6 +46,7 @@ public class AuthenticationManager : IAuthenticationManager
         var token = result.Data.Token;
         var refreshToken = result.Data.RefreshToken;
         var userImageURL = result.Data.UserImageURL;
+        await _localStorage.SetItemAsync(StorageConstants.Local.LoggedUserData, result.Data);
         await _localStorage.SetItemAsync(StorageConstants.Local.AuthToken, token);
         await _localStorage.SetItemAsync(StorageConstants.Local.RefreshToken, refreshToken);
         if (!string.IsNullOrEmpty(userImageURL))
@@ -60,9 +62,9 @@ public class AuthenticationManager : IAuthenticationManager
 
     public async Task<IResult> Logout()
     {
-        await _localStorage.RemoveItemAsync(StorageConstants.Local.AuthToken);
-        await _localStorage.RemoveItemAsync(StorageConstants.Local.RefreshToken);
-        await _localStorage.RemoveItemAsync(StorageConstants.Local.UserImageURL);
+        var keysToRemove = StorageConstants.Local.Keys;
+        Console.WriteLine(keysToRemove.ToJsonSerialize());
+        await _localStorage.RemoveItemsAsync(StorageConstants.Local.Keys);
         ((BlazorStateProvider)_authenticationStateProvider).MarkUserAsLoggedOut();
         return await Result.SuccessAsync();
     }
