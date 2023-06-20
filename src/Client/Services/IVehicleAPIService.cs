@@ -27,4 +27,3 @@ public interface IVehicleAPIService
     [Patch("/Vehicle/Maintenance/{Id}")]
     public Task<Result<Guid>> MaintenanceAsync(Guid Id, CancellationToken cancellationToken = default);
 }
-

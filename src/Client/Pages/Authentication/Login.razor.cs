@@ -52,7 +52,7 @@ public partial class Login
         {
             var request = new TokenRequest { Email = args.Username, Password = args.Password };
             var result = await AuthenticationManager.Login(request);
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             _navigationManager.NavigateToBackward();
 
 

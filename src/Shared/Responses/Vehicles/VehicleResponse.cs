@@ -28,6 +28,7 @@ public class VehicleResponse
     public string Brand { get; set; }
     public int? Year { get; set; }
     public bool Deleted { get; set; }
+    public string Display => $"({PlateNumber}) - {Brand} {Model} {Year} {Color}";
 
 }
 public record  VehicleDefaultResponse(VehicleResponse[] Vehicles, ModelResponse[] Models);

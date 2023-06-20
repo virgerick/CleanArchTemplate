@@ -1,0 +1,110 @@
+<RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Add New Route"
+    Click="@InsertRow" Disabled=@(RouteToInsert != null || RouteToUpdate != null) />
+
+<datalist id="places">
+    @foreach (var place in Places)
+    {
+        <option value="@place"/>
+    }
+</datalist>
+<RadzenDataGrid @ref="RoutesGrid" AllowAlternatingRows="true" AllowFiltering="true" AllowPaging="true" PageSize="5"
+    AllowSorting="true" EditMode="DataGridEditMode.Single" Responsive="true" Data="@Routes" TItem="RouteResponse"
+    RowUpdate="@OnUpdateRow" RowCreate="@OnCreateRow" Sort="@Reset" Page="@Reset" Filter="@Reset" ColumnWidth="200px">
+    <EmptyTemplate>
+        <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
+    </EmptyTemplate>
+    <Columns>
+        <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="true" Sortable="true" Title="Origin">
+            <Template Context="Route">
+                <RadzenText Text="@Route.Origin" />
+            </Template>
+            <EditTemplate Context="Route">
+                <RadzenAutoComplete @bind-Value=@Route.Origin Data=@Places Style="width: 100%" Name="Origin" />
+                <RadzenRequiredValidator Text="Origin is required" Component="Origin" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="true" Sortable="true" Title="Destination">
+            <Template Context="Route">
+                <RadzenText Text="@Route.Destination" />
+            </Template>
+            <EditTemplate Context="Route">
+                <RadzenAutoComplete @bind-Value=@Route.Destination Data=@Places  Name="Destination" />
+                <RadzenRequiredValidator Text="Origin is required" Component="Destination" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="false" Sortable="false"
+                              TextAlign="TextAlign.Center" Title="Amout" >
+            <Template Context="Route">
+                <RadzenText Text="@Route.Amount.ToString()" />
+            </Template>
+            <EditTemplate Context="Route">
+                <RadzenNumeric @bind-Value=@Route.Amount TextProperty="Amount" Name="Amount" />
+                <RadzenRequiredValidator Text="Origin is required" Component="Amount" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="RouteResponse" Property="VehicleId" Title="Vehicle" TextAlign="TextAlign.Center">
+            <Template Context="Route" >
+                <RadzenLabel>
+                    @(Vehicles.SingleOrDefault(x => x.Id == Route.VehicleId)!.Display ?? "") 
+                </RadzenLabel>
+            </Template>
+            <EditTemplate Context="Route">
+                <RadzenDropDown @bind-Value="Route.VehicleId" Data="@Vehicles"
+                                ValueProperty="Id" Style="width:100%; display: block;" Name="VehicleId">
+                    <Template>
+                        @context.Display
+                    </Template>
+                </RadzenDropDown>
+                <RadzenRequiredValidator Text="Vehicle is required" Component="VehicleId" Popup="true" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="false" Sortable="false"
+                              TextAlign="TextAlign.Right" Title="Distance">
+            <Template Context="Route">
+                <RadzenText Text="@Route.Distance.ToString()" />
+            </Template>
+            <EditTemplate Context="Route">
+                <RadzenNumeric @bind-Value=@Route.Distance TextProperty="Distance" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="false" Sortable="false"
+                              TextAlign="TextAlign.Center" Title="Estimated Time">
+            <Template Context="Route">
+                <RadzenText Text="@Route.EstimatedTime.ToString()" />
+            </Template>
+            <EditTemplate Context="Route">
+                <RadzenNumeric @bind-Value=@Route.EstimatedTime TextProperty="EstimatedTime" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="false" Sortable="false"
+                              TextAlign="TextAlign.Center" Width="156px">
+            <Template Context="Route">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" Click="@(args => EditRow(Route))" @onclick:stopPropagation="true">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat"
+                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRow(Route))"
+                              @onclick:stopPropagation="true">
+                </RadzenButton>
+
+            </Template>
+            <EditTemplate Context="Route">
+                <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" Click="@((args) => SaveRow(Route))">
+                </RadzenButton>
+                <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(Route))">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat"
+                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
+                              Click="@(args => DeleteRow(Route))">
+                </RadzenButton>
+
+            </EditTemplate>
+        </RadzenDataGridColumn>
+
+    </Columns>
+
+</RadzenDataGrid>
+
+

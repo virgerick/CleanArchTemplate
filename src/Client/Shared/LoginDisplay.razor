@@ -3,23 +3,25 @@
 @using System
 @inject NavigationManager Navigation
 
-<RadzenStack Orientation="Orientation.Horizontal"  JustifyContent="JustifyContent.End" AlignItems="AlignItems.Center">
+<RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" AlignItems="AlignItems.Center">
     <AuthorizeView>
         <Authorized>
-           @context.User.GetLastName() @context.User.GetFirstName()!
-           
+            @context.User.GetLastName() @context.User.GetFirstName()!
+
             <RadzenProfileMenu>
                 <Template>
                     <RadzenStack>
                         <RadzenGravatar Email="@context.User.GetEmail()">
                         </RadzenGravatar>
-                         @*<UserAvatar />*@
+                        @*<UserAvatar />*@
                     </RadzenStack>
                 </Template>
                 <ChildContent>
-                    <RadzenProfileMenuItem Text="Notification" Path="notification" Icon="announcement"></RadzenProfileMenuItem>
+                    <RadzenProfileMenuItem Text="Notification" Path="notification" Icon="announcement">
+                    </RadzenProfileMenuItem>
                     <RadzenProfileMenuItem Text="Account" Path="account" Icon="account_circle"></RadzenProfileMenuItem>
-                    <RadzenProfileMenuItem Text="Log out" Path="authentication/logout" Icon="logout"></RadzenProfileMenuItem>
+                    <RadzenProfileMenuItem Text="Log out" Path="authentication/logout" Icon="logout">
+                    </RadzenProfileMenuItem>
                 </ChildContent>
             </RadzenProfileMenu>
         </Authorized>
@@ -30,13 +32,13 @@
 
 </RadzenStack>
 
-@code{
+@code {
     private async Task Logout()
     {
         await Excecutor.Run(async () =>
         {
             var result = await AuthenticationManager.Logout();
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
         });
     }
 }

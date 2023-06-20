@@ -29,7 +29,7 @@ public interface IResultList<T> : IResult
 
 public static class ResultExtension
 {
-    public static void ThrowIfNotSucceded(this IResult result)
+    public static void ThrowIfNotSucceeded(this IResult result)
     {
         if (!result.Succeeded)
         {

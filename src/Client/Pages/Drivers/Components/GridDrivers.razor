@@ -87,7 +87,7 @@
         await Excecutor.Run(async () =>
         {
             var result = await DriverApiService.GetAsync();
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             drivers = result.Items.AsQueryable();
         });
     }
@@ -109,7 +109,7 @@
             }
             DriverToUpdate = null!;
             var result = await DriverApiService.EditAsync(Driver.Id, Driver.Map());
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetDriversAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver updated successfully" });
         });
@@ -166,7 +166,7 @@
         {
             DriverToInsert = null!;
             var result = await DriverApiService.CreateAsync(Driver.Map());
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetDriversAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver created successfully" });
         });
@@ -178,7 +178,7 @@
 
             DriverToInsert = null!;
             var result = await DriverApiService.DeleteAsync(Driver.Id);
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetDriversAsync();
 
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver deleted successfully" });
@@ -195,7 +195,7 @@
         {
             DriverToInsert = null!;
             var result = await DriverApiService.RestoreAsync(Driver.Id);
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetDriversAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Driver restored successfully" });
         });

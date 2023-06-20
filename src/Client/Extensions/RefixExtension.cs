@@ -16,6 +16,7 @@ public static class RefixExtension
         builder.ConfigureRefitClientFor<IDriverAPIService>();
         builder.ConfigureRefitClientFor<IModelAPIService>();
         builder.ConfigureRefitClientFor<ITokenApiService>();
+        builder.ConfigureRefitClientFor<IRouteAPIService>();
         builder.ConfigureRefitClientFor<IVehicleAPIService>();
         builder.ConfigureRefitClientFor<IVehicleTypeAPIService>();
         //you could add Polly here to handle HTTP 429 / HTTP 503 etc

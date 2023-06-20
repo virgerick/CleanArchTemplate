@@ -117,7 +117,7 @@
         try
         {
             var result = await CustomerApiService.GetAsync();
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             customers = result.Items.AsQueryable();
         }
         catch (Exception ex)
@@ -149,7 +149,7 @@
             customerToUpdate = null!;
 
             var result = await CustomerApiService.EditAsync(customer.Id,customer.Map());
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
 
             await GetCustomersAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Customer updated successfully" });
@@ -217,7 +217,7 @@
             LoadingService.Show();
             customerToInsert = null!;
             var result = await CustomerApiService.CreateAsync(customer.Map());
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetCustomersAsync();
 
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Customer created successfully" });
@@ -239,7 +239,7 @@
             LoadingService.Show();
             customerToInsert = null!;
             var result = await CustomerApiService.DeleteAsync(customer.Id);
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetCustomersAsync();
 
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Customer deleted successfully" });
@@ -263,7 +263,7 @@
             LoadingService.Show();
             customerToInsert = null!;
             var result = await CustomerApiService.RestoreAsync(customer.Id);
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetCustomersAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Customer restored successfully" });
         }

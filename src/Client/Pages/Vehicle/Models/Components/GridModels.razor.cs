@@ -55,7 +55,7 @@ public partial class GridModels
         await Excecutor.Run(async () =>
         {
             var result = await ModelApiService.GetDefaultAsync();
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             Models = result.Data.Models.AsQueryable();
             Brands = result.Data.Brands.AsQueryable();
             VehicleTypes = result.Data.VehicleTypes.AsQueryable();
@@ -81,7 +81,7 @@ public partial class GridModels
             ModelToUpdate = null !;
             var result = await ModelApiService.EditAsync(Model.Id, new(Model.Name, Model.Year,Model.BrandId,Model.TypeId));
             //Todo:Passing right parameter
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetModelDefaultAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Model updated successfully" });
         });
@@ -140,7 +140,7 @@ public partial class GridModels
             ModelToInsert = null !;
             var result = await ModelApiService.CreateAsync(new(Model.Name, Model.Year, Model.BrandId, Model.TypeId));
             //Todo:Passing parameters to constructor
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetModelDefaultAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Model created successfully" });
         });
@@ -152,7 +152,7 @@ public partial class GridModels
         {
             ModelToInsert = null !;
             var result = await ModelApiService.DeleteAsync(Model.Id);
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetModelDefaultAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Model deleted successfully" });
         });

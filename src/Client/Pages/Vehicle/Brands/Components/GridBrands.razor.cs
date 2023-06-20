@@ -52,7 +52,7 @@ public partial class GridBrands
         await Excecutor.Run(async () =>
         {
             var result = await BrandApiService.GetAsync();
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             brands = result.Items.AsQueryable();
         });
     }
@@ -76,7 +76,7 @@ public partial class GridBrands
             brandToUpdate = null !;
             var result = await BrandApiService.EditAsync(brand.Id, new(brand.Name, brand.Logo));
             //Todo:Passing right parameter
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetBrandsAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "brand updated successfully" });
         });
@@ -135,7 +135,7 @@ public partial class GridBrands
             brandToInsert = null !;
             var result = await BrandApiService.CreateAsync(new(brand.Name,brand.Logo!));
             //Todo:Passing parameters to constructor
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetBrandsAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "brand created successfully" });
         });
@@ -147,7 +147,7 @@ public partial class GridBrands
         {
             brandToInsert = null !;
             var result = await BrandApiService.DeleteAsync(brand.Id);
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetBrandsAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "brand deleted successfully" });
         });

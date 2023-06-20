@@ -31,7 +31,7 @@ public partial class GridVehicleTypes : ComponentBase
         await Excecutor.Run(async () =>
         {
             var result = await VehicleTypeApiService.GetAsync();
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             vehicleTypes = result.Items.AsQueryable();
         });
     }
@@ -53,7 +53,7 @@ public partial class GridVehicleTypes : ComponentBase
             }
             vehicleTypeToUpdate = null!;
             var result = await VehicleTypeApiService.EditAsync(vehicle.Id,new(vehicle.Name));//Todo:Passing right parameter
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             
             await GetVehicleTypesAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Vehicle updated successfully" });
@@ -112,7 +112,7 @@ public partial class GridVehicleTypes : ComponentBase
             LoadingService.Show();
             vehicleTypeToInsert = null!;
             var result = await VehicleTypeApiService.CreateAsync(new(vehicle.Name));//Todo:Passing parameters to constructor
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetVehicleTypesAsync();
 
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Vehicle created successfully" });
@@ -124,7 +124,7 @@ public partial class GridVehicleTypes : ComponentBase
         {
             vehicleTypeToInsert = null!;
             var result = await VehicleTypeApiService.DeleteAsync(vehicle.Id);
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetVehicleTypesAsync();
 
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Vehicle deleted successfully" });

@@ -25,9 +25,11 @@ public sealed class GetRouteDefaultQueryHandler : IRequestHandler<GetRouteDefaul
         try
         {
             var Routes= await _context.Set<Route>()
+              
                  .Select(x => x.Map())
                  .ToListAsync(cancellationToken);
             var vehicles= await _context.Set<Vehicle>()
+                 .Include(v=>v.Model).ThenInclude(m=>m.Brand)
                  .Select(x => x.Map())
                  .ToListAsync(cancellationToken);
                  var places = Routes.Select(x => x.Origin).Union(Routes.Select(x => x.Destination)).Distinct();

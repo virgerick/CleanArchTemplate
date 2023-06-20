@@ -40,7 +40,7 @@ public partial class GridVehicles
         try
         {
             var result = await VehicleApiService.GetDefaultAsync();
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             vehicles = result.Data.Vehicles.AsQueryable();
             Models = result.Data.Models.AsQueryable();
         }
@@ -71,7 +71,7 @@ public partial class GridVehicles
             }
             vehicleToUpdate = null!;
             var result = await VehicleApiService.EditAsync(vehicle.Id,new(vehicle.PlateNumber,vehicle.ModelId!.Value,vehicle.Color!));
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             
             await GetDefaultVehiclesAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Vehicle updated successfully" });
@@ -137,7 +137,7 @@ public partial class GridVehicles
             LoadingService.Show();
             vehicleToInsert = null!;
             var result = await VehicleApiService.CreateAsync(new(vehicle.PlateNumber, vehicle.ModelId!.Value, vehicle.Color!));
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetDefaultVehiclesAsync();
            
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Vehicle created successfully" });
@@ -158,7 +158,7 @@ public partial class GridVehicles
             LoadingService.Show();
             vehicleToInsert = null!;
             var result = await VehicleApiService.DeleteAsync(vehicle.Id);
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetDefaultVehiclesAsync();
            
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Vehicle deleted successfully" });
@@ -181,7 +181,7 @@ public partial class GridVehicles
             LoadingService.Show();
             vehicleToInsert = null!;
             var result = await VehicleApiService.RestoreAsync(vehicle.Id);
-            result.ThrowIfNotSucceded();
+            result.ThrowIfNotSucceeded();
             await GetDefaultVehiclesAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Vehicle restored successfully" });
         }
