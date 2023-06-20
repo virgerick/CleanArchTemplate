@@ -1,6 +1,6 @@
 using CleanArchTemplate.Application.Common.Interfaces;
 using CleanArchTemplate.Shared.Wrapper;
-
+using Microsoft.EntityFrameworkCore;
 using MediatR;
 using OneOf;
 using CleanArchTemplate.Domain.Services;
@@ -21,16 +21,15 @@ public sealed class DeleteServiceCommandHandler : IRequestHandler<DeleteServiceC
         {
             var id = new ServiceId(request.Id);
             var repo = _context.Set<Service>();
-            var found = await repo.FindAsync(id, cancellationToken);
+            var found = await repo.SingleOrDefaultAsync(x=>x.Id==id,cancellationToken);
             if (found is null) return new Exception($"Service '({request.Id})' not found.");
-            //if (found.Deleted) return new Exception($"Service ({request.Id}) is alrady deleted.");
+            if (found.Deleted) return new Exception($"Service ({request.Id}) is already deleted.");
             repo.Remove(found);
             await _context.SaveChangesAsync(cancellationToken);
             return Result.Success();
         }
         catch(Exception ex)
         {
-            
             return ex;
         }
     }

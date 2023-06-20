@@ -28,7 +28,7 @@ public sealed class CreateServiceCommandHandler : IRequestHandler<CreateServiceC
             var repo = _context.Set<Service>();
             if (repo.Any(x => x.Name == request.Name))
                 return new Exception($"There is an existing Service named: '{request.Name}' ");
-            Service create = null;
+            Service create = null!;
             RouteId routeId = request.RouteId!=default? new RouteId(request.RouteId): new();
             Service.Create(request.Name,request.Amount,request.Date, routeId)
                 .Switch(
@@ -36,9 +36,9 @@ public sealed class CreateServiceCommandHandler : IRequestHandler<CreateServiceC
                 error=> throw error
                 );
 
-            repo.Add(create);
+            repo.Add(create!);
             await _context.SaveChangesAsync(cancellationToken);
-            return create.Id.Value;
+            return create!.Id.Value;
         }
         catch (Exception ex)
         {

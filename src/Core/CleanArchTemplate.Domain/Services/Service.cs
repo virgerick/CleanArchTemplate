@@ -42,12 +42,11 @@ public class Service:AuditableRootEntity<ServiceId>
 
     public void Update(string name,decimal newPrice)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(name);
+        ArgumentException.ThrowIfNullOrEmpty(name);
         if (newPrice <= 0)
         {
             throw new ArgumentException("Price must be greater than zero.", nameof(newPrice));
         }
-
         Amount = newPrice;
 
     }
