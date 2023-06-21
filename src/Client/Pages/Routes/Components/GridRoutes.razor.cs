@@ -37,17 +37,18 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
 {
     public partial class GridRoutes
     {
-        RadzenDataGrid<RouteResponse> RoutesGrid = null !;
-        IEnumerable<RouteResponse> Routes =Enumerable.Empty<RouteResponse>();
-        IEnumerable<VehicleResponse> Vehicles= Enumerable.Empty<VehicleResponse>();
+        RadzenDataGrid<RouteResponse> RoutesGrid = null!;
+        IEnumerable<RouteResponse> Routes = Enumerable.Empty<RouteResponse>();
+        IEnumerable<VehicleResponse> Vehicles = Enumerable.Empty<VehicleResponse>();
         IEnumerable<string> Places = Enumerable.Empty<string>();
-       
-        RouteResponse RouteToInsert = null !;
-        RouteResponse RouteToUpdate = null !;
+
+        RouteResponse RouteToInsert = null!;
+        RouteResponse RouteToUpdate = null!;
+
         void Reset()
         {
-            RouteToInsert = null !;
-            RouteToUpdate = null !;
+            RouteToInsert = null!;
+            RouteToUpdate = null!;
         }
 
         protected override async Task OnInitializedAsync()
@@ -58,15 +59,14 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
 
         async Task GetDefaultRoutesAsync()
         {
-            await Excecutor.Run(async () => {
+            await Excecutor.Run(async () =>
+            {
                 var result = await RouteApiService.GetDefaultAsync();
                 result.ThrowIfNotSucceeded();
                 Routes = result.Data.Routes;
                 Vehicles = result.Data.Vehicles;
                 Places = result.Data.Places;
             });
-           
-          
         }
 
         async Task EditRow(RouteResponse Route)
@@ -77,19 +77,34 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
 
         async Task OnUpdateRow(RouteResponse Route)
         {
-            await Excecutor.Run(async() =>
+            await Excecutor.Run(async () =>
             {
                 if (Route == RouteToInsert)
                 {
-                    RouteToInsert = null !;
+                    RouteToInsert = null!;
                 }
 
-                RouteToUpdate = null !;
-                var result = await RouteApiService.EditAsync(Route.Id, new(Route.Origin,Route.Destination,Route.Distance,Route.EstimatedTime,Route.Amount,Route.VehicleId));
+                RouteToUpdate = null!;
+                var result = await RouteApiService.EditAsync(
+                    Route.Id,
+                    new(
+                        Route.Origin,
+                        Route.Destination,
+                        Route.Distance,
+                        Route.EstimatedTime,
+                        Route.Amount,
+                        Route.VehicleId
+                    )
+                );
                 result.ThrowIfNotSucceeded();
                 await GetDefaultRoutesAsync();
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Route updated successfully" });
-          
+                NotificationService.Notify(
+                    new NotificationMessage
+                    {
+                        Severity = NotificationSeverity.Success,
+                        Detail = "Route updated successfully"
+                    }
+                );
             });
         }
 
@@ -111,7 +126,9 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
 
         async Task DeleteRow(RouteResponse Route)
         {
-            var confirmed = await DialogService.Confirm($"Are you sure to delete the Route from '{Route.Origin}' to '{Route.Destination}' that cost {Route.Amount} ?");
+            var confirmed = await DialogService.Confirm(
+                $"Are you sure to delete the Route from '{Route.Origin}' to '{Route.Destination}' that cost {Route.Amount} ?"
+            );
             if (confirmed == false)
             {
                 return;
@@ -140,13 +157,28 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
 
         async Task OnCreateRow(RouteResponse Route)
         {
-            await Excecutor.Run(async () => { 
-            
-                RouteToInsert = null !;
-                var result = await RouteApiService.CreateAsync(new(Route.Origin,Route.Destination,Route.Distance,Route.EstimatedTime,Route.Amount,Route.VehicleId));
+            await Excecutor.Run(async () =>
+            {
+                RouteToInsert = null!;
+                var result = await RouteApiService.CreateAsync(
+                    new(
+                        Route.Origin,
+                        Route.Destination,
+                        Route.Distance,
+                        Route.EstimatedTime,
+                        Route.Amount,
+                        Route.VehicleId
+                    )
+                );
                 result.ThrowIfNotSucceeded();
                 await GetDefaultRoutesAsync();
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Route created successfully" });
+                NotificationService.Notify(
+                    new NotificationMessage
+                    {
+                        Severity = NotificationSeverity.Success,
+                        Detail = "Route created successfully"
+                    }
+                );
             });
         }
 
@@ -154,14 +186,18 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
         {
             await Excecutor.Run(async () =>
             {
-
                 RouteToInsert = null!;
                 var result = await RouteApiService.DeleteAsync(Route.Id);
                 result.ThrowIfNotSucceeded();
                 await GetDefaultRoutesAsync();
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Route deleted successfully" });
+                NotificationService.Notify(
+                    new NotificationMessage
+                    {
+                        Severity = NotificationSeverity.Success,
+                        Detail = "Route deleted successfully"
+                    }
+                );
             });
         }
-
     }
 }

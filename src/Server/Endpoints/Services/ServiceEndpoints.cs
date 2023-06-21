@@ -14,6 +14,7 @@ public class ServiceEndpoints : IMapEndpoint
         var group=endpoint.MapGroup("/Service")
             .WithTags("Service");
         group.MapGetServiceEndpoint();
+        group.MapGetServiceDefaultEndpoint();
         group.MapGetServiceByIdEndpoint();
         group.MapCreateServiceEndpoint();
         group.MapEditServiceEndpoint();

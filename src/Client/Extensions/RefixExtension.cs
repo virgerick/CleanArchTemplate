@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using CleanArchTemplate.Client.Authentication;
 using CleanArchTemplate.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Refit;
@@ -9,20 +10,22 @@ public static class RefixExtension
 {
     public static WebAssemblyHostBuilder ConfigureRefixServices(this WebAssemblyHostBuilder builder)
     {
-
-        
         builder.ConfigureRefitClientFor<IBrandApiService>();
         builder.ConfigureRefitClientFor<ICustomerAPIService>();
         builder.ConfigureRefitClientFor<IDriverAPIService>();
         builder.ConfigureRefitClientFor<IModelAPIService>();
         builder.ConfigureRefitClientFor<ITokenApiService>();
         builder.ConfigureRefitClientFor<IRouteAPIService>();
+        builder.ConfigureRefitClientFor<IServiceApiService>();
         builder.ConfigureRefitClientFor<IVehicleAPIService>();
         builder.ConfigureRefitClientFor<IVehicleTypeAPIService>();
         //you could add Polly here to handle HTTP 429 / HTTP 503 etc
         return builder;
     }
-    static WebAssemblyHostBuilder ConfigureRefitClientFor<T>(this WebAssemblyHostBuilder builder) where T : class {
+
+    static WebAssemblyHostBuilder ConfigureRefitClientFor<T>(this WebAssemblyHostBuilder builder)
+        where T : class
+    {
         /*
         services.AddTransient<ITenantProvider, TenantProvider>();
         services.AddTransient<IAuthTokenStore, AuthTokenStore>();
@@ -33,10 +36,11 @@ public static class RefixExtension
 
         //note: AddRefitClient<T> requires a reference to Refit.HttpClientFactory
         //note: the order of delegating handlers is important and they run in the order they are added!
-       
-        builder.Services.AddRefitClient<T>()
-        .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
-        //.AddHttpMessageHandler<AuthHeaderHandler>();
+
+        builder.Services
+            .AddRefitClient<T>()
+            //.AddHttpMessageHandler<AuthenticationHeaderHandler>()
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
         return builder;
     }
 }

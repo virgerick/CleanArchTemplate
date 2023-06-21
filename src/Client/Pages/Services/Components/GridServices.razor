@@ -1,0 +1,44 @@
+<RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Add New Service"
+    Click="@InsertRow" Disabled=@(ServiceToInsert != null || ServiceToUpdate != null) />
+
+
+<RadzenDataGrid @ref="ServicesGrid" AllowAlternatingRows="true" AllowFiltering="true" AllowPaging="true" PageSize="5"
+    AllowSorting="true" EditMode="DataGridEditMode.Single" Responsive="true" Data="@Services" TItem="ServiceResponse"
+    RowUpdate="@OnUpdateRow" RowCreate="@OnCreateRow" Sort="@Reset" Page="@Reset" Filter="@Reset" ColumnWidth="200px">
+    <EmptyTemplate>
+        <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
+    </EmptyTemplate>
+    <Columns>
+
+        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="false" Sortable="false"
+            TextAlign="TextAlign.Center" Width="156px">
+            <Template Context="Service">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
+                    Size="ButtonSize.Medium" Click="@(args => EditRow(Service))" @onclick:stopPropagation="true">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat"
+                    Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
+                    Click="@(args => DeleteRow(Service))" @onclick:stopPropagation="true">
+                </RadzenButton>
+
+            </Template>
+            <EditTemplate Context="Service">
+                <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat"
+                    Size="ButtonSize.Medium" Click="@((args) => SaveRow(Service))">
+                </RadzenButton>
+                <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
+                    Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(Service))">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat"
+                    Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
+                    Click="@(args => DeleteRow(Service))">
+                </RadzenButton>
+
+            </EditTemplate>
+        </RadzenDataGridColumn>
+
+    </Columns>
+
+</RadzenDataGrid>
+
+
