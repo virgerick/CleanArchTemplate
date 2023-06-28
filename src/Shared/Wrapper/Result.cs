@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CleanArchTemplate.Shared.Extensions;
+using Trasnport.Shared.Extensions;
 
 namespace CleanArchTemplate.Shared.Wrapper;
 
@@ -10,7 +10,7 @@ public class Result : IResult
     {
     }
 
-    public List<string> Messages { get; set; } = new List<string>();
+    public IEnumerable<string> Messages { get; set; } = Enumerable.Empty<string>();
 
     public bool Succeeded { get; set; }
 
@@ -24,9 +24,18 @@ public class Result : IResult
         return new Result { Succeeded = false, Messages = new List<string> { message } };
     }
 
-    public static Result Failure(List<string> messages)
+    public static Result Failure(IEnumerable<string> messages)
     {
         return new Result { Succeeded = false, Messages = messages };
+    }
+    public static Result<T> Failure<T>(string message)
+    {
+        return new Result<T> { Succeeded = false, Data = default!,Messages = new List<string> { message } };
+    }
+
+    public static Result<T> Failure<T>(IEnumerable<string> messages)
+    {
+        return new Result<T> { Succeeded = false, Data = default!,Messages =  messages  };
     }
 
     public static Task<Result> FailureAsync()
@@ -172,9 +181,9 @@ public class Result<TSuccess,TError>
 where TSuccess : class 
 where TError :Exception
 {
-    private TSuccess _data = default!;
-    private TError _error = default!;
-    private bool _succeeded=false;
+    private readonly TSuccess _data = default!;
+    private readonly TError _error = default!;
+    private readonly bool _succeeded=false;
     public Result(TSuccess data)
     {   _succeeded = true;
         _data = data;
@@ -196,4 +205,46 @@ where TError :Exception
         onError.Invoke(_error);
     } 
     
+}
+
+public static class ResultExtensions
+{
+    public static Result<TOut> Map<TIn, TOut>(this Result<TIn> result, Func<TIn,TOut> mappingFunction)
+    {
+        return result.Succeeded ? Result.Success(mappingFunction(result.Data)) :
+            Result.Failure<TOut>(result.Messages);
+    }
+
+    public static async Task<Result<TOut>> Map<TIn, TOut>(this Result<TIn> result, Func<TIn, Task<Result<TOut>>> mappingFunction)
+    {
+        return result.Succeeded ? await mappingFunction(result.Data): Result.Failure<TOut>(result.Messages); ;
+    }
+    public static Result Bind<TIn, TOut>(this Result<TIn> result, Func<TIn,Result<TOut>> bindFunction) => 
+        result.Succeeded ? bindFunction(result.Data) : Result.Failure(result.Messages);
+    
+    public static Result Bind<TIn>(this Result<TIn> result, Func<TIn, Result> bindFunction)
+        => !result.Succeeded ? Result.Failure(result.Messages) : bindFunction(result.Data);
+
+    public static async Task<Result> Bind<TIn>(this Result<TIn> result, Func<TIn, Task<Result>> bindFunction)
+        => !result.Succeeded?Result.Failure(result.Messages): await bindFunction(result.Data);
+    
+    public static async Task<Result> Bind<TIn,TOut>(this Result<TIn> result, Func<TIn, Task<Result<TOut>>> bindFunc)
+        => !result.Succeeded?Result.Failure(result.Messages):await bindFunc(result.Data);
+
+    public static Result<TIn> Tap<TIn>(this Result<TIn> result, Action<TIn> action)
+    {
+        if(result.Succeeded) action(result.Data);
+        return result;
+        
+    }
+    public static async Task<Result<TIn>> Tap<TIn>(this Result<TIn> result, Func<TIn, Task> action)
+    {
+        if(result.Succeeded) await action(result.Data);
+        return result;
+    }
+    public static async Task<Result<TIn>> Tap<TIn>(this Result<TIn> result, Func<Task> action)
+    {
+        if(result.Succeeded) await action();
+        return result;
+    }
 }

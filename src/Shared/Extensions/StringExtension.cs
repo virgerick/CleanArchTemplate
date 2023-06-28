@@ -1,4 +1,4 @@
-﻿namespace CleanArchTemplate.Shared.Extensions;
+﻿namespace Trasnport.Shared.Extensions;
 using System.Text.Json;
 
 public static class StringExtension

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices.JavaScript;
 
-namespace Trasnport.Shared.Results;
+namespace CleanArchTemplate.Shared.Results;
 
 public class Result
 {

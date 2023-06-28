@@ -1,4 +1,4 @@
-namespace Trasnport.Shared.Results;
+namespace CleanArchTemplate.Shared.Results;
 
 public  class Error
 {

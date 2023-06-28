@@ -19,7 +19,6 @@
     <None Remove="Responses\Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Extensions\" />
     <Folder Include="Requests\Customers\" />
     <Folder Include="Mapping\" />
     <Folder Include="Responses\Drivers\" />

@@ -1,9 +1,9 @@
 ﻿using System;
-namespace CleanArchTemplate.Shared.Extensions;
+namespace Trasnport.Shared.Extensions;
 
 public static class ListStringExtension
 {
-	public static Exception ToException(this List<string> errorMessage)
+	public static Exception ToException(this IEnumerable<string> errorMessage)
 	{
 		if(!errorMessage.Any())
 		{
@@ -18,9 +18,10 @@ public static class ListStringExtension
     {
         var messages = new List<string>();
         messages.Add(exception.Message);
+        
         if (exception.InnerException != null)
             messages.AddRange(exception.InnerException.GetMessages());
-        return messages.AsEnumerable();
+        return messages;
 
     }
 }

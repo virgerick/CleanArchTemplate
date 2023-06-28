@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CleanArchTemplate.Shared.Extensions;
+using Trasnport.Shared.Extensions;
 
 namespace CleanArchTemplate.Shared.Wrapper;
 
