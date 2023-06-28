@@ -1,5 +1,6 @@
+@using System.Globalization
 <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Add New Service"
-    Click="@InsertRow" Disabled=@(ServiceToInsert != null || ServiceToUpdate != null) />
+    Click="@InsertRow" Disabled=@(ServiceToInsert != null! || ServiceToUpdate != null!) />
 
 
 <RadzenDataGrid @ref="ServicesGrid" AllowAlternatingRows="true" AllowFiltering="true" AllowPaging="true" PageSize="5"
@@ -9,34 +10,90 @@
         <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
     </EmptyTemplate>
     <Columns>
-
-        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="false" Sortable="false"
-            TextAlign="TextAlign.Center" Width="156px">
-            <Template Context="Service">
+        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="true" Sortable="true"
+            TextAlign="TextAlign.Center" Width="100%" Title="Name">
+             <Template Context="service">
+                           <RadzenText Text="@service.Name" />
+                       </Template>
+                       <EditTemplate Context="service">
+                           <RadzenTextBox @bind-Value=@service.Name  Style="width: 100%" Name="Name" />
+                           <RadzenRequiredValidator Text="Origin is required" Component="Name" Popup="true" />
+                       </EditTemplate>
+        </RadzenDataGridColumn>  
+        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="true" Sortable="true"
+            TextAlign="TextAlign.Center" Width="100%" Title="Amount">
+             <Template Context="service">
+                           <RadzenText Text="@service.Amount.ToString(CultureInfo.InvariantCulture)" />
+                       </Template>
+                       <EditTemplate Context="service">
+                           <RadzenNumeric @bind-Value=@service.Amount  Style="width: 100%" Name="Amount" />
+                           <RadzenRequiredValidator Text="Origin is required" Component="Amount" Popup="true" />
+                       </EditTemplate>
+        </RadzenDataGridColumn>   
+        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="true" Sortable="true"
+            TextAlign="TextAlign.Center" Width="100%" Title="Date">
+             <Template Context="service">
+                           <RadzenText Text="@service.Date.ToShortDateString()" />
+                       </Template>
+                       <EditTemplate Context="service">
+                           <RadzenDatePicker @bind-Value=@service.Date  Style="width: 100%" Name="Date" />
+                           <RadzenRequiredValidator Text="Date is required" Component="Date" Popup="true" />
+                       </EditTemplate>
+        </RadzenDataGridColumn> 
+        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="true" Sortable="true"
+            TextAlign="TextAlign.Center" Width="100%" Title="Route">
+             <Template Context="service">
+                          @(Routes.SingleOrDefault(x=>x.Id== service.RouteId)!.Display ?? "") " 
+                       </Template>
+                       <EditTemplate Context="service">
+                           <RadzenDropDown  @bind-Value=@service.RouteId  FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" 
+                                            FilterOperator="StringFilterOperator.StartsWith" 
+                                            AllowFiltering="true" Data=@Routes TextProperty="Display" 
+                                            ValueProperty="Id" AllowClear="true"  Style="width: 100%;" Name="RouteId" /> 
+                       </EditTemplate>
+        </RadzenDataGridColumn> 
+        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="true" Sortable="true"
+            TextAlign="TextAlign.Center" Width="100%" Title="Status">
+             <Template Context="service">
+                         <RadzenText Text=@service.Status ></RadzenText>
+                       </Template>
+                       <EditTemplate Context="service">
+                          
+                       </EditTemplate>
+        </RadzenDataGridColumn> 
+        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="true" Sortable="true" Property="Deleted" FilterProperty="Deleted"
+            TextAlign="TextAlign.Center" Width="100%" Title="Deleted">
+             <Template Context="service">
+                        @(service.Deleted?"Yes":"No")
+                       </Template>
+                       
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="true" Sortable="true" 
+            TextAlign="TextAlign.Center" Width="100%">
+            <Template Context="service">
                 <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
-                    Size="ButtonSize.Medium" Click="@(args => EditRow(Service))" @onclick:stopPropagation="true">
+                    Size="ButtonSize.Medium" Click="@(args => EditRow(service))" @onclick:stopPropagation="true">
                 </RadzenButton>
                 <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat"
                     Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
-                    Click="@(args => DeleteRow(Service))" @onclick:stopPropagation="true">
+                    Click="@(args => DeleteRow(service))" @onclick:stopPropagation="true">
                 </RadzenButton>
 
             </Template>
-            <EditTemplate Context="Service">
+            <EditTemplate Context="service">
                 <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat"
-                    Size="ButtonSize.Medium" Click="@((args) => SaveRow(Service))">
+                    Size="ButtonSize.Medium" Click="@((args) => SaveRow(service))">
                 </RadzenButton>
                 <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
-                    Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(Service))">
+                    Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(service))">
                 </RadzenButton>
                 <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat"
                     Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
-                    Click="@(args => DeleteRow(Service))">
+                    Click="@(args => DeleteRow(service))">
                 </RadzenButton>
 
             </EditTemplate>
         </RadzenDataGridColumn>
-
     </Columns>
 
 </RadzenDataGrid>

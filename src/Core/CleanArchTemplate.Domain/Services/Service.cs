@@ -16,15 +16,16 @@ public class Service:AuditableRootEntity<ServiceId>
     public decimal Amount { get; private set; }
     public ServiceStatus Status { get; private set; }
     public DateTime Date { get; private set; }
-    public RouteId RouteId { get; set; }
-    public Route Route { get; set; }
+    public RouteId RouteId { get;private set; }
+    public Route Route { get; private set; }
     public ICollection<Customer> Customers { get; private set; }
     public ICollection<InvoiceLine> InvoiceLines { get; private set; }
     public ICollection<Driver> Drivers { get; private set; }
-    protected Service() { } // Constructor protegido para EF Core
+    protected Service() { } 
 
     private Service(string name, decimal amount, ServiceStatus status, DateTime date, RouteId routeId)
     {
+        Id=ServiceId.NewId();
         Name = name;
         Amount = amount;
         Status = status;
@@ -36,7 +37,7 @@ public class Service:AuditableRootEntity<ServiceId>
     {
         if (string.IsNullOrWhiteSpace(name)) return new Exception("Name is requiered.");
         if (amount <= 0) return new Exception("Amount is requiered. and have to be grater than zero.");
-        return new Service(name, amount, ServiceStatus.InProgress, date, routeId);
+        return new Service(name, amount, ServiceStatus.Active, date, routeId);
 
     }
 

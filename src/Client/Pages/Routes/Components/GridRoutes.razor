@@ -1,3 +1,4 @@
+@using System.Globalization
 <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Add New Route"
     Click="@InsertRow" Disabled=@(RouteToInsert != null || RouteToUpdate != null) />
 
@@ -35,7 +36,7 @@
         <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="false" Sortable="false"
                               TextAlign="TextAlign.Center" Title="Amout" >
             <Template Context="Route">
-                <RadzenText Text="@Route.Amount.ToString()" />
+                <RadzenText Text="@Route.Amount.ToString(CultureInfo.InvariantCulture)" />
             </Template>
             <EditTemplate Context="Route">
                 <RadzenNumeric @bind-Value=@Route.Amount TextProperty="Amount" Name="Amount" />

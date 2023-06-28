@@ -40,7 +40,8 @@ public sealed class GetServiceDefaultQueryHandler
                 .Set<Route>()
                 .Select(x => x.Map())
                 .ToListAsync(cancellationToken);
-            var response = new ServiceDefaultResponse(Services, routes);
+            var status = ServiceStatus.Supported.Select(x => x.Status);
+            var response = new ServiceDefaultResponse(Services, routes,status);
             return Result.Success(response);
         }
         catch (Exception ex)

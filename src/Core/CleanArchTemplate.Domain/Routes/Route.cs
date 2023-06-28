@@ -10,6 +10,7 @@ public record struct RouteId(Guid Value) {
 };
 public class Route : AuditableEntity<RouteId>
 {
+    
     private Route() { }
     public string Origin { get; private set; }
     public string Destination { get; private set; }
@@ -38,7 +39,7 @@ public class Route : AuditableEntity<RouteId>
         }
         return route;
     }
-    //create a update method that return true if any field was changed
+   
     public OneOf<bool,IEnumerable<ValidationFailure>> Update(string origin, string destination, float distance, float estimatedTime, decimal amount, VehicleId vehicleId)
     {
         var changed = false;

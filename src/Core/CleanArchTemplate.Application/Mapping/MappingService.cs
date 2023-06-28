@@ -7,8 +7,8 @@ public static class MappingService
 {
 	public static ServiceResponse Map(this Service x)
 	{
-		//Todo:Complete Map
-		return new ServiceResponse();
+		return new ServiceResponse(x.Id.Value, x.Name, x.Amount,x.Status.Status,x.Date, x.RouteId.Value,x.Deleted);
+		
 	}
 	
 	

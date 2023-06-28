@@ -74,15 +74,15 @@ public class BlazorStateProvider : AuthenticationStateProvider
 
             if (roles != null)
             {
-                if (roles.ToString().Trim().StartsWith("["))
+                if (roles.ToString()!.Trim().StartsWith("["))
                 {
-                    var parsedRoles = JsonSerializer.Deserialize<string[]>(roles.ToString());
+                    var parsedRoles = JsonSerializer.Deserialize<string[]>(roles.ToString()!);
 
-                    claims.AddRange(parsedRoles.Select(role => new Claim(ClaimTypes.Role, role)));
+                    claims.AddRange(parsedRoles!.Select(role => new Claim(ClaimTypes.Role, role)));
                 }
                 else
                 {
-                    claims.Add(new Claim(ClaimTypes.Role, roles.ToString()));
+                    claims.Add(new Claim(ClaimTypes.Role, roles.ToString()!));
                 }
 
                 keyValuePairs.Remove(ClaimTypes.Role);
@@ -91,25 +91,25 @@ public class BlazorStateProvider : AuthenticationStateProvider
             keyValuePairs.TryGetValue(ApplicationClaimTypes.Permission, out var permissions);
             if (permissions != null)
             {
-                if (permissions.ToString().Trim().StartsWith("["))
+                if (permissions.ToString()!.Trim().StartsWith("["))
                 {
                     var parsedPermissions = JsonSerializer.Deserialize<string[]>(
-                        permissions.ToString()
+                        permissions.ToString()!
                     );
                     claims.AddRange(
-                        parsedPermissions.Select(
+                        parsedPermissions!.Select(
                             permission => new Claim(ApplicationClaimTypes.Permission, permission)
                         )
                     );
                 }
                 else
                 {
-                    claims.Add(new Claim(ApplicationClaimTypes.Permission, permissions.ToString()));
+                    claims.Add(new Claim(ApplicationClaimTypes.Permission, permissions.ToString()!));
                 }
                 keyValuePairs.Remove(ApplicationClaimTypes.Permission);
             }
 
-            claims.AddRange(keyValuePairs.Select(kvp => new Claim(kvp.Key, kvp.Value.ToString())));
+            claims.AddRange(keyValuePairs.Select(kvp => new Claim(kvp.Key, kvp.Value.ToString()!)));
         }
         return claims;
     }

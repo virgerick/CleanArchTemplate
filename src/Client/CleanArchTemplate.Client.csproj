@@ -69,7 +69,6 @@
     <Folder Include="Pages\Vehicle\Models\" />
     <Folder Include="Storages\" />
     <Folder Include="Services\LocalStorages\" />
-    <Folder Include="wwwroot\scripts\" />
     <Folder Include="Services\Crypto\" />
   </ItemGroup>
   <ItemGroup>

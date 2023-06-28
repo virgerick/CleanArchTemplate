@@ -39,7 +39,7 @@ public static class RefixExtension
 
         builder.Services
             .AddRefitClient<T>()
-            //.AddHttpMessageHandler<AuthenticationHeaderHandler>()
+            .AddHttpMessageHandler<AuthenticationHeaderHandler>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
         return builder;
     }

@@ -29,7 +29,7 @@ public static class ServiceProviderExtentions
             .AddScoped<BlazorStateProvider>()
             .AddScoped<IAuthenticationManager, AuthenticationManager>()
             .AddScoped<AuthenticationStateProvider, BlazorStateProvider>()
-            //.AddScoped<AuthenticationHeaderHandler>()
+            .AddTransient<AuthenticationHeaderHandler>()
             .AddSubtleCrypto(opt =>
             opt.Key = "FwCvfdOhoJm5sB/XBMCoM05CM4J/3VC8P0PROIgFNJ/+mPJfzv0ivfMG2a156sd14@#@#$@>NJKBiknqwhodmnMKLNDjklanojHifUlhdXkdsljf")
             .AddScoped<IEncrytedLocalStorageService, EncrytedLocalStorageService>()
