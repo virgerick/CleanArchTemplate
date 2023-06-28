@@ -75,7 +75,6 @@ public partial class GridBrands
 
             brandToUpdate = null !;
             var result = await BrandApiService.EditAsync(brand.Id, new(brand.Name, brand.Logo));
-            //Todo:Passing right parameter
             result.ThrowIfNotSucceeded();
             await GetBrandsAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "brand updated successfully" });
@@ -134,7 +133,6 @@ public partial class GridBrands
             LoadingService.Show();
             brandToInsert = null !;
             var result = await BrandApiService.CreateAsync(new(brand.Name,brand.Logo!));
-            //Todo:Passing parameters to constructor
             result.ThrowIfNotSucceeded();
             await GetBrandsAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "brand created successfully" });

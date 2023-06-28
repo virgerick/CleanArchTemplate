@@ -52,7 +52,7 @@ public partial class GridVehicleTypes : ComponentBase
                 vehicleTypeToInsert = null!;
             }
             vehicleTypeToUpdate = null!;
-            var result = await VehicleTypeApiService.EditAsync(vehicle.Id,new(vehicle.Name));//Todo:Passing right parameter
+            var result = await VehicleTypeApiService.EditAsync(vehicle.Id,new(vehicle.Name));
             result.ThrowIfNotSucceeded();
             
             await GetVehicleTypesAsync();
@@ -111,7 +111,7 @@ public partial class GridVehicleTypes : ComponentBase
         {
             LoadingService.Show();
             vehicleTypeToInsert = null!;
-            var result = await VehicleTypeApiService.CreateAsync(new(vehicle.Name));//Todo:Passing parameters to constructor
+            var result = await VehicleTypeApiService.CreateAsync(new(vehicle.Name));
             result.ThrowIfNotSucceeded();
             await GetVehicleTypesAsync();
 

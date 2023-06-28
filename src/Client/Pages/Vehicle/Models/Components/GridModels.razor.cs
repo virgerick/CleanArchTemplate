@@ -80,7 +80,6 @@ public partial class GridModels
 
             ModelToUpdate = null !;
             var result = await ModelApiService.EditAsync(Model.Id, new(Model.Name, Model.Year,Model.BrandId,Model.TypeId));
-            //Todo:Passing right parameter
             result.ThrowIfNotSucceeded();
             await GetModelDefaultAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Model updated successfully" });
@@ -139,7 +138,6 @@ public partial class GridModels
             LoadingService.Show();
             ModelToInsert = null !;
             var result = await ModelApiService.CreateAsync(new(Model.Name, Model.Year, Model.BrandId, Model.TypeId));
-            //Todo:Passing parameters to constructor
             result.ThrowIfNotSucceeded();
             await GetModelDefaultAsync();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = "Model created successfully" });

@@ -12,5 +12,10 @@
   },
   "sourceName": "CleanArchTemplate",
   "preferNameDirectory": true,
-  "symbols": {}
+  "symbols": {},
+  "sources": [
+    {
+      "exclude": [".git/**"]
+    }
+  ]
 }
