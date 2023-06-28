@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Trasnport.Shared.Extensions;
+namespace CleanArchTemplate.Shared.Extensions;
 
 public static class ListStringExtension
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Trasnport.Shared.Extensions;
+using CleanArchTemplate.Shared.Extensions;
 
 namespace CleanArchTemplate.Shared.Wrapper;
 
@@ -11,7 +11,7 @@ public class ResultPaginated<T> : Result,IResultPaginated<T>
         Items = items;
     }
 
-    public List<T> Items { get; set; }
+    public IEnumerable<T> Items { get; set; }
 
     public int CurrentPage { get; set; }
 
@@ -24,7 +24,7 @@ public class ResultPaginated<T> : Result,IResultPaginated<T>
 
     public bool HasNextPage => CurrentPage < TotalPages;
 
-    internal ResultPaginated(bool succeeded, List<T> items = default!, List<string> messages = null!, int count = 0, int page = 1, int pageSize = 10)
+    internal ResultPaginated(bool succeeded, IEnumerable<T> items = default!, IEnumerable<string> messages = null!, int count = 0, int page = 1, int pageSize = 10)
     {
         Items = items;
         CurrentPage = page;
@@ -34,7 +34,7 @@ public class ResultPaginated<T> : Result,IResultPaginated<T>
         TotalCount = count;
     }
 
-    public new static ResultPaginated<T> Failure(List<string> messages)
+    public new static ResultPaginated<T> Failure(IEnumerable<string> messages)
     {
         return new ResultPaginated<T>(false, default!, messages);
     }

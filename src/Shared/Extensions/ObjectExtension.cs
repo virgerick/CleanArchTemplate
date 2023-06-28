@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace Trasnport.Shared.Extensions;
+namespace CleanArchTemplate.Shared.Extensions;
 public static class ObjectExtension
 {
     public static string ToJsonSerialize(this object obj)
@@ -15,32 +15,5 @@ public static class ObjectExtension
     }
 }
 
-public  struct TaskSync
-{
-    public static async void AwaitSync<T>(Func<Task<T>> func,Action<T> onSuccess, Action<Exception> onError = default!)
-    {
-        try
-        {
-            var result=await func.Invoke();
-            onSuccess.Invoke(result);
-        }
-        catch (Exception ex)
-        {
-            onError?.Invoke(ex);
-        }
-    }
-    public static async void AwaitSync(Func<Task> func, Action<Exception> onError = default!)
-    {
-        try
-        {
-            await func.Invoke();
-        }
-        catch (Exception ex)
-        {
-            onError?.Invoke(ex);
-        }
-    }
-}
 
-   
 

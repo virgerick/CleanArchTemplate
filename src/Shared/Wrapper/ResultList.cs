@@ -1,4 +1,4 @@
-﻿using Trasnport.Shared.Extensions;
+﻿using CleanArchTemplate.Shared.Extensions;
 
 namespace CleanArchTemplate.Shared.Wrapper;
 
@@ -17,7 +17,7 @@ public class ResultList<T> : Result, IResultList<T>
         return new ResultList<T> { Succeeded = false, Messages = new List<string> { message } };
     }
 
-    public new static ResultList<T> Failure(List<string> messages)
+    public new static ResultList<T> Failure(IEnumerable<string> messages)
     {
         return new ResultList<T> { Succeeded = false, Messages = messages };
     }

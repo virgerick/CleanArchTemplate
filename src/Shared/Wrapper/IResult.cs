@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Trasnport.Shared.Extensions;
+using CleanArchTemplate.Shared.Extensions;
 
 namespace CleanArchTemplate.Shared.Wrapper;
 
@@ -14,7 +14,7 @@ public interface IResult<out T> : IResult
 }
 public interface IResultPaginated<T> : IResult
 {
-    public List<T> Items { get; set; }
+    public IEnumerable<T> Items { get; set; }
     public int CurrentPage { get; set; }
     public int TotalPages { get; set; }
     public int TotalCount { get; set; }

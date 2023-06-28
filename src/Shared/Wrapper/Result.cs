@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Trasnport.Shared.Extensions;
+using CleanArchTemplate.Shared.Extensions;
 
 namespace CleanArchTemplate.Shared.Wrapper;
 
@@ -94,7 +94,7 @@ public class Result<T> : Result, IResult<T>
         return new Result<T> { Succeeded = false, Messages = new List<string> { message } };
     }
 
-    public new static Result<T> Failure(List<string> messages)
+    public  static Result<T> Failure(List<string> messages)
     {
         return new Result<T> { Succeeded = false, Messages = messages };
     }
@@ -109,9 +109,9 @@ public class Result<T> : Result, IResult<T>
         return Task.FromResult(Failure(message));
     }
 
-    public new static Task<Result<T>> FailureAsync(List<string> messages)
+    public new static Task<Result<T>> FailureAsync(IEnumerable<string> messages)
     {
-        return Task.FromResult(Failure(messages));
+        return Task.FromResult(Failure<T>(messages));
     }
 
     public new static Result<T> Success()
