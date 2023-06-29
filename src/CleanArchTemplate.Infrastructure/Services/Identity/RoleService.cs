@@ -39,7 +39,7 @@ public class RoleService : IRoleService
         var existingRole = await _roleManager.FindByIdAsync(id);
         if (existingRole!.Name == RoleConstants.AdministratorRole || existingRole.Name == RoleConstants.BasicRole)
         {
-            return await Result<string>.SuccessAsync(string.Format(_localizer["Not allowed to delete {0} Role."], existingRole.Name));
+            return  Result<string>.Success(string.Format(_localizer["Not allowed to delete {0} Role."], existingRole.Name));
         }
         bool roleIsNotUsed = true;
         var allUsers = await _userManager.Users.ToListAsync();
@@ -52,10 +52,10 @@ public class RoleService : IRoleService
         }
         if (!roleIsNotUsed)
         {
-            return await Result<string>.SuccessAsync(string.Format(_localizer["Not allowed to delete {0} Role as it is being used."], existingRole.Name));
+            return  Result<string>.Success(string.Format(_localizer["Not allowed to delete {0} Role as it is being used."], existingRole.Name));
         }
         await _roleManager.DeleteAsync(existingRole);
-        return await Result<string>.SuccessAsync(string.Format(_localizer["Role {0} Deleted."], existingRole.Name));
+        return  Result<string>.Success(string.Format(_localizer["Role {0} Deleted."], existingRole.Name));
         
 
     }
@@ -72,7 +72,7 @@ public class RoleService : IRoleService
         var roles = await _roleManager.Roles
             .Select(MapResponse)
             .ToListAsync();
-        return await Result<List<RoleResponse>>.SuccessAsync(roles);
+        return  Result<List<RoleResponse>>.Success(roles);
     }
 
     public async Task<Result<PermissionResponse>> GetAllPermissionsAsync(string roleId)
@@ -118,7 +118,7 @@ public class RoleService : IRoleService
             }
         }
         model.RoleClaims = allPermissions;
-        return await Result<PermissionResponse>.SuccessAsync(model);
+        return  Result<PermissionResponse>.Success(model);
     }
 
     private List<RoleClaimResponse> GetAllPermissions()
@@ -140,7 +140,7 @@ public class RoleService : IRoleService
             .Select(MapResponse)
             .SingleOrDefaultAsync(x => x.Id == id);
 
-        return await Result<RoleResponse>.SuccessAsync(roles!);
+        return  Result<RoleResponse>.Success(roles!);
     }
 
     public async Task<Result<string>> SaveAsync(RoleRequest request)
@@ -157,7 +157,7 @@ public class RoleService : IRoleService
             existingRole.NormalizedName = request.Name.ToUpper();
             existingRole.Description = request.Description;
             await _roleManager.UpdateAsync(existingRole);
-            return await Result<string>.SuccessAsync(string.Format(_localizer["Role {0} Updated."], existingRole.Name));
+            return  Result<string>.Success(string.Format(_localizer["Role {0} Updated."], existingRole.Name));
         }
          existingRole = await _roleManager.FindByNameAsync(request.Name);
         if (existingRole != null) return await Result<string>.FailureAsync(_localizer["Similar Role already exists."]);
@@ -169,7 +169,7 @@ public class RoleService : IRoleService
         {
             return await Result<string>.FailureAsync(response.Errors.Select(e => _localizer[e.Description].ToString()).ToList());
         }
-        return await Result<string>.SuccessAsync(string.Format(_localizer["Role {0} Created."], request.Name));
+        return  Result<string>.Success(string.Format(_localizer["Role {0} Created."], request.Name));
 
         
     }
@@ -244,7 +244,7 @@ public class RoleService : IRoleService
                 return await Result<string>.FailureAsync(errors);
             }
 
-            return await Result<string>.SuccessAsync(_localizer["Permissions Updated."]);
+            return  Result<string>.Success(_localizer["Permissions Updated."]);
         }
         catch (Exception ex)
         {

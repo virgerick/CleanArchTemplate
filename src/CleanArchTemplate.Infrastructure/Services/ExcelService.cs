@@ -135,7 +135,7 @@ public class ExcelService : IExcelService
             }
         }
 
-        return await Result<IEnumerable<TEntity>>.SuccessAsync(result, _localizer["Import Success"]);
+        return  Result<IEnumerable<TEntity>>.Success(result, _localizer["Import Success"]);
     }
 }
 

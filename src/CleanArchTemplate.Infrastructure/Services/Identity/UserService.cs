@@ -50,7 +50,7 @@ public class UserService : IUserService
         var users = await _userManager.Users
             .Select(MapResponse)
             .ToListAsync();
-        return await Result<List<UserResponse>>.SuccessAsync(users);
+        return  Result<List<UserResponse>>.Success(users);
     }
 
     public async Task<IResult> RegisterAsync(RegisterRequest request, string origin)
@@ -58,7 +58,7 @@ public class UserService : IUserService
         var userWithSameUserName = await _userManager.FindByNameAsync(request.UserName);
         if (userWithSameUserName != null)
         {
-            return await Result.FailureAsync(string.Format(_localizer["Username {0} is already taken."], request.UserName));
+            return  Result.Failure(string.Format(_localizer["Username {0} is already taken."], request.UserName));
         }
         ApplicationUser user = null!;
         ApplicationUser
@@ -73,7 +73,7 @@ public class UserService : IUserService
             var userWithSamePhoneNumber = await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber);
             if (userWithSamePhoneNumber != null)
             {
-                return await Result.FailureAsync(string.Format(_localizer["Phone number {0} is already registered."], request.PhoneNumber));
+                return  Result.Failure(string.Format(_localizer["Phone number {0} is already registered."], request.PhoneNumber));
             }
         }
 
@@ -95,18 +95,18 @@ public class UserService : IUserService
                         Subject = _localizer["Confirm Registration"]
                     };
                     //Todo: BackgroundJob.Enqueue(() => _mailService.SendAsync(mailRequest));
-                    return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["User {0} Registered. Please check your Mailbox to verify!"], user.UserName));
+                    return  Result<string>.Success(user.Id, string.Format(_localizer["User {0} Registered. Please check your Mailbox to verify!"], user.UserName));
                 }
-                return await Result<string>.SuccessAsync(user.Id, string.Format(_localizer["User {0} Registered."], user.UserName));
+                return  Result<string>.Success(user.Id, string.Format(_localizer["User {0} Registered."], user.UserName));
             }
             else
             {
-                return await Result.FailureAsync(result.Errors.Select(a => _localizer[a.Description].ToString()).ToList());
+                return  Result.Failure(result.Errors.Select(a => _localizer[a.Description].ToString()).ToList());
             }
         }
         else
         {
-            return await Result.FailureAsync(string.Format(_localizer["Email {0} is already registered."], request.Email));
+            return  Result.Failure(string.Format(_localizer["Email {0} is already registered."], request.Email));
         }
     }
 
@@ -128,7 +128,7 @@ public class UserService : IUserService
             .Select(MapResponse)
             .FirstOrDefaultAsync();
             if(user is null) throw new Exception("No found.");
-        return await Result<UserResponse>.SuccessAsync(user);
+        return  Result<UserResponse>.Success(user);
     }
 
     public async Task<IResult> ToggleUserStatusAsync(ToggleUserStatusRequest request)
@@ -137,14 +137,14 @@ public class UserService : IUserService
         var isAdmin = await _userManager.IsInRoleAsync(user!, RoleConstants.AdministratorRole);
         if (isAdmin)
         {
-            return await Result.FailureAsync(_localizer["Administrators Profile's Status cannot be toggled"]);
+            return  Result.Failure(_localizer["Administrators Profile's Status cannot be toggled"]);
         }
         if (user != null)
         {
             user.IsActive = request.ActivateUser;
             var identityResult = await _userManager.UpdateAsync(user);
         }
-        return await Result.SuccessAsync();
+        return  Result.Success();
     }
 
     public async Task<IResult<UserRolesResponse>> GetRolesAsync(string userId)
@@ -171,7 +171,7 @@ public class UserService : IUserService
             viewModel.Add(userRolesViewModel);
         }
         var result = new UserRolesResponse { UserRoles = viewModel };
-        return await Result<UserRolesResponse>.SuccessAsync(result);
+        return  Result<UserRolesResponse>.Success(result);
     }
 
     public async Task<IResult> UpdateRolesAsync(UpdateUserRolesRequest request)
@@ -179,7 +179,7 @@ public class UserService : IUserService
         var user = await _userManager.FindByIdAsync(request.UserId);
         if (user!.Email == "mukesh@Application.com")
         {
-            return await Result.FailureAsync(_localizer["Not Allowed."]);
+            return  Result.Failure(_localizer["Not Allowed."]);
         }
 
         var roles = await _userManager.GetRolesAsync(user);
@@ -193,13 +193,13 @@ public class UserService : IUserService
             var userHasAdministratorRole = roles.Any(x => x == RoleConstants.AdministratorRole);
             if (tryToAddAdministratorRole && !userHasAdministratorRole || !tryToAddAdministratorRole && userHasAdministratorRole)
             {
-                return await Result.FailureAsync(_localizer["Not Allowed to add or delete Administrator Role if you have not this role."]);
+                return  Result.Failure(_localizer["Not Allowed to add or delete Administrator Role if you have not this role."]);
             }
         }
 
         var result = await _userManager.RemoveFromRolesAsync(user, roles);
         result = await _userManager.AddToRolesAsync(user, selectedRoles.Select(y => y.RoleName));
-        return await Result.SuccessAsync(_localizer["Roles Updated"]);
+        return  Result.Success(_localizer["Roles Updated"]);
     }
 
     public async Task<IResult<string>> ConfirmEmailAsync(string userId, string code)
@@ -211,7 +211,7 @@ public class UserService : IUserService
         {
             throw new ApiException(string.Format(_localizer["An error occurred while confirming {0}"], user!.Email));
         }
-        return await Result<string>.SuccessAsync(user!.Id, string.Format(_localizer["Account Confirmed for {0}. You can now use the /api/identity/token endpoint to generate JWT."], user.Email));
+        return  Result<string>.Success(user!.Id, string.Format(_localizer["Account Confirmed for {0}. You can now use the /api/identity/token endpoint to generate JWT."], user.Email));
         
     }
 
@@ -221,7 +221,7 @@ public class UserService : IUserService
         if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
         {
             // Don't reveal that the user does not exist or is not confirmed
-            return await Result.FailureAsync(_localizer["An Error has occurred!"]);
+            return  Result.Failure(_localizer["An Error has occurred!"]);
         }
         // For more information on how to enable account confirmation and password reset please
         // visit https://go.microsoft.com/fwlink/?LinkID=532713
@@ -237,7 +237,7 @@ public class UserService : IUserService
             To = request.Email
         };
        //Todo: BackgroundJob.Enqueue(() => _mailService.SendAsync(mailRequest));
-        return await Result.SuccessAsync(_localizer["Password Reset Mail has been sent to your authorized Email."]);
+        return  Result.Success(_localizer["Password Reset Mail has been sent to your authorized Email."]);
     }
 
     public async Task<IResult> ResetPasswordAsync(ResetPasswordRequest request)
@@ -246,16 +246,17 @@ public class UserService : IUserService
         if (user == null)
         {
             // Don't reveal that the user does not exist
-            return await Result.FailureAsync(_localizer["An Error has occured!"]);
+            return Result.Failure(_localizer["An Error has occured!"]);
         }
 
         var result = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
         if (!result.Succeeded)
         {
-            return await Result.FailureAsync(_localizer["An Error has occured!"]);
+            return Result.Failure(_localizer["An Error has occured!"]);
         }
-            return await Result.SuccessAsync(_localizer["Password Reset Successful!"]);
-        
+
+        return Result.Success(_localizer["Password Reset Successful!"]);
+
     }
 
     public async Task<int> GetCountAsync()

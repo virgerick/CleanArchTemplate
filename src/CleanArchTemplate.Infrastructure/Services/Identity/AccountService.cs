@@ -35,7 +35,7 @@ public class AccountService : IAccountService
         var user = await this._userManager.FindByIdAsync(userId);
         if (user == null)
         {
-            return await Result.FailureAsync(_localizer["User Not Found."]);
+            return  Result.Failure(_localizer["User Not Found."]);
         }
 
         var identityResult = await this._userManager.ChangePasswordAsync(
@@ -43,7 +43,7 @@ public class AccountService : IAccountService
             model.Password,
             model.NewPassword);
         var errors = identityResult.Errors.Select(e => _localizer[e.Description].ToString()).ToList();
-        return identityResult.Succeeded ? await Result.SuccessAsync() : await Result.FailureAsync(errors);
+        return identityResult.Succeeded ?  Result.Success() :  Result.Failure(errors);
     }
 
     public async Task<IResult> UpdateProfileAsync(UpdateProfileRequest request, string userId)
@@ -53,7 +53,7 @@ public class AccountService : IAccountService
             var userWithSamePhoneNumber = await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber);
             if (userWithSamePhoneNumber != null)
             {
-                return await Result.FailureAsync(string.Format(_localizer["Phone number {0} is already used."], request.PhoneNumber));
+                return  Result.Failure(string.Format(_localizer["Phone number {0} is already used."], request.PhoneNumber));
             }
         }
 
@@ -63,7 +63,7 @@ public class AccountService : IAccountService
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return await Result.FailureAsync(_localizer["User Not Found."]);
+                return  Result.Failure(_localizer["User Not Found."]);
             }
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
@@ -76,11 +76,11 @@ public class AccountService : IAccountService
             var identityResult = await _userManager.UpdateAsync(user);
             var errors = identityResult.Errors.Select(e => _localizer[e.Description].ToString()).ToList();
             await _signInManager.RefreshSignInAsync(user);
-            return identityResult.Succeeded ? await Result.SuccessAsync() : await Result.FailureAsync(errors);
+            return identityResult.Succeeded ?  Result.Success() :  Result.Failure(errors);
         }
         else
         {
-            return await Result.FailureAsync(string.Format(_localizer["Email {0} is already used."], request.Email));
+            return  Result.Failure(string.Format(_localizer["Email {0} is already used."], request.Email));
         }
     }
 
@@ -89,19 +89,19 @@ public class AccountService : IAccountService
         var user = await _userManager.FindByIdAsync(userId);
         if (user == null)
         {
-            return await Result<string>.FailureAsync(_localizer["User Not Found"]);
+            return  Result<string>.Failure(_localizer["User Not Found"]);
         }
-        return await Result<string>.SuccessAsync(data: user.ProfilePictureDataUrl!);
+        return  Result<string>.Success(data: user.ProfilePictureDataUrl!);
     }
 
     public async Task<IResult<string>> UpdateProfilePictureAsync(UpdateProfilePictureRequest request, string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);
-        if (user == null) return await Result<string>.FailureAsync(message: _localizer["User Not Found"]);
+        if (user == null) return  Result<string>.Failure(message: _localizer["User Not Found"]);
         var filePath = _uploadService.UploadAsync(request);
         user.ProfilePictureDataUrl = filePath;
         var identityResult = await _userManager.UpdateAsync(user);
         var errors = identityResult.Errors.Select(e => _localizer[e.Description].ToString()).ToList();
-        return identityResult.Succeeded ? await Result<string>.SuccessAsync(data: filePath) : await Result<string>.FailureAsync(errors);
+        return identityResult.Succeeded ?  Result<string>.Success(data: filePath) :  Result<string>.Failure(errors);
     }
 }

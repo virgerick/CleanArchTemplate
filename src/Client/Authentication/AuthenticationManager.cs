@@ -56,7 +56,7 @@ public class AuthenticationManager : IAuthenticationManager
 
         await ((BlazorStateProvider)_authenticationStateProvider).StateChangedAsync();
 
-        return await Result.SuccessAsync();
+        return  Result.Success();
 
     }
 
@@ -66,7 +66,7 @@ public class AuthenticationManager : IAuthenticationManager
         Console.WriteLine(keysToRemove.ToJsonSerialize());
         await _localStorage.RemoveItemsAsync(StorageConstants.Local.Keys);
         ((BlazorStateProvider)_authenticationStateProvider).MarkUserAsLoggedOut();
-        return await Result.SuccessAsync();
+        return  Result.Success();
     }
 
     public async Task<string> RefreshToken()
