@@ -12,7 +12,7 @@ using OneOf;
 namespace CleanArchTemplate.Application.Routes.Commands;
 
 
-public record struct CreateRouteCommand(string Origin, string Destination, float Distance, float EstimatedTime, decimal Amount, Guid VehicleId):IRequest<OneOf<Guid,Exception>>;
+public record struct CreateRouteCommand(string Origin, string Destination, float Distance, float EstimatedTime, decimal Amount):IRequest<OneOf<Guid,Exception>>;
 public sealed class CreateRouteCommandHandler : IRequestHandler<CreateRouteCommand, OneOf<Guid, Exception>>
 {
     private readonly IApplicationDbContext _context;
@@ -35,10 +35,9 @@ public sealed class CreateRouteCommandHandler : IRequestHandler<CreateRouteComma
                 }); 
             Route create = null!;
             List<ValidationFailure> validationErrors = new();
-            var vehicleId =new VehicleId(request.VehicleId);
-            Route.Create(request.Origin, request.Destination, request.Distance, request.EstimatedTime, request.Amount,vehicleId)
+            Route.Create(request.Origin, request.Destination, request.Distance, request.EstimatedTime, request.Amount)
             .Switch(
-                Route => create = Route,
+                route => create = route,
                 validationErrors.AddRange
             );
             if (validationErrors.Any())

@@ -43,22 +43,6 @@
                 <RadzenRequiredValidator Text="Origin is required" Component="Amount" Popup="true" />
             </EditTemplate>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="RouteResponse" Property="VehicleId" Title="Vehicle" TextAlign="TextAlign.Center">
-            <Template Context="Route" >
-                <RadzenLabel>
-                    @(Vehicles.SingleOrDefault(x => x.Id == Route.VehicleId)!.Display ?? "") 
-                </RadzenLabel>
-            </Template>
-            <EditTemplate Context="Route">
-                <RadzenDropDown @bind-Value="Route.VehicleId" Data="@Vehicles"
-                                ValueProperty="Id" Style="width:100%; display: block;" Name="VehicleId">
-                    <Template>
-                        @context.Display
-                    </Template>
-                </RadzenDropDown>
-                <RadzenRequiredValidator Text="Vehicle is required" Component="VehicleId" Popup="true" />
-            </EditTemplate>
-        </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="false" Sortable="false"
                               TextAlign="TextAlign.Right" Title="Distance">
             <Template Context="Route">

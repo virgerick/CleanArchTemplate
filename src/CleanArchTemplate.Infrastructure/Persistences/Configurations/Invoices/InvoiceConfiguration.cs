@@ -25,6 +25,8 @@ public sealed class InvoiceLineConfiguration : IEntityTypeConfiguration<InvoiceL
          builder.Property(x => x.InvoiceId)
         .HasConversion(x => x.Value, value =>new InvoiceId(value));
          builder.Property(x => x.ServiceId)
-        .HasConversion(x => x.Value, value =>new ServiceId(value));
+        .HasConversion(x => x!.Value, value =>new ServiceId(value));
+         builder.Property(x => x.RouteId)
+        .HasConversion(x => x!.Value, value =>new RouteId(value));
     }
 }

@@ -78,7 +78,7 @@ namespace CleanArchTemplate.Client.Pages.Services.Components
                 }
 
                 ServiceToUpdate = null!;
-                var result = await ServiceApiService.EditAsync(Service.Id, new(Service.Name,Service.Amount,Service.Date,Service.RouteId));
+                var result = await ServiceApiService.EditAsync(Service.Id, new(Service.Name,Service.Amount));
                 result.ThrowIfNotSucceeded();
                 await GetDefaultServicesAsync();
                 NotificationService.Notify(
@@ -134,7 +134,7 @@ namespace CleanArchTemplate.Client.Pages.Services.Components
 
         async Task InsertRow()
         {
-            ServiceToInsert = new ServiceResponse(){Date = DateTime.Now};
+            ServiceToInsert = new ServiceResponse();
             await ServicesGrid.InsertRow(ServiceToInsert);
         }
 
@@ -143,7 +143,7 @@ namespace CleanArchTemplate.Client.Pages.Services.Components
             await Excecutor.Run(async () =>
             {
                 ServiceToInsert = null!;
-                var result = await ServiceApiService.CreateAsync(new(Service.Name,Service.Amount,Service.Date,Service.RouteId));
+                var result = await ServiceApiService.CreateAsync(new(Service.Name,Service.Amount));
                 result.ThrowIfNotSucceeded();
                 await GetDefaultServicesAsync();
                 NotificationService.Notify(

@@ -1,7 +1,11 @@
+using CleanArchTemplate.Shared.Extensions;
+
 namespace CleanArchTemplate.Shared.Wrapper;
 
 public static class ResultExtensions
 {
+    public static TOut Match<TIn, TOut>(this Result<TIn> result, Func<TIn,TOut> success, Func<IEnumerable<string>,TOut> failure)
+        => result.Succeeded ? success(result.Data) : failure(result.Messages);
     public static Result<TOut> Map<TIn, TOut>(this Result<TIn> result, Func<TIn,TOut> mappingFunction)
     {
         return result.Succeeded ? Result.Success(mappingFunction(result.Data)) :

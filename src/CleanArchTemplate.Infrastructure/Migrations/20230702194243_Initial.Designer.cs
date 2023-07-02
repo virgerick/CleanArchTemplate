@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanArchTemplate.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230611080326_Initial")]
+    [Migration("20230702194243_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -647,12 +647,17 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("RouteId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("ServiceId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("InvoiceId");
+
+                    b.HasIndex("RouteId");
 
                     b.HasIndex("ServiceId");
 
@@ -697,6 +702,9 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("RouteId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -704,6 +712,8 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ModelId");
+
+                    b.HasIndex("RouteId");
 
                     b.ToTable("Vehicles");
                 });
@@ -810,12 +820,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("VehicleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VehicleId");
 
                     b.ToTable("Routes");
                 });
@@ -838,9 +843,6 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
@@ -860,9 +862,6 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RouteId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -873,9 +872,6 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContractId");
-
-                    b.HasIndex("RouteId")
-                        .IsUnique();
 
                     b.HasIndex("VehicleId");
 
@@ -1083,6 +1079,12 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CleanArchTemplate.Domain.Routes.Route", "Route")
+                        .WithMany("InvoiceLines")
+                        .HasForeignKey("RouteId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("CleanArchTemplate.Domain.Services.Service", "Service")
                         .WithMany("InvoiceLines")
                         .HasForeignKey("ServiceId")
@@ -1090,6 +1092,8 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Invoice");
+
+                    b.Navigation("Route");
 
                     b.Navigation("Service");
                 });
@@ -1101,6 +1105,10 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("CleanArchTemplate.Domain.Routes.Route", null)
+                        .WithMany("Vehicles")
+                        .HasForeignKey("RouteId");
 
                     b.Navigation("Model");
                 });
@@ -1124,34 +1132,15 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("CleanArchTemplate.Domain.Routes.Route", b =>
-                {
-                    b.HasOne("CleanArchTemplate.Domain.Invoices.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vehicle");
-                });
-
             modelBuilder.Entity("CleanArchTemplate.Domain.Services.Service", b =>
                 {
                     b.HasOne("CleanArchTemplate.Domain.Contracts.Contract", null)
                         .WithMany("Services")
                         .HasForeignKey("ContractId");
 
-                    b.HasOne("CleanArchTemplate.Domain.Routes.Route", "Route")
-                        .WithOne()
-                        .HasForeignKey("CleanArchTemplate.Domain.Services.Service", "RouteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CleanArchTemplate.Domain.Invoices.Vehicle", null)
                         .WithMany("Services")
                         .HasForeignKey("VehicleId");
-
-                    b.Navigation("Route");
                 });
 
             modelBuilder.Entity("DriverService", b =>
@@ -1255,6 +1244,13 @@ namespace CleanArchTemplate.Infrastructure.Migrations
 
             modelBuilder.Entity("CleanArchTemplate.Domain.Model", b =>
                 {
+                    b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("CleanArchTemplate.Domain.Routes.Route", b =>
+                {
+                    b.Navigation("InvoiceLines");
+
                     b.Navigation("Vehicles");
                 });
 

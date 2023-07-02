@@ -1,6 +1,8 @@
 ﻿using System;
 using CleanArchTemplate.Application.Common.Interfaces.Services;
 using CleanArchTemplate.Domain.Identity;
+using CleanArchTemplate.Domain.Routes;
+using CleanArchTemplate.Domain.Services;
 using CleanArchTemplate.Infrastructure.Persistence.Database;
 using CleanArchTemplate.Shared.Constants.Permission;
 using CleanArchTemplate.Shared.Constants.Role;
@@ -38,11 +40,14 @@ public class DatabaseSeeder : IDatabaseSeeder
     {
         Migrate();
         AddAdministrator();
+        AddDefaultService();
+        AddDefaultRoute();
         _context.SaveChanges();
     }
 
     private void Migrate()
-    {        _context.Database.Migrate();
+    { 
+        _context.Database.Migrate();
     }
 
     private void AddAdministrator()
@@ -91,5 +96,33 @@ public class DatabaseSeeder : IDatabaseSeeder
                 await _roleManager.AddPermissionClaim(adminRoleInDb, permission);
             }*/
         }).GetAwaiter().GetResult();
+    }
+
+    private void AddDefaultRoute()
+    {
+        Task.Run(async () =>
+        {
+            var repository = _context.Set<Route>();
+            var empty= await repository.FirstOrDefaultAsync(x=>x.Id==RouteId.Empty);
+            if (empty == null)
+            {
+                repository.Add(Route.Empty);
+                await _context.SaveChangesAsync();
+            }
+        }).GetAwaiter().GetResult();;
+    }
+
+    private void AddDefaultService()
+    {
+        Task.Run(async () =>
+        {
+            var repository = _context.Set<Service>();
+            var empty = await repository.FirstOrDefaultAsync(x => x.Id == ServiceId.Empty);
+            if (empty == null)
+            {
+                repository.Add(Service.Empty);
+                await _context.SaveChangesAsync();
+            }
+        }).GetAwaiter().GetResult();;
     }
 }

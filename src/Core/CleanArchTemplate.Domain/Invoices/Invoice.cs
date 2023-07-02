@@ -45,20 +45,3 @@ public class Invoice:AuditableRootEntity<InvoiceId>
     public decimal Total=>InvoiceLines.Sum(invoiceLine => invoiceLine.Total);
     
 }
-public class InvoiceValidator : AbstractValidator<Invoice>
-{
-    public InvoiceValidator()
-    {
-        RuleFor(invoice => invoice.IssueDate).NotNull();
-        RuleFor(invoice => invoice.CustomerId).NotNull();
-        RuleFor(invoice => invoice.InvoiceLines).NotNull();
-    }
-}
-public class InvoiceLineValidator : AbstractValidator<InvoiceLine>
-{
-    public InvoiceLineValidator()
-    {
-        RuleFor(invoiceLine => invoiceLine.Quantity).NotNull();
-        RuleFor(invoiceLine => invoiceLine.ServiceId).NotNull();
-    }
-}

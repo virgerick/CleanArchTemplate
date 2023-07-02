@@ -14,13 +14,6 @@ public sealed class ServiceConfiguration : IEntityTypeConfiguration<Service>
         builder.Property(x => x.Status)
         .HasConversion(x => x.Status, status => ServiceStatus.Create(status));
 
-        builder.Property(x => x.RouteId)
-       .HasConversion(x => x.Value, value => new RouteId(value));
-
-        builder.HasOne(x => x.Route)
-            .WithOne()
-            .HasForeignKey<Service>(x => x.RouteId);
-
         builder.HasMany(x => x.Drivers)
             .WithMany(x => x.Services);
         builder.HasMany(x => x.Customers)

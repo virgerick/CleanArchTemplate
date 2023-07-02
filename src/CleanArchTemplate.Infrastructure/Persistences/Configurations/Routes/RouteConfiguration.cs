@@ -9,9 +9,10 @@ public sealed class RouteConfiguration : IEntityTypeConfiguration<Route>
     {
         builder.Property(x => x.Id)
         .HasConversion(x => x.Value, value => new RouteId(value));
-       
-         builder.Property(x => x.VehicleId)
-        .HasConversion(x => x.Value, value => new VehicleId(value));
-
+         
+        builder.HasMany(x => x.InvoiceLines)
+            .WithOne(x => x.Route)
+            .HasForeignKey(x=>x.RouteId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

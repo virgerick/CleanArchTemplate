@@ -113,6 +113,26 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Routes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Origin = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Destination = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Distance = table.Column<float>(type: "real", nullable: false),
+                    EstimatedTime = table.Column<float>(type: "real", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(128)", nullable: false),
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(128)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Routes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 schema: "Identity",
                 columns: table => new
@@ -441,9 +461,9 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
+                    BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(128)", nullable: false),
@@ -476,6 +496,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     ModelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(128)", nullable: false),
                     ModifiedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -493,33 +514,11 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         principalTable: "Models",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Routes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Origin = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Destination = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Distance = table.Column<float>(type: "real", nullable: false),
-                    EstimatedTime = table.Column<float>(type: "real", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(128)", nullable: false),
-                    ModifiedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(128)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Routes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Routes_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Vehicles_Routes_RouteId",
+                        column: x => x.RouteId,
+                        principalTable: "Routes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -530,8 +529,6 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ContractId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -550,12 +547,6 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         column: x => x.ContractId,
                         principalTable: "Contracts",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Services_Routes_RouteId",
-                        column: x => x.RouteId,
-                        principalTable: "Routes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Services_Vehicles_VehicleId",
                         column: x => x.VehicleId,
@@ -618,6 +609,7 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     InvoiceId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(128)", nullable: false),
                     ModifiedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -632,6 +624,11 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                         principalTable: "Invoices",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InvoiceLines_Routes_RouteId",
+                        column: x => x.RouteId,
+                        principalTable: "Routes",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_InvoiceLines_Services_ServiceId",
                         column: x => x.ServiceId,
@@ -670,6 +667,11 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                 column: "InvoiceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_InvoiceLines_RouteId",
+                table: "InvoiceLines",
+                column: "RouteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_InvoiceLines_ServiceId",
                 table: "InvoiceLines",
                 column: "ServiceId");
@@ -704,20 +706,9 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                 filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Routes_VehicleId",
-                table: "Routes",
-                column: "VehicleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Services_ContractId",
                 table: "Services",
                 column: "ContractId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Services_RouteId",
-                table: "Services",
-                column: "RouteId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Services_VehicleId",
@@ -775,6 +766,11 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                 name: "IX_Vehicles_ModelId",
                 table: "Vehicles",
                 column: "ModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_RouteId",
+                table: "Vehicles",
+                column: "RouteId");
         }
 
         /// <inheritdoc />
@@ -842,16 +838,16 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                 name: "Contracts");
 
             migrationBuilder.DropTable(
-                name: "Routes");
+                name: "Vehicles");
 
             migrationBuilder.DropTable(
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Vehicles");
+                name: "Models");
 
             migrationBuilder.DropTable(
-                name: "Models");
+                name: "Routes");
 
             migrationBuilder.DropTable(
                 name: "Brands");

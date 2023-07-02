@@ -37,7 +37,6 @@
     <Folder Include="Contracts\" />
     <Folder Include="Customers\" />
     <Folder Include="Drivers\" />
-    <Folder Include="Invoices\" />
     <Folder Include="Routes\" />
     <Folder Include="Services\" />
     <Folder Include="Vehicles\" />

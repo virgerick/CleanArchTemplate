@@ -92,8 +92,7 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
                         Route.Destination,
                         Route.Distance,
                         Route.EstimatedTime,
-                        Route.Amount,
-                        Route.VehicleId
+                        Route.Amount
                     )
                 );
                 result.ThrowIfNotSucceeded();
@@ -166,8 +165,7 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
                         Route.Destination,
                         Route.Distance,
                         Route.EstimatedTime,
-                        Route.Amount,
-                        Route.VehicleId
+                        Route.Amount
                     )
                 );
                 result.ThrowIfNotSucceeded();

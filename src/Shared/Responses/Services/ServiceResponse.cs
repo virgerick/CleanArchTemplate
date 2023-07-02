@@ -8,14 +8,12 @@ public class ServiceResponse
     {
         
     }
-    public ServiceResponse(Guid id, string name, decimal amount, string status, DateTime date, Guid routeId,bool deleted)
+    public ServiceResponse(Guid id, string name, decimal amount, string status,bool deleted)
     {
         Id = id;
         Name = name;
         Amount = amount;
         Status = status;
-        Date = date;
-        RouteId = routeId;
         Deleted = deleted;
     }
 
@@ -23,8 +21,6 @@ public class ServiceResponse
     public string Name { get;  set; }
     public decimal Amount { get;  set; }
     public string Status { get;  set; }
-    public DateTime Date { get;  set; }
-    public Guid RouteId { get; set; }
     public bool Deleted { get; set; }
 }
 

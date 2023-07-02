@@ -13,7 +13,7 @@ public static class CreateServiceEndpoint
         .WithDisplayName("Create a new Service");
         public static async ValueTask<Result<Guid>> CreateAsync(ISender Mediator, AddEditServiceRequest request,CancellationToken cancellationToken=default){
        
-        var query = new CreateServiceCommand(request.Name,request.Amount,request.Date,request.RouteId);
+        var query = new CreateServiceCommand(request.Name,request.Amount);
         var result = await Mediator.Send(query, cancellationToken);
         return result.Match<Result<Guid>>(
             id => Result<Guid>.Success(id),

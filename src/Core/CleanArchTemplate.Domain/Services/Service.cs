@@ -6,38 +6,40 @@ using CleanArchTemplate.Domain.Routes;
 using OneOf;
 
 namespace CleanArchTemplate.Domain.Services;
-public record struct ServiceId(Guid Value) {
+public record  ServiceId(Guid Value) {
 
+    public static readonly ServiceId Empty = new(Guid.Empty);
     public static ServiceId NewId() => new(Guid.NewGuid());
 };
 public class Service:AuditableRootEntity<ServiceId>
 {
+    public static readonly Service Empty = new Service() {
+        Id = ServiceId.Empty,
+        Name = "NoService",
+        Amount = 0,
+        Status = new InactiveStatus()
+    };
     public string Name { get; private set; }
     public decimal Amount { get; private set; }
     public ServiceStatus Status { get; private set; }
-    public DateTime Date { get; private set; }
-    public RouteId RouteId { get;private set; }
-    public Route Route { get; private set; }
-    public ICollection<Customer> Customers { get; private set; }
-    public ICollection<InvoiceLine> InvoiceLines { get; private set; }
-    public ICollection<Driver> Drivers { get; private set; }
+    public ICollection<Customer> Customers { get; private set; } = new List<Customer>();
+    public ICollection<InvoiceLine> InvoiceLines { get; private set; }=new List<InvoiceLine>();
+    public ICollection<Driver> Drivers { get; private set; } = new List<Driver>();
     protected Service() { } 
 
-    private Service(string name, decimal amount, ServiceStatus status, DateTime date, RouteId routeId)
+    private Service(string name, decimal amount, ServiceStatus status)
     {
         Id=ServiceId.NewId();
         Name = name;
         Amount = amount;
         Status = status;
-        Date = date;
-        RouteId = routeId;
     }
     
-    public static OneOf<Service,Exception> Create(string name,decimal amount,DateTime date,RouteId routeId=default)
+    public static OneOf<Service,Exception> Create(string name,decimal amount)
     {
-        if (string.IsNullOrWhiteSpace(name)) return new Exception("Name is requiered.");
-        if (amount <= 0) return new Exception("Amount is requiered. and have to be grater than zero.");
-        return new Service(name, amount, ServiceStatus.Active, date, routeId);
+        if (string.IsNullOrWhiteSpace(name)) return new Exception("Name is required.");
+        if (amount <= 0) return new Exception("Amount is required. and have to be grater than zero.");
+        return new Service(name, amount, ServiceStatus.Active);
 
     }
 
@@ -56,4 +58,6 @@ public class Service:AuditableRootEntity<ServiceId>
     {
         Status = new InactiveStatus();
     }
+
+   
 }

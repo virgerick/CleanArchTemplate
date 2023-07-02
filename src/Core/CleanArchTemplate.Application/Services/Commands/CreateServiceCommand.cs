@@ -13,7 +13,7 @@ using CleanArchTemplate.Domain.Routes;
 
 namespace CleanArchTemplate.Application.Services.Commands;
 
-public record struct CreateServiceCommand(string Name, decimal Amount, DateTime Date, Guid? RouteId) : IRequest<OneOf<Guid,Exception>>;
+public record struct CreateServiceCommand(string Name, decimal Amount) : IRequest<OneOf<Guid,Exception>>;
 public sealed class CreateServiceCommandHandler : IRequestHandler<CreateServiceCommand, OneOf<Guid, Exception>>
 {
     private readonly IApplicationDbContext _context;
@@ -29,8 +29,7 @@ public sealed class CreateServiceCommandHandler : IRequestHandler<CreateServiceC
             if (repo.Any(x => x.Name == request.Name))
                 return new Exception($"There is an existing Service named: '{request.Name}' ");
             Service create = null!;
-            RouteId routeId = request.RouteId!=null? new RouteId(request.RouteId.Value) : new();
-            Service.Create(request.Name,request.Amount,request.Date, routeId)
+            Service.Create(request.Name,request.Amount)
                 .Switch(
                 service=>create=service,
                 error=> throw error
