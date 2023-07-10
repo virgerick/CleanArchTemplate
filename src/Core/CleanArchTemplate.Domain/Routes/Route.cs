@@ -11,14 +11,15 @@ public record  struct RouteId(Guid Value) {
 };
 public class Route : AuditableEntity<RouteId>
 {
-    public static readonly Route Empty = new Route()
-        {  Id = RouteId.Empty,
-            Origin = "Nowhere", 
-            Destination = "Nowhere", 
-            Distance = 0, 
-            EstimatedTime = 0, 
-            Amount = 0 , 
-        };
+    public static readonly Route Empty = new Route
+    {
+        Id = RouteId.Empty,
+        Origin = "Nowhere",
+        Destination = "Nowhere",
+        Distance = 0,
+        EstimatedTime = 0,
+        Amount = 0
+    };
     private Route() { }
     public string Origin { get; private set; }
     public string Destination { get; private set; }

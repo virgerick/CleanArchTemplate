@@ -26,7 +26,6 @@ public class Service:AuditableRootEntity<ServiceId>
     public ICollection<InvoiceLine> InvoiceLines { get; private set; }=new List<InvoiceLine>();
     public ICollection<Driver> Drivers { get; private set; } = new List<Driver>();
     protected Service() { } 
-
     private Service(string name, decimal amount, ServiceStatus status)
     {
         Id=ServiceId.NewId();
@@ -34,7 +33,6 @@ public class Service:AuditableRootEntity<ServiceId>
         Amount = amount;
         Status = status;
     }
-    
     public static OneOf<Service,Exception> Create(string name,decimal amount)
     {
         if (string.IsNullOrWhiteSpace(name)) return new Exception("Name is required.");
@@ -42,7 +40,6 @@ public class Service:AuditableRootEntity<ServiceId>
         return new Service(name, amount, ServiceStatus.Active);
 
     }
-
     public void Update(string name,decimal newPrice)
     {
         ArgumentException.ThrowIfNullOrEmpty(name);
@@ -53,11 +50,8 @@ public class Service:AuditableRootEntity<ServiceId>
         Amount = newPrice;
 
     }
-
     public void Deactivate()
     {
         Status = new InactiveStatus();
     }
-
-   
 }

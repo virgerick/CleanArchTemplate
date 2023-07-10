@@ -63,7 +63,53 @@ public class Result
             Failure<(T1,T2)>(result2.Errors) : 
             Success((result1.Value, result2.Value));
 
+    public static Result TryCatch(Func<Result> action)
+    {
+        try
+        {
+            return action();
+        }
+        catch (Exception e)
+        {
+            return e;
+        }
+    }   
+    public static async Task<Result> TryCatch(Func<Task<Result>> action)
+    {
+        try
+        {
+            return await action();
+        }
+        catch (Exception e)
+        {
+            return e;
+        }
+    }
+    public static Result<T> TryCatch<T>(Func<Result<T>> action)
+    {
+        try
+        {
+            return  action();
+        }
+        catch (Exception e)
+        {
+            return Failure<T>(e);
+        }
+    }   
+    public static async Task<Result<T>> TryCatch<T>(Func<Task<Result<T>>> action)
+    {
+        try
+        {
+            return await action();
+        }
+        catch (Exception e)
+        {
+            return Failure<T>(e);
+        }
+    }
+    
     public static implicit operator Result(Exception exception) => Failure(exception);
+
 }
 
 public class Result<T> : Result

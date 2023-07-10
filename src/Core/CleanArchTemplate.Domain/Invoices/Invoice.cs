@@ -1,19 +1,17 @@
-﻿using System;
-using System.Diagnostics.Contracts;
-using System.Net;
+﻿
 using CleanArchTemplate.Domain.Common;
 using CleanArchTemplate.Domain.Customers;
 using FluentValidation;
 using FluentValidation.Results;
 using OneOf;
 namespace CleanArchTemplate.Domain.Invoices;
-public record struct InvoiceId(int Value);
+public record struct InvoiceId(Guid Value);
 public class Invoice:AuditableRootEntity<InvoiceId>
 {
     public DateTime IssueDate { get; private set; }
     public CustomerId CustomerId { get; private set; }
-    public Customer Customer { get; private set; }
-    public ICollection<InvoiceLine> InvoiceLines { get; private set; }
+    public Customer Customer { get;  set; }
+    public ICollection<InvoiceLine> InvoiceLines { get;  set; }
 
     protected Invoice() { }
     public static OneOf<Invoice, List<ValidationFailure>> Create(DateTime issueDate, CustomerId customerId)

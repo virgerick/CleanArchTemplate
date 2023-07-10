@@ -10,7 +10,7 @@ public static class ResultExtensions
 
     public static async Task<Result<TOut>> Map<TIn, TOut>(this Result<TIn> result, Func<TIn, Task<Result<TOut>>> mappingFunction)
     {
-        return result.Succeeded ? await mappingFunction(result.Value): Result.Failure<TOut>(result.Errors); ;
+        return result.Succeeded ? await mappingFunction(result.Value): Result.Failure<TOut>(result.Errors); 
     }
     public static Result Bind<TIn, TOut>(this Result<TIn> result, Func<TIn,Result<TOut>> bindFunction) => 
         result.Succeeded ? bindFunction(result.Value) : Result.Failure<TOut>(result.Errors);
@@ -45,7 +45,7 @@ public static class ExceptionExtensions{
 
     public static IEnumerable<Error> ToErrors(this Exception exception)
     {
-        var errors = new List<Results.Error>();
+        var errors = new List<Error>();
         var current = exception;
         while (current!= null)
         {
@@ -56,7 +56,7 @@ public static class ExceptionExtensions{
     }
     public static IEnumerable<Error> ToError(this Exception exception)
     {
-        var errors = new List<Results.Error>();
+        var errors = new List<Error>();
         var current = exception;
         while (current!= null)
         {

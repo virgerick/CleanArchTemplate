@@ -16,5 +16,12 @@ public class InvoiceLineValidator : AbstractValidator<InvoiceLine>
         RuleFor(invoiceLine => invoiceLine.RouteId)
             .NotNull()
             .When(invoiceLine => invoiceLine.ServiceId == ServiceId.Empty);
+        RuleFor(invoiceLine => invoiceLine.Description)
+            .NotNull()
+            .NotEmpty();
+        RuleFor(invoiceLine => invoiceLine.Price)
+            .NotNull()
+            .GreaterThan(0);
+        
     }
 }

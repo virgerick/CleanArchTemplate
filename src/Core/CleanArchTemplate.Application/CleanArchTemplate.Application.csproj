@@ -29,7 +29,7 @@
     <None Remove="Vehicles\Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mapping\" />
+    <Folder Include="Invoices\Queries\" />
     <Folder Include="Drivers\" />
     <Folder Include="Services\" />
     <Folder Include="Vehicles\Types\" />

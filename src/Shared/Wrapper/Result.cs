@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿
 using CleanArchTemplate.Shared.Extensions;
 
 namespace CleanArchTemplate.Shared.Wrapper;
 
 public class Result : IResult
 {
-    public Result()
-    {
-    }
+   
 
     public IEnumerable<string> Messages { get; set; } = Enumerable.Empty<string>();
 
@@ -60,10 +57,7 @@ public class Result : IResult
 
 public class Result<T> : Result, IResult<T>
 {
-    public Result()
-    {}
-
-    public T Data { get; set; }
+    public T Data { get; init; }=default!;
 
     public new static Result<T> Failure()
     {
@@ -85,12 +79,12 @@ public class Result<T> : Result, IResult<T>
         return Task.FromResult(Failure());
     }
 
-    public new static Task<Result<T>> FailureAsync(string message)
+    public  static Task<Result<T>> FailureAsync(string message)
     {
         return Task.FromResult(Failure(message));
     }
 
-    public new static Task<Result<T>> FailureAsync(IEnumerable<string> messages)
+    public  static Task<Result<T>> FailureAsync(IEnumerable<string> messages)
     {
         return Task.FromResult(Failure<T>(messages));
     }
@@ -124,7 +118,7 @@ public class Result<T> : Result, IResult<T>
     {
         try
         {
-            return await action?.Invoke()!;
+            return await action.Invoke();
 
         }
         catch (Exception ex)
@@ -133,7 +127,7 @@ public class Result<T> : Result, IResult<T>
         }
         finally
         {
-            onFinally?.Invoke();
+            onFinally.Invoke();
         }
     }
     public static implicit operator Result<T>(T data) => Success<T>(data);
@@ -144,7 +138,7 @@ where TError :Exception
 {
     private readonly TSuccess _data = default!;
     private readonly TError _error = default!;
-    private readonly bool _succeeded=false;
+    private readonly bool _succeeded;
     public Result(TSuccess data)
     {   _succeeded = true;
         _data = data;

@@ -3,7 +3,5 @@
     public interface IDatabaseSeeder
     {
         void Initialize();
-    }
-
-    
+    } 
 }
