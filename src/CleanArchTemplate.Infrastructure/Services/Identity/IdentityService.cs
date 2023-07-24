@@ -65,7 +65,12 @@ public class IdentityService : ITokenService
             user.RefreshTokenExpiryTime = _dateTime.NowUtc.AddHours(7);
             await _userManager.UpdateAsync(user);
             var token = await GenerateJwtAsync(user);
-            var response = new TokenResponse { Token = token, RefreshToken = user.RefreshToken, UserImageURL = user.ProfilePictureDataUrl!,RefreshTokenExpiryTime=user.RefreshTokenExpiryTime };
+            TokenResponse response = new TokenResponse { Token = token,
+                RefreshToken = user.RefreshToken, 
+                UserImageURL = user.ProfilePictureDataUrl,
+                RefreshTokenExpiryTime=user.RefreshTokenExpiryTime
+                
+            };
             return Result<TokenResponse>.Success(response);
         });
     }

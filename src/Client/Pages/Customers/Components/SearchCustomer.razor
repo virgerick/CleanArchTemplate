@@ -1,0 +1,59 @@
+   <RadzenFormField Text="Search" Variant="Variant.Text" class="rz-mb-1 w-100">
+            <ChildContent>
+                <RadzenTextBox @bind-Value="@_search"  @oninput="args=>_search=args.Value.ToString()"/>
+            </ChildContent>
+            <End>
+                <RadzenIcon Icon="search"/>
+            </End>
+        </RadzenFormField>
+<RadzenDataGrid  AllowAlternatingRows="true" 
+                 AllowSorting="true" EditMode="DataGridEditMode.Single" Responsive="true" 
+                 PageSize="50"
+                 AllowPaging
+                 Data="@_customersFiltered" TItem="CustomerResponse"
+                 >
+    <EmptyTemplate>
+        <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
+    </EmptyTemplate>
+    <Columns>
+        <RadzenDataGridColumn TItem="CustomerResponse" Property="Name" Title="Name"/>
+        <RadzenDataGridColumn TItem="CustomerResponse" Property="Email" Title="Email"/>
+
+        <RadzenDataGridColumn TItem="CustomerResponse" Context="customer" Filterable="false" Sortable="false"
+                              TextAlign="TextAlign.Right" >
+            <Template Context="customer">
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="pan_tool_alt" Variant="Variant.Flat"
+                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="() => DialogService.Close(customer)">
+                </RadzenButton>
+               
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+
+</RadzenDataGrid>
+@code {
+    IEnumerable<CustomerResponse> _customers = Enumerable.Empty<CustomerResponse>();
+    string _search = string.Empty;
+    IEnumerable<CustomerResponse> _customersFiltered { 
+    get{
+        if (string.IsNullOrWhiteSpace(_search)) return _customers;
+        _search = _search.ToLower();
+        return _customers.Where(x => x.Name.ToLower().Contains(_search) || x.Email.ToLower().Contains(_search));
+    }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await GetCustomersAsync();
+    }
+    Task GetCustomersAsync() => Excecutor.Run(async () => {
+            var result = await CustomerApiService.GetAsync();
+            result.ThrowIfNotSucceeded();
+            _customers = result.Items;
+        });
+
+
+   
+
+}

@@ -13,7 +13,6 @@ public class Customer:AuditableRootEntity<CustomerId>
     private List<Contract> _contracts=new();
     private List<Service> _services = new();
     private List<Invoice> _invoices = new();
-
     public string Name { get; private set; }
     public string Email { get; private set; }
     public Address Address { get; private set; }

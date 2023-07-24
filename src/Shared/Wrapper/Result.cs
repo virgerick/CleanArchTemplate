@@ -114,20 +114,21 @@ public class Result<T> : Result, IResult<T>
         return new Result<T> { Succeeded = true, Data = data, Messages = messages };
     }
 
-    public static async Task<Result<T>> TryCatch(Func<Task<Result<T>>> action, Action onFinally = default!)
+    public static async Task<Result<T>> TryCatch(Func<Task<Result<T>>> action, Action? onFinally = null)
     {
         try
         {
-            return await action.Invoke();
-
+            var result= await action.Invoke();
+            return result;
         }
         catch (Exception ex)
         {
-            return Result<T>.Failure(ex.GetMessages().ToList());
+            return Failure(ex.GetMessages().ToList());
         }
         finally
         {
-            onFinally.Invoke();
+            
+            onFinally?.Invoke();
         }
     }
     public static implicit operator Result<T>(T data) => Success<T>(data);

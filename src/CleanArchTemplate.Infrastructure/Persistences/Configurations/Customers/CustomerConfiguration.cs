@@ -13,7 +13,8 @@ public sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
         builder.Property(x => x.Id)
              .HasConversion(x => x.Value, value => new CustomerId(value));
         builder.Property(x => x.Address)
-            .HasConversion(x => x.ToJsonSerialize(), json => json.ToDeserialize<Address>());
+            .HasConversion(x => x.ToJsonSerialize(), 
+                json => json.ToDeserialize<Address>());
         /*
         builder.Property(x => x.Services)
             .HasField("_services");
