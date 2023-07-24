@@ -20,6 +20,8 @@ public class InvoiceLineResponse
     public int Quantity{get;set;}
     public Guid ServiceId{get;set;}
     public Guid RouteId { get; set; }
+    public decimal Total => Quantity * Price;
+    public Guid ReferenceId => ServiceId == Guid.Empty ? ServiceId: RouteId; 
 
     public static InvoiceLineResponse CreateFromService(string service, Guid serviceId, decimal price, int quantity) =>
         new InvoiceLineResponse()

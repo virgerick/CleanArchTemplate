@@ -1,8 +1,10 @@
 @page "/Invoice"
 @using CleanArchTemplate.Client.Pages.Customers.Components
+@using CleanArchTemplate.Client.Pages.Services.Components
 @using CleanArchTemplate.Shared.Responses.Customers
 @using CleanArchTemplate.Shared.Responses.Routes
 @using CleanArchTemplate.Shared.Responses.Services
+@using System.Globalization
 
 <RadzenBreadCrumb class="rz-mb-2">
     <RadzenBreadCrumbItem Path="/" Text="Home" />
@@ -35,15 +37,54 @@
     </RadzenStack>
 </RadzenStack>
 
-<RadzenGrid TItem="InvoiceLineResponse" Data="_lines" >
-        <EmptyTemplate>
-            <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
-        </EmptyTemplate>
-</RadzenGrid>
+<RadzenDataGrid @ref="_gridLines" AllowAlternatingRows="true" AllowFiltering="true" AllowPaging="true" PageSize="5"
+    AllowSorting="true" EditMode="DataGridEditMode.Single" Responsive="true" Data="@_lines" TItem="InvoiceLineResponse"
+     ColumnWidth="200px">
+    <EmptyTemplate>
+        <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
+    </EmptyTemplate>
+    <Columns>
+        <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true"
+            TextAlign="TextAlign.Center" Width="100%" Title="Description">
+             <Template Context="service">
+                 <RadzenText Text="@service.Description" />
+              </Template>
+                       
+        </RadzenDataGridColumn>     
+        <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true"
+            TextAlign="TextAlign.Center" Width="100%" Title="Quantity">
+             <Template Context="service">
+                 <RadzenText Text="@service.Quantity.ToString()" />
+              </Template>
+                       
+        </RadzenDataGridColumn>  
+        <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true"
+            TextAlign="TextAlign.Center" Width="100%" Title="Price">
+             <Template Context="line">
+                           <RadzenText Text="@line.Price.ToString(CultureInfo.InvariantCulture)" />
+              </Template>
+        </RadzenDataGridColumn>     
+        <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true"
+            TextAlign="TextAlign.Center" Width="100%" Title="Total">
+             <Template Context="line">
+                           <RadzenText Text="@line.Total.ToString(CultureInfo.InvariantCulture)" />
+              </Template>
+        </RadzenDataGridColumn>   
+     
+        <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true" 
+            TextAlign="TextAlign.Center" Width="100%">
+            <Template Context="service">
+                <RadzenButton Icon="pan_tool_alt"  Variant="Variant.Flat"
+                    Size="ButtonSize.Medium" @onclick:stopPropagation="true">
+                </RadzenButton>
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
 
+</RadzenDataGrid>
 
 @code{
-
+    private RadzenDataGrid<InvoiceLineResponse> _gridLines;
     List<InvoiceLineResponse> _lines = new List<InvoiceLineResponse>();
     CustomerResponse _customer = null!;
     DateTime _date = DateTime.Today;
@@ -61,7 +102,6 @@
            
         }
     }
-
     private async Task<int> GetQuantityAsync()
     {
         var quantityResult = await DialogService.OpenAsync<QuantityInput>("Select a quantity");
@@ -79,10 +119,10 @@
             CloseDialogOnOverlayClick=false
         };
         var result = await DialogService.OpenAsync<SearchRoute>("Search Service",options:options);
-        if (result is ServiceResponse service)
+        if (result is RouteResponse route)
         {
-           var line= InvoiceLineResponse.CreateFromService(service.Name, service.Id, service.Amount, await GetQuantityAsync());
-            _lines.Add(line);
+           var line= InvoiceLineResponse.CreateFromService(route.Display, route.Id, route.Amount, await GetQuantityAsync());
+            await _gridLines.InsertRow(line);
         }
     }
     private async Task AddServiceAsync()
@@ -92,13 +132,14 @@
             CloseDialogOnOverlayClick=false
         };
         var result = await DialogService.OpenAsync<SearchService>("Search Service",options:options);
-        if (result is RouteResponse route)
+        if (result is ServiceResponse service)
         {
-          
-            var line= InvoiceLineResponse.CreateFromService(route.Display, route.Id, route.Amount,  await GetQuantityAsync());
-            _lines.Add(line);
+            var quantity = await GetQuantityAsync();
+            var line= InvoiceLineResponse.CreateFromService(service.Name, service.Id, service.Amount, quantity);
+            await _gridLines.InsertRow(line);
         }
     }
+
 
     
 }

@@ -1,0 +1,71 @@
+@using CleanArchTemplate.Shared.Responses.Services
+@using System.Globalization
+  <RadzenFormField Text="Search" Variant="Variant.Text" class="rz-mb-1 w-100">
+            <ChildContent>
+                <RadzenTextBox @bind-Value="@_search"  @oninput="args=>_search=args.Value.ToString()"/>
+            </ChildContent>
+            <End>
+                <RadzenIcon Icon="search"/>
+            </End>
+        </RadzenFormField>
+<RadzenDataGrid AllowAlternatingRows="true" AllowFiltering="true" AllowPaging="true" PageSize="5"
+    AllowSorting="true" EditMode="DataGridEditMode.Single" Responsive="true" Data="@ServicesFiltered" TItem="ServiceResponse"
+     ColumnWidth="200px">
+    <EmptyTemplate>
+        <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
+    </EmptyTemplate>
+    <Columns>
+        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="true" Sortable="true"
+            TextAlign="TextAlign.Center" Width="100%" Title="Name">
+             <Template Context="service">
+                 <RadzenText Text="@service.Name" />
+              </Template>
+                       
+        </RadzenDataGridColumn>  
+        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="true" Sortable="true"
+            TextAlign="TextAlign.Center" Width="100%" Title="Amount">
+             <Template Context="service">
+                           <RadzenText Text="@service.Amount.ToString(CultureInfo.InvariantCulture)" />
+              </Template>
+        </RadzenDataGridColumn>   
+     
+        <RadzenDataGridColumn TItem="ServiceResponse" Context="Service" Filterable="true" Sortable="true" 
+            TextAlign="TextAlign.Center" Width="100%">
+            <Template Context="service">
+                <RadzenButton Icon="pan_tool_alt"  Variant="Variant.Flat"
+                    Size="ButtonSize.Medium" Click="@(args => DialogService.Close(service))" @onclick:stopPropagation="true">
+                </RadzenButton>
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+
+</RadzenDataGrid>
+
+
+
+@code {
+    IEnumerable<ServiceResponse> Services = Enumerable.Empty<ServiceResponse>(); 
+    string _search = string.Empty;
+    IEnumerable<ServiceResponse> ServicesFiltered { 
+        get{
+            if (string.IsNullOrWhiteSpace(_search)) return Services;
+            _search = _search.ToLower();
+            return Services.Where(x => x.Name.ToLower().Contains(_search));
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await GetDefaultServicesAsync();
+    }
+
+    async Task GetDefaultServicesAsync()
+    {
+        await Excecutor.Run(async () =>
+        {
+            var result = await ServiceApiService.GetAsync();
+            result.ThrowIfNotSucceeded();
+            Services = result.Items;
+        });
+    }
+}
