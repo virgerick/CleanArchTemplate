@@ -14,6 +14,8 @@ public sealed class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
         .HasConversion(x => x.Value, value =>new InvoiceId(value));
          builder.Property(x => x.CustomerId)
              .HasConversion(x => x.Value, value => new CustomerId(value));
+         builder.Property(x=>x.Status)
+             .HasConversion(x=>x.Status, value =>new InvoiceStatus(value));
     }
 }
 public sealed class InvoiceLineConfiguration : IEntityTypeConfiguration<InvoiceLine>
@@ -22,7 +24,8 @@ public sealed class InvoiceLineConfiguration : IEntityTypeConfiguration<InvoiceL
     {
         builder.Property(x => x.Id)
         .HasConversion(x => x.Value, value =>new InvoiceLineId(value));
-         builder.Property(x => x.InvoiceId)
+      
+        builder.Property(x => x.InvoiceId)
         .HasConversion(x => x.Value, value =>new InvoiceId(value));
          builder.Property(x => x.ServiceId)
         .HasConversion(x => x!.Value, value =>new ServiceId(value));

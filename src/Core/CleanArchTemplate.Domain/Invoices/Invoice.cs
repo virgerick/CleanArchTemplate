@@ -11,20 +11,21 @@ public class Invoice:AuditableRootEntity<InvoiceId>
     public DateTime IssueDate { get; private set; }
     public CustomerId CustomerId { get; private set; }
     public Customer Customer { get;  set; }
+    public InvoiceStatus Status { get; private set; } = new DraftStatus();
     public ICollection<InvoiceLine> InvoiceLines { get;  set; }
 
     protected Invoice() { }
-    public static OneOf<Invoice, List<ValidationFailure>> Create(DateTime issueDate, CustomerId customerId)
+    public static OneOf<Invoice, List<ValidationFailure>> Create(DateTime issueDate, CustomerId customerId,InvoiceStatus? status=null!)
     {
         var validator = new InvoiceValidator();
         var invoice = new Invoice
         {
             IssueDate = issueDate,
-            CustomerId = customerId
+            CustomerId = customerId,
+            Status =status == null! ? new IssuedStatus():status
         };
 
         var validationResult = validator.Validate(invoice);
-
         return validationResult.Errors.Any() ? validationResult.Errors : invoice;
     }
     public void AddInvoiceLine(InvoiceLine invoiceLine)

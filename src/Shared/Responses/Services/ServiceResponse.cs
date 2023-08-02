@@ -17,7 +17,7 @@ public class ServiceResponse
         Deleted = deleted;
     }
 
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.Empty;
     public string Name { get;  set; }
     public decimal Amount { get;  set; }
     public string Status { get;  set; }

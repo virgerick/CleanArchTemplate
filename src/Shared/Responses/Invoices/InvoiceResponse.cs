@@ -21,8 +21,19 @@ public class InvoiceLineResponse
     public Guid ServiceId{get;set;}
     public Guid RouteId { get; set; }
     public decimal Total => Quantity * Price;
-    public Guid ReferenceId => ServiceId == Guid.Empty ? ServiceId: RouteId; 
+    public Guid ReferenceId
+    {
+        get
+        {
+            if (ServiceId != Guid.Empty)
+                return ServiceId;
 
+            if (RouteId != Guid.Empty)
+                return RouteId;
+
+            throw new Exception("InvoiceLineResponse is in a bad state.");
+        }
+    }
     public static InvoiceLineResponse CreateFromService(string service, Guid serviceId, decimal price, int quantity) =>
         new InvoiceLineResponse()
         {

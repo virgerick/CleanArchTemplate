@@ -35,7 +35,6 @@ namespace CleanArchTemplate.Client.Pages.Services.Components
     {
         RadzenDataGrid<ServiceResponse> ServicesGrid = null!;
         IEnumerable<ServiceResponse> Services = Enumerable.Empty<ServiceResponse>();
-        IEnumerable<RouteResponse> Routes = Enumerable.Empty<RouteResponse>();
         ServiceResponse ServiceToInsert = null!;
         ServiceResponse ServiceToUpdate = null!;
 
@@ -48,17 +47,16 @@ namespace CleanArchTemplate.Client.Pages.Services.Components
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            await GetDefaultServicesAsync();
+            await GetServicesAsync();
         }
 
-        async Task GetDefaultServicesAsync()
+        async Task GetServicesAsync()
         {
             await Excecutor.Run(async () =>
             {
-                var result = await ServiceApiService.GetDefaultAsync();
+                var result = await ServiceApiService.GetAsync();
                 result.ThrowIfNotSucceeded();
-                Services = result.Data.Services;
-                Routes = result.Data.Routes;
+                Services = result.Items;
             });
         }
 
@@ -80,7 +78,7 @@ namespace CleanArchTemplate.Client.Pages.Services.Components
                 ServiceToUpdate = null!;
                 var result = await ServiceApiService.EditAsync(Service.Id, new(Service.Name,Service.Amount));
                 result.ThrowIfNotSucceeded();
-                await GetDefaultServicesAsync();
+                await GetServicesAsync();
                 NotificationService.Notify(
                     new NotificationMessage
                     {
@@ -145,7 +143,7 @@ namespace CleanArchTemplate.Client.Pages.Services.Components
                 ServiceToInsert = null!;
                 var result = await ServiceApiService.CreateAsync(new(Service.Name,Service.Amount));
                 result.ThrowIfNotSucceeded();
-                await GetDefaultServicesAsync();
+                await GetServicesAsync();
                 NotificationService.Notify(
                     new NotificationMessage
                     {
@@ -163,7 +161,7 @@ namespace CleanArchTemplate.Client.Pages.Services.Components
                 ServiceToInsert = null!;
                 var result = await ServiceApiService.DeleteAsync(Service.Id);
                 result.ThrowIfNotSucceeded();
-                await GetDefaultServicesAsync();
+                await GetServicesAsync();
                 NotificationService.Notify(
                     new NotificationMessage
                     {

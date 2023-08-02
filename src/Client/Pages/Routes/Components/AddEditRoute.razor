@@ -1,0 +1,103 @@
+<RadzenTemplateForm Data="Route" Submit="(RouteResponse route) => Save(route)">
+    <RadzenStack Orientation="Orientation.Vertical" Gap="2px">
+        <RadzenFormField Text="Origin" Variant="@FormStyle">
+            <Start></Start>
+            <ChildContent>
+                <RadzenTextBox @bind-Value="Route.Origin" class="w-100;" Name="Origin"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="Origin" Text="Origin is required"/>
+            </Helper>
+        </RadzenFormField> 
+        <RadzenFormField Text="Destination" Variant="@FormStyle">
+            <Start></Start>
+            <ChildContent>
+                <RadzenTextBox @bind-Value="Route.Destination" class="w-100;" Name="Destination"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="Destination" Text="Destination is required"/>
+            </Helper>
+        </RadzenFormField>
+        <!-- RadzenFormField Text="Distance" Variant="FormStyle">
+            <Start></Start>
+            <ChildContent>
+                <RadzenNumeric TValue="float" @bind-Value="Route.Distance" class="w-100;" Name="Distance" Change="num => Route.Distance=num"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="Distance" Text="Distance is required."/>
+                <RadzenCompareValidator Operator="CompareOperator.GreaterThan" Value="0m" Component="Distance" Text="Distance must be grater than zero."/>
+            </Helper>
+        </RadzenFormField>
+        <RadzenFormField Text="EstimatedTime" Variant="FormStyle">
+            <Start></Start>
+            <ChildContent>
+                <RadzenNumeric TValue="float" @bind-Value="Route.EstimatedTime" class="w-100;" Name="EstimatedTime" Change="num => Route.EstimatedTime=num"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+            </Helper>
+        </RadzenFormField -->
+        <RadzenFormField Text="Amount" Variant="FormStyle">
+            <Start></Start>
+            <ChildContent>
+                <RadzenNumeric TValue="decimal" @bind-Value="Route.Amount" class="w-100;" Name="Amount" Change="amount => Route.Amount=amount"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="Amount" Text="Amount is required."/>
+                <RadzenCompareValidator Operator="CompareOperator.GreaterThan" Value="0m" Component="Amount" Text="Amount must be grater than zero."/>
+            </Helper>
+        </RadzenFormField>
+        <RadzenButton Variant="FormStyle" ButtonType="ButtonType.Submit" Icon="save" Text="Save"/>
+    </RadzenStack>
+</RadzenTemplateForm>
+@code {
+
+    [Parameter]
+    public RouteResponse Route { get; set; } = new();
+    private const Variant FormStyle = Variant.Text;
+
+    async Task Save(RouteResponse service)
+    {
+        if (service.Id == Guid.Empty)
+        {
+            await Insert(service);
+            return;
+        }
+        await Update(service);
+    }
+
+    async Task Update(RouteResponse service) => await Excecutor.Run(async () =>
+    {
+        var result = await RouteApiService.EditAsync(service.Id,new CreateEditRouteRequest(service.Origin,service.Destination,service.Distance,service.EstimatedTime,service.Amount));
+        result.ThrowIfNotSucceeded();
+
+        NotificationService.Notify(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Detail = "Route updated successfully"
+            }
+            );
+        DialogService.Close(true);
+    });
+
+    async Task Insert(RouteResponse service) => await Excecutor.Run(async () =>
+    {
+        var result = await RouteApiService.CreateAsync(new CreateEditRouteRequest(service.Origin,service.Destination,service.Distance,service.EstimatedTime,service.Amount));
+        result.ThrowIfNotSucceeded();
+
+        NotificationService.Notify(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Detail = "Route created successfully"
+            }
+            );
+        DialogService.Close(true);
+    });
+
+}

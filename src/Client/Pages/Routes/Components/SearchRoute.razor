@@ -1,0 +1,91 @@
+<RadzenStack Orientation="Orientation.Horizontal" Gap="2px">
+    <RadzenFormField Text="Search" Variant="Variant.Text" class="rz-mb-1 w-100">
+        <ChildContent>
+            <RadzenTextBox @bind-Value="@_search"  @oninput="OnSearchChange"/>
+        </ChildContent>
+        <End>
+            <RadzenIcon Icon="search"/>
+        </End>
+    </RadzenFormField>
+    <RadzenButton Variant="Variant.Text" Icon="add"  Click="CreateServiceAsync"/>
+</RadzenStack>
+<RadzenDataGrid @ref="RoutesGrid" AllowAlternatingRows="true" AllowFiltering="true" AllowPaging="true" PageSize="5"
+    AllowSorting="true" EditMode="DataGridEditMode.Single" Responsive="true" Data="@Routes" TItem="RouteResponse">
+    <EmptyTemplate>
+        <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
+    </EmptyTemplate>
+    <Columns>
+        <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="true" Sortable="true" Title="Origin" CssClass="w-100">
+            <Template Context="Route">
+                <RadzenText Text="@Route.Origin" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="true" Sortable="true" Title="Destination"CssClass="w-100">
+            <Template Context="Route">
+                <RadzenText Text="@Route.Destination" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="false" Sortable="false"
+                              TextAlign="TextAlign.Center" Title="Amout" CssClass="w-100">
+            <Template Context="Route">
+                <RadzenText Text="@Route.Amount.ToString(CultureInfo.InvariantCulture)" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="RouteResponse" Context="Route" Filterable="false" Sortable="false"
+                              TextAlign="TextAlign.Center" >
+            <Template Context="Route">
+               
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" Icon="pan_tool_alt" Variant="Variant.Flat"
+                                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="() => DialogService.Close(Route)">
+                </RadzenButton>
+
+            </Template>
+        </RadzenDataGridColumn>
+
+    </Columns>
+
+</RadzenDataGrid>
+
+@code {
+    RadzenDataGrid<RouteResponse> RoutesGrid = null!;
+    IEnumerable<RouteResponse> Routes = Enumerable.Empty<RouteResponse>();
+    string _search = string.Empty;
+    IEnumerable<RouteResponse> RoutesFiltered { 
+        get{
+            if (string.IsNullOrWhiteSpace(_search)) return Routes;
+            _search = _search.ToLower();
+            return Routes.Where(x => x.Origin.ToLower().Contains(_search) ||
+                                     x.Destination.ToLower().Contains(_search));
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await GetRoutesAsync();
+    }
+
+    async Task GetRoutesAsync()
+    {
+        await Excecutor.Run(async () =>
+        {
+            var result = await RouteApiService.GetAsync();
+            result.ThrowIfNotSucceeded();
+            Routes = result.Items.Where(x=>x.Id!=Guid.Empty);
+        });
+    }
+    private async Task CreateServiceAsync()
+    {
+        var result = await DialogService.OpenAsync<AddEditRoute>("Add route");
+        if (result is bool  and true)
+        {
+            await GetRoutesAsync();
+        }
+        
+    }
+
+    private void OnSearchChange(ChangeEventArgs args)
+    {
+        _search = args?.Value?.ToString()??"";
+    }
+}

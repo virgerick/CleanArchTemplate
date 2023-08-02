@@ -7,7 +7,7 @@ public class RouteResponse
     public float Distance { get; set; }
     public float EstimatedTime { get; set; }
     public decimal Amount { get; set; }
-    public string Display => $"From {Origin} To {Destination}";
+    public string Display => $"{Origin}/{Destination}";
     public RouteResponse() { }
     public RouteResponse(Guid id, string origin, string destination, float distance, float estimatedTime, decimal amount)
     {

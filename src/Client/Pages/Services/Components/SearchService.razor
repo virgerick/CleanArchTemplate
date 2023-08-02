@@ -1,13 +1,15 @@
-@using CleanArchTemplate.Shared.Responses.Services
-@using System.Globalization
-  <RadzenFormField Text="Search" Variant="Variant.Text" class="rz-mb-1 w-100">
-            <ChildContent>
-                <RadzenTextBox @bind-Value="@_search"  @oninput="args=>_search=args.Value.ToString()"/>
-            </ChildContent>
-            <End>
-                <RadzenIcon Icon="search"/>
-            </End>
-        </RadzenFormField>
+<RadzenStack Orientation="Orientation.Horizontal" Gap="2px">
+    <RadzenFormField Text="Search" Variant="Variant.Text" class="rz-mb-1 w-100">
+        <ChildContent>
+            <RadzenTextBox @bind-Value="@_search"  @oninput="OnSearchChange"/>
+        </ChildContent>
+        <End>
+            <RadzenIcon Icon="search"/>
+        </End>
+    </RadzenFormField>
+    <RadzenButton Variant="Variant.Text" Icon="add"  Click="CreateServiceAsync"/>
+</RadzenStack>
+
 <RadzenDataGrid AllowAlternatingRows="true" AllowFiltering="true" AllowPaging="true" PageSize="5"
     AllowSorting="true" EditMode="DataGridEditMode.Single" Responsive="true" Data="@ServicesFiltered" TItem="ServiceResponse"
      ColumnWidth="200px">
@@ -56,16 +58,32 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await GetDefaultServicesAsync();
+        await GetServicesAsync();
     }
 
-    async Task GetDefaultServicesAsync()
+    async Task GetServicesAsync()
     {
         await Excecutor.Run(async () =>
         {
             var result = await ServiceApiService.GetAsync();
             result.ThrowIfNotSucceeded();
-            Services = result.Items;
+            Services = result.Items.Where(x=>x.Id!=Guid.Empty);
         });
     }
+
+    private async Task CreateServiceAsync()
+    {
+        var result = await DialogService.OpenAsync<AddEditService>("Add service");
+        if (result is bool  and true)
+        {
+            await GetServicesAsync();
+        }
+        
+    }
+
+    private void OnSearchChange(ChangeEventArgs args)
+    {
+        _search = args?.Value?.ToString()??"";
+    }
+
 }

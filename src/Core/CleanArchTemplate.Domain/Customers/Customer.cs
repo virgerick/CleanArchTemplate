@@ -7,9 +7,19 @@ using CleanArchTemplate.Domain.Services;
 using OneOf;
 
 namespace CleanArchTemplate.Domain.Customers;
-public record struct CustomerId(Guid Value);
+
+public record struct CustomerId(Guid Value)
+{
+    public static readonly CustomerId Empty=new CustomerId(Guid.Empty);
+    public static CustomerId NewId() => new CustomerId(Guid.NewGuid());
+};
 public class Customer:AuditableRootEntity<CustomerId>
 {
+    public static readonly Customer Empty=new Customer()
+    {
+        Id = CustomerId.Empty,
+        Name = "NoCustomer"
+    };
     private List<Contract> _contracts=new();
     private List<Service> _services = new();
     private List<Invoice> _invoices = new();
@@ -39,7 +49,7 @@ public class Customer:AuditableRootEntity<CustomerId>
             return new ArgumentException("Email is not valid.", nameof(email));
         }
 
-        return new Customer { Name = name, Email = email, Address = address };
+        return new Customer {Id=CustomerId.NewId(), Name = name, Email = email, Address = address };
     }
 
     public OneOf<bool,Exception> Update(string name, string email, Address address)

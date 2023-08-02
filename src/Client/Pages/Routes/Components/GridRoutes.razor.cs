@@ -39,7 +39,6 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
     {
         RadzenDataGrid<RouteResponse> RoutesGrid = null!;
         IEnumerable<RouteResponse> Routes = Enumerable.Empty<RouteResponse>();
-        IEnumerable<VehicleResponse> Vehicles = Enumerable.Empty<VehicleResponse>();
         IEnumerable<string> Places = Enumerable.Empty<string>();
 
         RouteResponse RouteToInsert = null!;
@@ -64,7 +63,6 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
                 var result = await RouteApiService.GetDefaultAsync();
                 result.ThrowIfNotSucceeded();
                 Routes = result.Data.Routes;
-                Vehicles = result.Data.Vehicles;
                 Places = result.Data.Places;
             });
         }

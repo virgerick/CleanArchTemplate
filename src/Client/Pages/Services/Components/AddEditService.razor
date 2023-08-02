@@ -1,0 +1,83 @@
+@using CleanArchTemplate.Shared.Extensions
+<RadzenTemplateForm Data="Service" Submit="(ServiceResponse service) => Save(service)">
+    <RadzenStack Orientation="Orientation.Vertical" Gap="2px">
+        <RadzenFormField Text="Name" Variant="@FormStyle">
+            <Start></Start>
+            <ChildContent>
+                <RadzenTextBox @bind-Value="Service.Name" class="w-100;" Name="Name"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="Name" Text="Name is required"/>
+            </Helper>
+        </RadzenFormField>
+        <RadzenFormField Text="Amount" Variant="FormStyle">
+            <Start></Start>
+            <ChildContent>
+                <RadzenNumeric TValue="decimal" @bind-Value="Service.Amount" class="w-100;" Name="Amount" Change="amount => Service.Amount=amount"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="Amount" Text="Amount is required."/>
+                <RadzenCompareValidator Operator="CompareOperator.GreaterThan" Value="0m" Component="Amount" Text="Amount must be grater than zero."/>
+            </Helper>
+        </RadzenFormField>
+        <RadzenFormField Text="Status" Variant="FormStyle"> 
+            <Start></Start>
+            <ChildContent >
+                <RadzenDropDown Data="Status" @bind-Value="Service.Status" class="w-100;" Name="Status"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="Status" Text="Status is required"/>
+            </Helper>
+        </RadzenFormField>
+        <RadzenButton Variant="FormStyle" ButtonType="ButtonType.Submit" Icon="save" Text="Save"></RadzenButton>
+    </RadzenStack>
+</RadzenTemplateForm>
+@code {
+
+    [Parameter]
+    public ServiceResponse Service { get; set; } = new();
+        private const Variant FormStyle = Variant.Text;
+    static readonly IEnumerable<string> Status = Enum.GetNames(typeof(ServiceStatus));
+    async Task Save(ServiceResponse service)
+    {
+        if (service.Id == Guid.Empty)
+        {
+            await Insert(service);
+            return;
+        }
+        await Update(service);
+    }
+    async Task Update(ServiceResponse service)=>await Excecutor.Run(async () =>{
+            var result = await ServiceApiService.EditAsync(service.Id, new(service.Name, service.Amount));
+            result.ThrowIfNotSucceeded();
+                                                                                  
+            NotificationService.Notify(
+                new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Detail = "Service updated successfully"
+                }
+                );
+            DialogService.Close(true);
+        });
+    async Task Insert (ServiceResponse service)=> await Excecutor.Run(async () =>{
+            var result = await ServiceApiService.CreateAsync(new(service.Name, service.Amount));
+            result.ThrowIfNotSucceeded();
+                                                                                     
+            NotificationService.Notify(
+                new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Detail = "Service created successfully"
+                }
+                );
+            DialogService.Close(true);
+        });
+
+
+   
+
+}

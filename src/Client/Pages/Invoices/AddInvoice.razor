@@ -6,6 +6,7 @@
 @using CleanArchTemplate.Shared.Responses.Services
 @using System.Globalization
 
+
 <RadzenBreadCrumb class="rz-mb-2">
     <RadzenBreadCrumbItem Path="/" Text="Home" />
     <RadzenBreadCrumbItem Path="/Invoice" Text="Invoice" />
@@ -26,7 +27,7 @@
                 <RadzenText Text="@(_customer?.Name??"No customer selected")" />
             </ChildContent>
             <End>
-                <RadzenButton Icon="search"  Click="ChooseCustomerAsync" />
+                <RadzenButton Icon="search"  Click="ChooseCustomerAsync" Variant="Variant.Text" />
             </End>
         </RadzenFormField>
     </RadzenStack>
@@ -39,107 +40,222 @@
 
 <RadzenDataGrid @ref="_gridLines" AllowAlternatingRows="true" AllowFiltering="true" AllowPaging="true" PageSize="5"
     AllowSorting="true" EditMode="DataGridEditMode.Single" Responsive="true" Data="@_lines" TItem="InvoiceLineResponse"
-     ColumnWidth="200px">
+    RowUpdate="@OnUpdateRow" RowCreate="@OnCreateRow" Sort="@Reset" Page="@Reset" Filter="@Reset" ColumnWidth="200px">
     <EmptyTemplate>
         <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
     </EmptyTemplate>
     <Columns>
         <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true"
-            TextAlign="TextAlign.Center" Width="100%" Title="Description">
-             <Template Context="service">
-                 <RadzenText Text="@service.Description" />
-              </Template>
+                    TextAlign="TextAlign.Center" Width="100%" Title="Description">
+                     <Template Context="service">
+                         <RadzenText Text="@service.Description" class="w-100" />
+                      </Template>
+                               
+                </RadzenDataGridColumn>     
+                <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true"
+                    TextAlign="TextAlign.Center" Width="100%" Title="Quantity">
+                    <Template Context="line">
+                        <RadzenText Text="@line.Quantity.ToString()" />
+                    </Template>
+                    <EditTemplate Context="line">
+                        <RadzenFormField>
+                            <ChildContent>
+                                <RadzenNumeric Name="Quantity" TValue="int" @bind-Value="@line.Quantity" class="w-100"></RadzenNumeric>
+                            </ChildContent>
+                            <Helper><RadzenCompareValidator Component="Quantity"  Operator="CompareOperator.GreaterThan" Value="0" Text="Quantity must be grater than zero."/>
+                            </Helper>
+                        </RadzenFormField>
                        
-        </RadzenDataGridColumn>     
-        <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true"
-            TextAlign="TextAlign.Center" Width="100%" Title="Quantity">
-             <Template Context="service">
-                 <RadzenText Text="@service.Quantity.ToString()" />
-              </Template>
-                       
-        </RadzenDataGridColumn>  
-        <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true"
-            TextAlign="TextAlign.Center" Width="100%" Title="Price">
-             <Template Context="line">
-                           <RadzenText Text="@line.Price.ToString(CultureInfo.InvariantCulture)" />
-              </Template>
-        </RadzenDataGridColumn>     
-        <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true"
-            TextAlign="TextAlign.Center" Width="100%" Title="Total">
-             <Template Context="line">
-                           <RadzenText Text="@line.Total.ToString(CultureInfo.InvariantCulture)" />
-              </Template>
-        </RadzenDataGridColumn>   
-     
+                    </EditTemplate>
+                               
+                </RadzenDataGridColumn>  
+                <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true"
+                    TextAlign="TextAlign.Center" Width="100%" Title="Price">
+                     <Template Context="line">
+                                   <RadzenText Text="@line.Price.ToString(CultureInfo.InvariantCulture)" />
+                      </Template>
+                </RadzenDataGridColumn>     
+                <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true"
+                    TextAlign="TextAlign.Center" Width="100%" Title="Total">
+                     <Template Context="line">
+                                   <RadzenText Text="@line.Total.ToString(CultureInfo.InvariantCulture)" />
+                      </Template>
+                </RadzenDataGridColumn> 
+        
         <RadzenDataGridColumn TItem="InvoiceLineResponse" Context="Service" Filterable="true" Sortable="true" 
-            TextAlign="TextAlign.Center" Width="100%">
+                              TextAlign="TextAlign.Center" Width="100%">
             <Template Context="service">
-                <RadzenButton Icon="pan_tool_alt"  Variant="Variant.Flat"
-                    Size="ButtonSize.Medium" @onclick:stopPropagation="true">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" Click="@(args => EditRow(service))" @onclick:stopPropagation="true">
                 </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat"
+                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
+                              Click="@(args => DeleteRow(service))" @onclick:stopPropagation="true">
+                </RadzenButton>
+
             </Template>
+            <EditTemplate Context="service">
+                <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" Click="@((args) => SaveRow(service))">
+                </RadzenButton>
+                <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat"
+                              Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(service))">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat"
+                              Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1"
+                              Click="@(args => DeleteRow(service))">
+                </RadzenButton>
+
+            </EditTemplate>
+              <FooterTemplate>
+                 Total amount: <b>@String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", _lines.Sum(l => l.Total))</b>
+              </FooterTemplate>
         </RadzenDataGridColumn>
+      
     </Columns>
 
 </RadzenDataGrid>
-
 @code{
     private RadzenDataGrid<InvoiceLineResponse> _gridLines;
-    List<InvoiceLineResponse> _lines = new List<InvoiceLineResponse>();
+    List<InvoiceLineResponse> _lines = new();
+    InvoiceLineResponse? _lineToInsert;
+    InvoiceLineResponse? _lineToUpdate;
     CustomerResponse _customer = null!;
     DateTime _date = DateTime.Today;
+
     private async Task ChooseCustomerAsync()
     {
-        var options=    new DialogOptions
+        var options = new DialogOptions
         {
-            CloseDialogOnOverlayClick=false,
+            CloseDialogOnOverlayClick = false,
         };
-        var result = await DialogService.OpenAsync<SearchCustomer>("Customer selector",options:options);
+        var result = await DialogService.OpenAsync<SearchCustomer>("Customer selector", options: options);
         if (result is CustomerResponse customer)
         {
             _customer = customer;
             Console.Write("Customer selected: " + customer.Name);
-           
+
         }
     }
-    private async Task<int> GetQuantityAsync()
-    {
-        var quantityResult = await DialogService.OpenAsync<QuantityInput>("Select a quantity");
-        var quantity = 1;
-        if (quantityResult is int qty)
-        {
-            quantity = qty;
-        }
-        return quantity;
-    }
+
     private async Task AddRouteAsync()
     {
-        var options=    new DialogOptions
+        var options = new DialogOptions
         {
-            CloseDialogOnOverlayClick=false
+            CloseDialogOnOverlayClick = false
         };
-        var result = await DialogService.OpenAsync<SearchRoute>("Search Service",options:options);
+        var result = await DialogService.OpenAsync<SearchRoute>("Search Route", options: options);
         if (result is RouteResponse route)
         {
-           var line= InvoiceLineResponse.CreateFromService(route.Display, route.Id, route.Amount, await GetQuantityAsync());
-            await _gridLines.InsertRow(line);
+            await InsertRow(InvoiceLineResponse.CreateFromService(route.Display, route.Id, route.Amount, 1));
         }
     }
+
     private async Task AddServiceAsync()
     {
-        var options =    new DialogOptions
+        var options = new DialogOptions
         {
-            CloseDialogOnOverlayClick=false
+            CloseDialogOnOverlayClick = false
         };
-        var result = await DialogService.OpenAsync<SearchService>("Search Service",options:options);
+        var result = await DialogService.OpenAsync<SearchService>("Search Service", options: options);
         if (result is ServiceResponse service)
         {
-            var quantity = await GetQuantityAsync();
-            var line= InvoiceLineResponse.CreateFromService(service.Name, service.Id, service.Amount, quantity);
-            await _gridLines.InsertRow(line);
+
+            await InsertRow(InvoiceLineResponse.CreateFromService(service.Name, service.Id, service.Amount, 1));
+
         }
     }
+    void Reset()
+    {
+        _lineToInsert = null!;
+        _lineToUpdate = null!;
+    }
+    async Task EditRow(InvoiceLineResponse line)
+    {
+        _lineToUpdate = line;
+        await _gridLines.EditRow(line);
+    }
 
+    async Task OnUpdateRow(InvoiceLineResponse line)
+    {
+        await Excecutor.Run(async () =>
+        {
+            if (line == _lineToInsert)
+            {
+                _lineToInsert = null!;
+            }
 
-    
+            _lineToUpdate = null!;
+            var found = _lines.SingleOrDefault(x => x.Id == line.Id);
+            if (found == null) return;
+            found.Quantity = line.Quantity;
+        });
+    }
+
+    async Task SaveRow(InvoiceLineResponse line)
+    {
+        await _gridLines.UpdateRow(line);
+    }
+
+    void CancelEdit(InvoiceLineResponse line)
+    {
+        if (line == _lineToInsert)
+        {
+            _lineToInsert = null!;
+        }
+
+        _lineToUpdate = null!;
+        _gridLines.CancelEditRow(line);
+    }
+
+    async Task DeleteRow(InvoiceLineResponse line)
+    {
+        var confirmed = await DialogService.Confirm(
+            $"Are you sure to delete the Service '{line.Description}' ?"
+            );
+        if (confirmed == false)
+        {
+            return;
+        }
+
+        if (line == _lineToInsert)
+        {
+            _lineToInsert = null!;
+        }
+
+        if (line == _lineToUpdate)
+        {
+            _lineToUpdate = null!;
+        }
+
+        _gridLines.CancelEditRow(line);
+        await OnDeleteRow(line);
+        await _gridLines.Reload();
+    }
+
+    async Task InsertRow(InvoiceLineResponse line)
+    {
+        _lineToInsert = line;
+        await _gridLines.InsertRow(_lineToInsert);
+    }
+
+    async Task OnCreateRow(InvoiceLineResponse line)
+    {
+        await Excecutor.Run(async () =>
+        {
+            _lineToInsert = null!;
+            _lines.Add(line);
+        });
+    }
+
+    async Task OnDeleteRow(InvoiceLineResponse line)
+    {
+        await Excecutor.Run(async () =>
+        {
+            _lineToInsert = null!;
+            _lines = _lines.Where(x => x.Id != line.Id)
+                .ToList();
+        });
+    }
+
 }
