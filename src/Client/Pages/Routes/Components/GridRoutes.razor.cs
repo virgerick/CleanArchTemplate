@@ -88,8 +88,6 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
                     new(
                         Route.Origin,
                         Route.Destination,
-                        Route.Distance,
-                        Route.EstimatedTime,
                         Route.Amount
                     )
                 );
@@ -161,8 +159,6 @@ namespace CleanArchTemplate.Client.Pages.Routes.Components
                     new(
                         Route.Origin,
                         Route.Destination,
-                        Route.Distance,
-                        Route.EstimatedTime,
                         Route.Amount
                     )
                 );

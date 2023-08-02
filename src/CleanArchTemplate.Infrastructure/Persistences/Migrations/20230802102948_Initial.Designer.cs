@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CleanArchTemplate.Infrastructure.Migrations
+namespace CleanArchTemplate.Infrastructure.Persistences.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230710130206_Initial")]
+    [Migration("20230802102948_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -616,6 +616,10 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(128)");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
@@ -810,12 +814,6 @@ namespace CleanArchTemplate.Infrastructure.Migrations
                     b.Property<string>("Destination")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Distance")
-                        .HasColumnType("real");
-
-                    b.Property<float>("EstimatedTime")
-                        .HasColumnType("real");
 
                     b.Property<DateTimeOffset?>("ModifiedAt")
                         .HasColumnType("datetimeoffset");

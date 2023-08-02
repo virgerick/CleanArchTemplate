@@ -12,7 +12,7 @@ public static class CreateRouteEndpoint
         .WithTags("Route")
         .WithDisplayName("Create a new Route");
         public static async ValueTask<Result<Guid>> GetRouteAsync(ISender Mediator,CreateEditRouteRequest request,CancellationToken cancellationToken=default){
-        var query = new CreateRouteCommand(request.Origin,request.Destination,request.Distance,request.EstimatedTime,request.Amount);
+        var query = new CreateRouteCommand(request.Origin,request.Destination,request.Amount);
         var result = await Mediator.Send(query, cancellationToken);
         return result.Match(
             id => Result<Guid>.Success(id),

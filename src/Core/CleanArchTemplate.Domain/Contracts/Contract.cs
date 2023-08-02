@@ -3,7 +3,11 @@ using CleanArchTemplate.Domain.Customers;
 using CleanArchTemplate.Domain.Services;
 
 namespace CleanArchTemplate.Domain.Contracts;
-public record struct ContractId(Guid Value);
+
+public record struct ContractId(Guid Value)
+{
+    public static ContractId NewId() => new(Guid.NewGuid());
+};
 public class Contract : AuditableRootEntity<ContractId>
 {
     private List<Service> _services=new();

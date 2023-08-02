@@ -8,7 +8,7 @@ using CleanArchTemplate.Domain.Invoices;
 using CleanArchTemplate.Domain.Routes;
 
 namespace CleanArchTemplate.Application.Routes.Commands;
-public record struct EditRouteCommand(Guid Id, string Origin, string Destination, float Distance, float EstimatedTime, decimal Amount) : IRequest<OneOf<Guid, Exception>>;
+public record struct EditRouteCommand(Guid Id, string Origin, string Destination, decimal Amount) : IRequest<OneOf<Guid, Exception>>;
 public sealed class EditRouteCommandHandler : IRequestHandler<EditRouteCommand, OneOf<Guid, Exception>>
 {
     private readonly IApplicationDbContext _context;
@@ -34,7 +34,7 @@ public sealed class EditRouteCommandHandler : IRequestHandler<EditRouteCommand, 
                 }); 
         List<ValidationFailure> validationErrors = new();
         bool hasChange = false;
-        found.Update(request.Origin, request.Destination, request.Distance, request.EstimatedTime, request.Amount)
+        found.Update(request.Origin, request.Destination, request.Amount)
         .Switch(
             value=>hasChange=value,
             validationErrors.AddRange

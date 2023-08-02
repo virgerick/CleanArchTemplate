@@ -9,5 +9,5 @@ dotnet new cleanarch -o <project-name>
 ```
 ## Add migrations
 ```
-dotnet ef  migrations add "Initial" --project src/CleanArchTemplate.Infrastructure/CleanArchTemplate.Infrastructure.csproj -s src/Server
+dotnet ef  migrations add "Initial" --project src/CleanArchTemplate.Infrastructure/CleanArchTemplate.Infrastructure.csproj -s src/Server  --output-dir Persistences/Migrations
 ```

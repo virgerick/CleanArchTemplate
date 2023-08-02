@@ -13,8 +13,8 @@ public static class GetRouteEndPoint
         .WithDisplayName("Edit Route");
 
         public static async ValueTask<Result<Guid>> EditRouteAsync(Guid Id, CreateEditRouteRequest request, ISender Mediator,CancellationToken cancellationToken=default){
-            (string Origin, string Destination, float Distance, float EstimatedTime, decimal Amount)=request;
-        var query = new EditRouteCommand(Id,Origin,Destination,Distance,EstimatedTime,Amount);
+            var(origin, destination, amount)=request;
+        var query = new EditRouteCommand(Id,origin,destination,amount);
         var result = await Mediator.Send(query, cancellationToken);
         return result.Match(
             response => Result.Success(response),

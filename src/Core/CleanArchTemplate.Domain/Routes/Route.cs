@@ -16,27 +16,21 @@ public class Route : AuditableEntity<RouteId>
         Id = RouteId.Empty,
         Origin = "Nowhere",
         Destination = "Nowhere",
-        Distance = 0,
-        EstimatedTime = 0,
         Amount = 0
     };
     private Route() { }
     public string Origin { get; private set; }
     public string Destination { get; private set; }
-    public float Distance { get; private set; }
-    public float EstimatedTime { get; private set; }
     public decimal Amount { get; private set; }
     public List<Vehicle> Vehicles { get; private set; } = new();
     public List<InvoiceLine> InvoiceLines { get; private set; } = new();
-    public static OneOf<Route, IEnumerable<ValidationFailure>> Create(string origin, string destination, float distance, float estimatedTime, decimal amount)
+    public static OneOf<Route, IEnumerable<ValidationFailure>> Create(string origin, string destination, decimal amount)
     {
         var route = new Route()
         {
             Id = RouteId.NewId(),
             Origin = origin,
             Destination = destination,
-            Distance = distance,
-            EstimatedTime = estimatedTime,
             Amount = amount,
           
         };
@@ -48,7 +42,7 @@ public class Route : AuditableEntity<RouteId>
         return route;
     }
    
-    public OneOf<bool,IEnumerable<ValidationFailure>> Update(string origin, string destination, float distance, float estimatedTime, decimal amount)
+    public OneOf<bool,IEnumerable<ValidationFailure>> Update(string origin, string destination,  decimal amount)
     {
         var changed = false;
         if (origin != Origin)
@@ -59,16 +53,6 @@ public class Route : AuditableEntity<RouteId>
         if (destination != Destination)
         {
             Destination = destination;
-            changed = true;
-        }
-        if (!distance.Equals(Distance))
-        {
-            Distance = distance;
-            changed = true;
-        }
-        if (!estimatedTime.Equals(EstimatedTime))
-        {
-            EstimatedTime = estimatedTime;
             changed = true;
         }
         if (amount != Amount)

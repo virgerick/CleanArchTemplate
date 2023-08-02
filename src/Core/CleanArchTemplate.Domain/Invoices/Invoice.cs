@@ -5,7 +5,11 @@ using FluentValidation;
 using FluentValidation.Results;
 using OneOf;
 namespace CleanArchTemplate.Domain.Invoices;
-public record struct InvoiceId(Guid Value);
+
+public record struct InvoiceId(Guid Value)
+{
+    public static InvoiceId NewId()=>new InvoiceId(Guid.NewGuid());
+};
 public class Invoice:AuditableRootEntity<InvoiceId>
 {
     public DateTime IssueDate { get; private set; }

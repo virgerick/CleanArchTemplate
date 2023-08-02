@@ -1,7 +1,11 @@
 ﻿using CleanArchTemplate.Domain.Common;
 
 namespace CleanArchTemplate.Domain.Accounting;
-public record struct TransactionId(Guid Value);
+
+public record struct TransactionId(Guid Value)
+{
+    public static TransactionId NewTransactionId() => new(Guid.NewGuid());
+};
 public class Transaction : AuditableRootEntity<TransactionId>
 {
     private Transaction() { } // EF Core requires a private parameterless constructor

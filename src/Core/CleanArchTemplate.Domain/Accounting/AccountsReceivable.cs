@@ -3,7 +3,10 @@ using CleanArchTemplate.Domain.Customers;
 using System;
 namespace CleanArchTemplate.Domain.Accounting;
 
-public record AccountReceivableId(Guid Value);
+public record AccountReceivableId(Guid Value)
+{
+    public static AccountReceivableId NewId() => new AccountReceivableId(Guid.NewGuid());
+};
 public class AccountReceivable:AuditableRootEntity<AccountReceivableId>
 {
     public DateTime DueDate { get; private set; }

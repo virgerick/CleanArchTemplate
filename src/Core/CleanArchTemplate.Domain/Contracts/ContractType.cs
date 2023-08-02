@@ -20,12 +20,8 @@ public abstract record ContractType
         }
     }
     public static ContractType Create(string type)
-    {
-        var found = Supported.SingleOrDefault(x => x.Type == type);
-        if(found is null ) throw new ArgumentException($"Invalid contract type: {type}");
-        return found;
-
-    }
+    =>Supported.SingleOrDefault(x => x.Type.ToLower() == type.ToLower())?? throw new ArgumentException($"Invalid contract type: {type}");
+    
 }
 public record TripContract() : ContractType(ContractType.Trip);
 public record MonthlyContract() : ContractType(ContractType.Monthly);

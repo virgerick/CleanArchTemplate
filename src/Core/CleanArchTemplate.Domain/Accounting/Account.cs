@@ -1,7 +1,11 @@
 ﻿using CleanArchTemplate.Domain.Common;
 
 namespace CleanArchTemplate.Domain.Accounting;
-public record struct AccountId(Guid Value);
+
+public record struct AccountId(Guid Value)
+{
+    public static AccountId NewId() => new AccountId(Guid.NewGuid());
+};
 public class Account : AuditableRootEntity<AccountId>
 {
     private List<Transaction> _transactions=new();
@@ -13,7 +17,7 @@ public class Account : AuditableRootEntity<AccountId>
       public void Deposit(decimal amount)
     {
         Balance += amount;
-        _transactions.Add(new Transaction(this, null, amount, "Deposit"));
+        _transactions.Add(new Transaction(this, null!, amount, "Deposit"));
     }
 
     public void Withdraw(decimal amount)
@@ -24,6 +28,6 @@ public class Account : AuditableRootEntity<AccountId>
         }
 
         Balance -= amount;
-        _transactions.Add(new Transaction(null, this, amount, "Withdraw"));
+        _transactions.Add(new Transaction(null!, this, amount, "Withdraw"));
     }
 }
