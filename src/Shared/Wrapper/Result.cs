@@ -132,6 +132,7 @@ public class Result<T> : Result, IResult<T>
         }
     }
     public static implicit operator Result<T>(T data) => Success<T>(data);
+    public static implicit operator Result<T>(Exception error) => Failure<T>(error.GetMessages());
 }
 public class Result<TSuccess,TError> 
 where TSuccess : class 

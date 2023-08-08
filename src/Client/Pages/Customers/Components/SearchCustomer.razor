@@ -50,7 +50,7 @@
     Task GetCustomersAsync() => Excecutor.Run(async () => {
             var result = await CustomerApiService.GetAsync();
             result.ThrowIfNotSucceeded();
-            _customers = result.Items.Where(x=>x.Id!=Guid.Empty);
+            _customers = result.Items;
         });
 
 

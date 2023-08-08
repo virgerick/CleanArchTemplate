@@ -2,11 +2,13 @@ namespace CleanArchTemplate.Shared.Results;
 
 public static class ResultExtensions
 {
+    
     public static Result<TOut> Map<TIn, TOut>(this Result<TIn> result, Func<TIn,TOut> mappingFunction)
     {
         return result.Succeeded ? Result.Success(mappingFunction(result.Value)) :
             Result.Failure<TOut>(result.Errors);
     }
+  
 
     public static async Task<Result<TOut>> Map<TIn, TOut>(this Result<TIn> result, Func<TIn, Task<Result<TOut>>> mappingFunction)
     {

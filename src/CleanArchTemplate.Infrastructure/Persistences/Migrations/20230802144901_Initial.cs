@@ -637,6 +637,11 @@ namespace CleanArchTemplate.Infrastructure.Persistences.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "Id", "Address", "CreatedAt", "CreatedBy", "Deleted", "DeletedAt", "DeletedBy", "Email", "ModifiedAt", "ModifiedBy", "Name" },
+                values: new object[] { new Guid("00000000-0000-0000-0000-000000000000"), "{\"Street\":\"\",\"City\":\"\",\"State\":\"\",\"ZipCode\":\"\"}", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "", false, null, null, "", null, null, "NoCustomer" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AccountReceivables_CustomerId",
                 table: "AccountReceivables",

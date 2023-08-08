@@ -8,10 +8,7 @@ public class InvoiceValidator : AbstractValidator<Invoice>
     {
         RuleFor(invoice => invoice.IssueDate).NotNull();
         RuleFor(invoice => invoice.CustomerId).NotNull();
-        RuleFor(invoice => invoice.InvoiceLines)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage("Invoice must have at least one line.");
+        
 
     }
 }

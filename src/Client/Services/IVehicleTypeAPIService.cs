@@ -18,4 +18,3 @@ public interface IVehicleTypeAPIService
     [Delete("/VehicleType/{Id}")]
     public Task<Result<Guid>> DeleteAsync(Guid Id, CancellationToken cancellationToken = default);
 }
-

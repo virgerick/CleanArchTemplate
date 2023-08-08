@@ -28,6 +28,7 @@ public class InvoiceLine:AuditableEntity<InvoiceLineId>
         var validator = new InvoiceLineValidator();
         var invoiceLine = new InvoiceLine
         {
+            Id=InvoiceLineId.NewId(),
             InvoiceId = invoiceId,
             ServiceId = serviceId,
             Description = description,
@@ -45,6 +46,7 @@ public class InvoiceLine:AuditableEntity<InvoiceLineId>
         var validator = new InvoiceLineValidator();
         var invoiceLine = new InvoiceLine
         {
+            Id=InvoiceLineId.NewId(),
             InvoiceId = invoiceId,
             RouteId = routeId,
             Description = description,

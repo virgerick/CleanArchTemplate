@@ -16,17 +16,17 @@ public class Invoice:AuditableRootEntity<InvoiceId>
     public CustomerId CustomerId { get; private set; }
     public Customer Customer { get;  set; }
     public InvoiceStatus Status { get; private set; } = new DraftStatus();
-    public ICollection<InvoiceLine> InvoiceLines { get;  set; }
-
+    public ICollection<InvoiceLine> Lines { get; private set; } = new List<InvoiceLine>();
     protected Invoice() { }
     public static OneOf<Invoice, List<ValidationFailure>> Create(DateTime issueDate, CustomerId customerId,InvoiceStatus? status=null!)
     {
         var validator = new InvoiceValidator();
         var invoice = new Invoice
         {
+            Id = InvoiceId.NewId(),
             IssueDate = issueDate,
             CustomerId = customerId,
-            Status =status == null! ? new IssuedStatus():status
+            Status = status == null! ? new IssuedStatus():status
         };
 
         var validationResult = validator.Validate(invoice);
@@ -42,9 +42,8 @@ public class Invoice:AuditableRootEntity<InvoiceId>
             throw new ValidationException(validationResult.Errors);
         }
 
-        InvoiceLines.Add(invoiceLine);
+        Lines.Add(invoiceLine);
     }
-
-    public decimal Total=>InvoiceLines.Sum(invoiceLine => invoiceLine.Total);
+    public decimal Total=>Lines.Sum(invoiceLine => invoiceLine.Total);
     
 }

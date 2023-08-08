@@ -58,6 +58,6 @@ public sealed class ValidationError : Error
 
     public static ValidationError Create(Dictionary<string, string[]> failures)
     {
-        return  new("Validation", "One or more validation has occurred", failures);
+        return  new("VALIDATION", "One or more validation has occurred", failures);
     }
 }

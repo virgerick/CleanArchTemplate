@@ -1,3 +1,5 @@
+using CleanArchTemplate.Shared.Requests.Invoices;
+
 namespace CleanArchTemplate.Shared.Responses.Invoices;
 
 public class InvoiceResponse
@@ -50,4 +52,6 @@ public class InvoiceLineResponse
             RouteId = routeId,
             Price = price,
             Quantity = quantity };
+
+    public InvoiceLineRequest Map() => new InvoiceLineRequest(Description, Price, Quantity, ServiceId, RouteId);
 }

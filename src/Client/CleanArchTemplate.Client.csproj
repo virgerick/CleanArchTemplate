@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Vehicle\" />
-    <Folder Include="Services\" />
     <Folder Include="Extensions\" />
     <Folder Include="Pages\Vehicle\Components\" />
     <Folder Include="Shared\Components\" />

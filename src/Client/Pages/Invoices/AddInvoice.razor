@@ -5,36 +5,45 @@
 @using CleanArchTemplate.Shared.Responses.Routes
 @using CleanArchTemplate.Shared.Responses.Services
 @using System.Globalization
+@using CleanArchTemplate.Shared.Extensions
 
 
 <RadzenBreadCrumb class="rz-mb-2">
     <RadzenBreadCrumbItem Path="/" Text="Home" />
     <RadzenBreadCrumbItem Path="/Invoice" Text="Invoice" />
 </RadzenBreadCrumb>
-
-<RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" Wrap="FlexWrap.Wrap">
-    <RadzenStack Orientation="Orientation.Vertical">
-        <RadzenFormField Text="Date" Variant="Variant.Text" class="rz-mb-1" >
-            <ChildContent>
-                <RadzenDatePicker TValue="DateTime" @bind-Value="_date" DateFormat="dd/MM/yyyy"></RadzenDatePicker>
-            </ChildContent>
-        </RadzenFormField>
-        <RadzenFormField Text="Customer" Variant="Variant.Text" class="rz-mb-1" >
+<RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" Wrap="FlexWrap.Wrap" AlignItems="AlignItems.Center">
+    <RadzenStack Orientation="Orientation.Horizontal" class="rz-mb-1">
+      
+        <RadzenFormField Text="Customer" Variant="Variant.Text">
             <Start>
                 <RadzenIcon Icon="contacts"></RadzenIcon>
             </Start>
             <ChildContent>
-                <RadzenText Text="@(_customer?.Name??"No customer selected")" />
+                <RadzenText Text="@(_customer?.Name ?? "No customer selected")"/>
             </ChildContent>
             <End>
-                <RadzenButton Icon="search"  Click="ChooseCustomerAsync" Variant="Variant.Text" />
+                <RadzenButton Icon="search" Click="ChooseCustomerAsync" Variant="Variant.Text"/>
             </End>
         </RadzenFormField>
+        <RadzenFormField Text="Issue Date" Variant="Variant.Text">
+            <ChildContent>
+                <RadzenDatePicker TValue="DateTime" @bind-Value="_date" DateFormat="dd/MM/yyyy"></RadzenDatePicker>
+            </ChildContent>
+        </RadzenFormField>
+
     </RadzenStack>
-    <RadzenStack Orientation="Orientation.Vertical">
-        <RadzenButton  Icon="add_circle_outline" 
+    <RadzenStack Orientation="Orientation.Horizontal" class="rz-mb-1" AlignItems="AlignItems.Center">
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center">
+             <RadzenSwitch @bind-Value="SaveAsDraft"/><RadzenLabel Text="Draft"/>
+        </RadzenStack>
+        <RadzenButton Icon="add_circle_outline" Variant="Variant.Text"
                       Text="Add Service" Click="AddServiceAsync"/>
-        <RadzenButton Icon="add_circle_outline" Text="Add Route" Click="AddRouteAsync"/>
+        <RadzenButton Icon="add_circle_outline" Text="Add Route" Variant="Variant.Text" Click="AddRouteAsync"/>
+        <RadzenButton ButtonStyle="ButtonStyle.Success" 
+                      Click="InvoiceSaveAsync" 
+                      Icon="save" Text="Save"
+                      Variant="Variant.Text"></RadzenButton>
     </RadzenStack>
 </RadzenStack>
 
@@ -122,7 +131,27 @@
     InvoiceLineResponse? _lineToUpdate;
     CustomerResponse _customer = null!;
     DateTime _date = DateTime.Today;
+    public bool SaveAsDraft { get; set; } = false;
+    [Inject]
+    public ILogger<AddInvoice> Logger { get; set; }
 
+    private async  Task InvoiceSaveAsync()
+    {
+        var obj = new { SaveAsDraft,CustomerId=_customer.Id,_date ,_lines, };
+        Logger.LogInformation(obj.ToJsonSerialize());
+        await Excecutor.Run(async () =>
+        {
+            var lines = _lines.Select(x => x.Map()).ToArray();
+            var request = new CreateInvoiceRequest(_customer.Id, _date, SaveAsDraft,lines);
+            var result = await InvoiceApiService.CreateAsync(request);
+            result.ThrowIfNotSucceeded();
+            result.Tap(id =>
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = $"Invoice '{id}' created successfully." });
+            });
+            Reset();
+        });
+    }
     private async Task ChooseCustomerAsync()
     {
         var options = new DialogOptions
@@ -147,7 +176,7 @@
         var result = await DialogService.OpenAsync<SearchRoute>("Search Route", options: options);
         if (result is RouteResponse route)
         {
-            await InsertRow(InvoiceLineResponse.CreateFromService(route.Display, route.Id, route.Amount, 1));
+            await InsertRow(InvoiceLineResponse.CreateFromRoute(route.Display, route.Id, route.Amount, 1));
         }
     }
 
@@ -167,6 +196,9 @@
     }
     void Reset()
     {
+        _gridLines.Reset();
+        _lines.Clear();
+        _customer = null!;
         _lineToInsert = null!;
         _lineToUpdate = null!;
     }
@@ -257,5 +289,7 @@
                 .ToList();
         });
     }
+
+   
 
 }

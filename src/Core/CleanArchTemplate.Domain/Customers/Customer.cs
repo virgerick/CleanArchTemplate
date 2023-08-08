@@ -18,7 +18,8 @@ public class Customer:AuditableRootEntity<CustomerId>
     public static readonly Customer Empty=new Customer()
     {
         Id = CustomerId.Empty,
-        Name = "NoCustomer"
+        Email = String.Empty,
+        Name = "NoCustomer",Address =  Address.Empty
     };
     private List<Contract> _contracts=new();
     private List<Service> _services = new();

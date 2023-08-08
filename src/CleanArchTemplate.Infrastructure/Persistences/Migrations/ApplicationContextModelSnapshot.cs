@@ -326,6 +326,18 @@ namespace CleanArchTemplate.Infrastructure.Persistences.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Address = "{\"Street\":\"\",\"City\":\"\",\"State\":\"\",\"ZipCode\":\"\"}",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedBy = "",
+                            Deleted = false,
+                            Email = "",
+                            Name = "NoCustomer"
+                        });
                 });
 
             modelBuilder.Entity("CleanArchTemplate.Domain.Customers.CustomerService", b =>

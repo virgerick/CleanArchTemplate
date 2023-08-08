@@ -6,13 +6,14 @@ using Refit;
 
 namespace CleanArchTemplate.Client.Extensions;
 
-public static class RefixExtension
+public static class RefitExtension
 {
-    public static WebAssemblyHostBuilder ConfigureRefixServices(this WebAssemblyHostBuilder builder)
+    public static WebAssemblyHostBuilder ConfigureRefitServices(this WebAssemblyHostBuilder builder)
     {
         builder.ConfigureRefitClientFor<IBrandApiService>();
         builder.ConfigureRefitClientFor<ICustomerAPIService>();
         builder.ConfigureRefitClientFor<IDriverAPIService>();
+        builder.ConfigureRefitClientFor<IInvoiceApiService>();
         builder.ConfigureRefitClientFor<IModelAPIService>();
         builder.ConfigureRefitClientFor<ITokenApiService>();
         builder.ConfigureRefitClientFor<IRouteAPIService>();
@@ -23,7 +24,7 @@ public static class RefixExtension
         return builder;
     }
 
-    static WebAssemblyHostBuilder ConfigureRefitClientFor<T>(this WebAssemblyHostBuilder builder)
+    private static WebAssemblyHostBuilder ConfigureRefitClientFor<T>(this WebAssemblyHostBuilder builder)
         where T : class
     {
         /*
