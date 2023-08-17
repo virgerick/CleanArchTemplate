@@ -9,7 +9,6 @@ public static class CreateServiceEndpoint
 {
       public static IEndpointConventionBuilder MapCreateServiceEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/", CreateAsync)
         .WithName("CreateService")
-        .WithTags("Service")
         .WithDisplayName("Create a new Service");
         public static async ValueTask<Result<Guid>> CreateAsync(ISender Mediator, AddEditServiceRequest request,CancellationToken cancellationToken=default){
        

@@ -11,7 +11,6 @@ namespace CleanArchTemplate.Server.Endpoints.Models.GetDefault
 	{
         public static IEndpointConventionBuilder MapGetModelDefaultEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/Default", GetModelAsync)
        .WithName("GetDefault")
-       .WithTags("Model")
        .WithDisplayName("Get Model Default");
         public static async ValueTask<Result<ModelDefaultResponse>> GetModelAsync( ISender Mediator, CancellationToken cancellationToken = default)
         {

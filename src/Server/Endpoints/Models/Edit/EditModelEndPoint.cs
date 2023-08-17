@@ -12,7 +12,6 @@ public static class EditModelEndPoint
 {
      public static IEndpointConventionBuilder MapEditModelEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPut("{Id}", EditModelAsync)
         .WithName("EditModel")
-        .WithTags("Model")
         .WithDisplayName("Edit Model");
 
         public static async ValueTask<Result<Guid>> EditModelAsync(Guid Id, CreateEditModelRequest request, ISender Mediator,CancellationToken cancellationToken=default){

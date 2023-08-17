@@ -6,8 +6,11 @@ public class InvoiceResponse
 {
     public Guid Id { get; set; }
     public Guid CustomerId { get; set; }
+    public string Customer { get; set; }
     public DateTime IssueDate { get; set; }
+    public string Status { get; set; }
     public List<InvoiceLineResponse> Lines { get; set; }
+    public decimal Total => Lines.Sum(l => l.Total);
 }
 
 public class InvoiceLineResponse

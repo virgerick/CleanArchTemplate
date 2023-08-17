@@ -8,7 +8,6 @@ public static class MaintenanceVehicleEndPoint
 {
      public static IEndpointConventionBuilder MapMaintenanceVehicleEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPatch("/Maintenance/{Id}", MaintenanceVehicleAsync)
         .WithName("MaintenanceVehicle")
-        .WithTags("Vehicle")
         .WithDisplayName("Maintenance Vehicle");
 
         public static async ValueTask<Result> MaintenanceVehicleAsync(Guid Id,  ISender Mediator,CancellationToken cancellationToken=default){

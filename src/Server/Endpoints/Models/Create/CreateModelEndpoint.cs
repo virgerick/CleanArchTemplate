@@ -13,7 +13,6 @@ public static class CreateModelEndpoint
 {
       public static IEndpointConventionBuilder MapCreateModelEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/", GetModelAsync)
         .WithName("CreateModel")
-        .WithTags("Model")
     .WithDisplayName("Create a new Model");
         public static async ValueTask<Result<Guid>> GetModelAsync(ISender Mediator, CreateEditModelRequest request,CancellationToken cancellationToken=default){
         var query = new CreateModelCommand(request.Name,request.Year,request.BrandId,request.TypeId);

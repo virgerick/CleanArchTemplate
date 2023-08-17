@@ -11,7 +11,6 @@ public static class GetBrandByIdEndpoint
 {
     public static IEndpointConventionBuilder MapGetBrandByIdEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/{Id}", GetBrandAsync)
        .WithName("GetBrandById")
-       .WithTags("Brand")
        .WithDisplayName("Get Brand by id");
     public static async ValueTask<Result<BrandResponse>> GetBrandAsync(Guid Id,ISender Mediator, CancellationToken cancellationToken = default)
     {

@@ -9,10 +9,11 @@ using CleanArchTemplate.Server.Endpoints.Drivers.GetDriver;
 namespace CleanArchTemplate.Server.Endpoints.Drivers;
 public class DriverEndpoints : IMapEndpoint
 {
+    private const string EndPoint = "Drivers";
     public IEndpointConventionBuilder Map(IEndpointRouteBuilder endpoint)
     {
-        var group=endpoint.MapGroup("/Driver")
-            .WithTags("Driver");
+        var group=endpoint.MapGroup(EndPoint)
+            .WithTags(EndPoint);
         group.MapGetDriverEndpoint();
         group.MapGetDriverByIdEndpoint();
         group.MapCreateDriverEndpoint();

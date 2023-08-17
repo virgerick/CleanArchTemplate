@@ -9,7 +9,6 @@ public static class EditDriverEndPoint
 {
      public static IEndpointConventionBuilder MapEditDriverEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPut("{Id}", EditDriverAsync)
         .WithName("EditDriver")
-        .WithTags("Driver")
         .WithDisplayName("Edit Driver");
 
         public static async ValueTask<Result<Guid>> EditDriverAsync(Guid Id, AddEditDriverRequest request, ISender Mediator,CancellationToken cancellationToken=default){

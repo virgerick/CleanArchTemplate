@@ -8,7 +8,6 @@ public static class DeleteRouteEndPoint
 {
      public static IEndpointConventionBuilder MapDeleteRouteEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapDelete("{Id}", DeleteRouteAsync)
         .WithName("DeleteRoute")
-        .WithTags("Route")
         .WithDisplayName("Delete Route");
 
         public static async ValueTask<Result> DeleteRouteAsync(Guid Id, ISender Mediator,CancellationToken cancellationToken=default){

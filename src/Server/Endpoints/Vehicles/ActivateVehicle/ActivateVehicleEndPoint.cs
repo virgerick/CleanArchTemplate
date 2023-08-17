@@ -8,7 +8,6 @@ public static class ActivateVehicleEndPoint
 {
      public static IEndpointConventionBuilder MapActivateVehicleEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPatch("/Activate/{Id}", ActivateVehicleAsync)
         .WithName("ActivateVehicle")
-        .WithTags("Vehicle")
         .WithDisplayName("Activate Vehicle");
 
         public static async ValueTask<Result> ActivateVehicleAsync(Guid Id,  ISender Mediator,CancellationToken cancellationToken=default){

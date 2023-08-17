@@ -37,11 +37,12 @@ public static class RefitExtension
 
         //note: AddRefitClient<T> requires a reference to Refit.HttpClientFactory
         //note: the order of delegating handlers is important and they run in the order they are added!
-
+        var url = builder.HostEnvironment.BaseAddress;
+        
         builder.Services
             .AddRefitClient<T>()
             .AddHttpMessageHandler<AuthenticationHeaderHandler>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri(url));
         return builder;
     }
 }

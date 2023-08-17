@@ -10,7 +10,6 @@ public static class CreateVehicleTypeEndpoint
 {
       public static IEndpointConventionBuilder MapCreateVehicleTypeEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/", GetVehicleTypeAsync)
         .WithName("CreateVehicleType")
-        .WithTags("VehicleType")
         .WithDisplayName("Create a new VehicleType");
         public static async ValueTask<Result<Guid>> GetVehicleTypeAsync(ISender Mediator,NameRequest request,CancellationToken cancellationToken=default){
         var query = new CreateVehicleTypeCommand(request.Name);

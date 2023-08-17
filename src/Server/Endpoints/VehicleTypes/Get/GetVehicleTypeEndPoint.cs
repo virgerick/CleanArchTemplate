@@ -10,7 +10,6 @@ public static class GetVehicleTypeEndPoint
 {
      public static IEndpointConventionBuilder MapGetVehicleTypeEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/", GetVehicleTypeAsync)
         .WithName("GetVehicleType")
-        .WithTags("VehicleType")
         .WithDisplayName("Get VehicleType");
         public static async ValueTask<ResultList<IdNameResponse<Guid>>> GetVehicleTypeAsync(ISender Mediator,CancellationToken cancellationToken=default){
         var query = new GetVehicleTypeQuery();

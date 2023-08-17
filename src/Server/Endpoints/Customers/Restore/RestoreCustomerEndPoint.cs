@@ -8,7 +8,6 @@ public static class RestoreCustomerEndPoint
 {
      public static IEndpointConventionBuilder MapRestoreCustomerEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPatch("/Restore/{Id}", RestoreCustomerAsync)
         .WithName("RestoreCustomer")
-        .WithTags("Customer")
         .WithDisplayName("Restore Customer");
 
         public static async ValueTask<Result> RestoreCustomerAsync(Guid Id,  ISender Mediator,CancellationToken cancellationToken=default){

@@ -56,7 +56,6 @@
     <Folder Include="Pages\Vehicle\" />
     <Folder Include="Extensions\" />
     <Folder Include="Pages\Vehicle\Components\" />
-    <Folder Include="Shared\Components\" />
     <Folder Include="Pages\Drivers\" />
     <Folder Include="Shared\Layouts\" />
     <Folder Include="Authentication\" />

@@ -9,7 +9,6 @@ public static class CreateVehicleEndpoint
 {
       public static IEndpointConventionBuilder MapCreateVehicleEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/", GetVehicleAsync)
         .WithName("CreateVehicle")
-        .WithTags("Vehicle")
         .WithDisplayName("Create a new Vehicle");
         public static async ValueTask<Result<Guid>> GetVehicleAsync(ISender Mediator,CreateEditVehicleRequest request,CancellationToken cancellationToken=default){
        (string plateNumber, Guid modelId, string color) = request;

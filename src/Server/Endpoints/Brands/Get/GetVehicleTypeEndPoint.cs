@@ -12,7 +12,6 @@ public static class GetBrandEndPoint
 {
      public static IEndpointConventionBuilder MapGetBrandEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/", GetBrandAsync)
         .WithName("GetBrand")
-        .WithTags("Brand")
         .WithDisplayName("Get Brand");
         public static async ValueTask<ResultList<BrandResponse>> GetBrandAsync(ISender Mediator,CancellationToken cancellationToken=default){
         var query = new GetBrandQuery();

@@ -8,7 +8,6 @@ public static class DeleteCustomerEndPoint
 {
      public static IEndpointConventionBuilder MapDeleteCustomerEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapDelete("{Id}", DeleteCustomerAsync)
         .WithName("DeleteCustomer")
-        .WithTags("Customer")
         .WithDisplayName("Delete Customer");
 
         public static async ValueTask<Result> DeleteCustomerAsync(Guid Id, ISender Mediator,CancellationToken cancellationToken=default){

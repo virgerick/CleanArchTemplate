@@ -1,4 +1,4 @@
-@page "/Invoice"
+@page "/Invoices/Add"
 @using CleanArchTemplate.Client.Pages.Customers.Components
 @using CleanArchTemplate.Client.Pages.Services.Components
 @using CleanArchTemplate.Shared.Responses.Customers
@@ -10,7 +10,8 @@
 
 <RadzenBreadCrumb class="rz-mb-2">
     <RadzenBreadCrumbItem Path="/" Text="Home" />
-    <RadzenBreadCrumbItem Path="/Invoice" Text="Invoice" />
+    <RadzenBreadCrumbItem Path="/Invoices" Text="Invoice" />
+    <RadzenBreadCrumbItem Path="/Invoices/Add" Text="Add Invoice" />
 </RadzenBreadCrumb>
 <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" Wrap="FlexWrap.Wrap" AlignItems="AlignItems.Center">
     <RadzenStack Orientation="Orientation.Horizontal" class="rz-mb-1">
@@ -31,7 +32,6 @@
                 <RadzenDatePicker TValue="DateTime" @bind-Value="_date" DateFormat="dd/MM/yyyy"></RadzenDatePicker>
             </ChildContent>
         </RadzenFormField>
-
     </RadzenStack>
     <RadzenStack Orientation="Orientation.Horizontal" class="rz-mb-1" AlignItems="AlignItems.Center">
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center">
@@ -137,17 +137,25 @@
 
     private async  Task InvoiceSaveAsync()
     {
-        var obj = new { SaveAsDraft,CustomerId=_customer.Id,_date ,_lines, };
-        Logger.LogInformation(obj.ToJsonSerialize());
+        
         await Excecutor.Run(async () =>
         {
+            if (_customer is null)
+            {
+                throw new Exception("You should select a customer to continue.");
+                
+            }
+            if(!_lines.Any())throw new Exception("The invoice must have a least one line.");
+             
             var lines = _lines.Select(x => x.Map()).ToArray();
             var request = new CreateInvoiceRequest(_customer.Id, _date, SaveAsDraft,lines);
             var result = await InvoiceApiService.CreateAsync(request);
             result.ThrowIfNotSucceeded();
             result.Tap(id =>
             {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Detail = $"Invoice '{id}' created successfully." });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, 
+                    Summary = "Information",
+                    Detail = $"Invoice '{id}' created successfully." });
             });
             Reset();
         });

@@ -30,7 +30,6 @@
     <None Remove="Vehicles\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\" />
     <Folder Include="Identity\" />
     <Folder Include="AuditTrails\" />
     <Folder Include="Accounting\" />

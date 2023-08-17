@@ -9,10 +9,11 @@ using CleanArchTemplate.Server.Endpoints.Services.GetService;
 namespace CleanArchTemplate.Server.Endpoints.Services;
 public class ServiceEndpoints : IMapEndpoint
 {
+    private const string Endpoint = "Services";
     public IEndpointConventionBuilder Map(IEndpointRouteBuilder endpoint)
     {
-        var group=endpoint.MapGroup("/Service")
-            .WithTags("Service");
+        var group=endpoint.MapGroup(Endpoint)
+            .WithTags(Endpoint);
         group.MapGetServiceEndpoint();
         group.MapGetServiceDefaultEndpoint();
         group.MapGetServiceByIdEndpoint();

@@ -8,10 +8,11 @@ using CleanArchTemplate.Server.Endpoints.Routes.GetRouteById;
 namespace CleanArchTemplate.Server.Endpoints.Routes;
 public class RouteEndpoints : IMapEndpoint
 {
+    private const string EndPoint = "Routes";
     public IEndpointConventionBuilder Map(IEndpointRouteBuilder endpoint)
     {
-        var group=endpoint.MapGroup("/Route")
-            .WithTags("Route");
+        var group=endpoint.MapGroup(EndPoint)
+            .WithTags(EndPoint);
         group.MapGetRouteEndpoint();
         group.MapGetRouteDefaultEndpoint();
         group.MapGetRouteByIdEndpoint();

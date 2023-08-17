@@ -9,7 +9,6 @@ public static class GetVehicleEndPoint
 {
      public static IEndpointConventionBuilder MapEditVehicleEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPut("{Id}", EditVehicleAsync)
         .WithName("EditVehicle")
-        .WithTags("Vehicle")
         .WithDisplayName("Edit Vehicle");
 
         public static async ValueTask<Result<Guid>> EditVehicleAsync(Guid Id, CreateEditVehicleRequest request, ISender Mediator,CancellationToken cancellationToken=default){

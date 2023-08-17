@@ -9,7 +9,6 @@ public static class CreateDriverEndpoint
 {
       public static IEndpointConventionBuilder MapCreateDriverEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/", CreateAsync)
         .WithName("CreateDriver")
-        .WithTags("Driver")
         .WithDisplayName("Create a new Driver");
         public static async ValueTask<Result<Guid>> CreateAsync(ISender Mediator, AddEditDriverRequest request,CancellationToken cancellationToken=default){
        

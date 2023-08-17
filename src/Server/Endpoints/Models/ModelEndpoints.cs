@@ -9,10 +9,11 @@ using CleanArchTemplate.Server.Endpoints.Models.GetModelById;
 namespace CleanArchTemplate.Server.Endpoints.Models;
 public class ModelEndpoints : IMapEndpoint
 {
+    private const string EndPoint = "Models";
     public IEndpointConventionBuilder Map(IEndpointRouteBuilder endpoint)
     {
-        var group=endpoint.MapGroup("/Model")
-            .WithTags("Model");
+        var group=endpoint.MapGroup(EndPoint)
+            .WithTags(EndPoint);
         group.MapGetModelDefaultEndpoint();
         group.MapGetModelEndpoint();
         group.MapGetModelByIdEndpoint();

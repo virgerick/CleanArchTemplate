@@ -8,7 +8,6 @@ public static class DeleteDriverEndPoint
 {
      public static IEndpointConventionBuilder MapDeleteDriverEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapDelete("{Id}", DeleteDriverAsync)
         .WithName("DeleteDriver")
-        .WithTags("Driver")
         .WithDisplayName("Delete Driver");
 
         public static async ValueTask<Result> DeleteDriverAsync(Guid Id, ISender Mediator,CancellationToken cancellationToken=default){

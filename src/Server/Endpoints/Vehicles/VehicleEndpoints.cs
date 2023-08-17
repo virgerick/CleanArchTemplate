@@ -10,10 +10,11 @@ using CleanArchTemplate.Server.Endpoints.Vehicles.RestoreVehicle;
 namespace CleanArchTemplate.Server.Endpoints.Vehicles;
 public class VehicleEndpoints : IMapEndpoint
 {
+    private const string Endpoint = "Vehicles";
     public IEndpointConventionBuilder Map(IEndpointRouteBuilder endpoint)
     {
-        var group=endpoint.MapGroup("/Vehicle")
-            .WithTags("Vehicle");
+        var group=endpoint.MapGroup(Endpoint)
+            .WithTags(Endpoint);
         group.MapGetVehicleEndpoint();
         group.MapGetVehicleDefaultEndpoint();
         group.MapGetDeletedVehicleEndpoint();

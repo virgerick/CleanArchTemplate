@@ -8,22 +8,23 @@ namespace CleanArchTemplate.Client.Services;
 
 public interface IVehicleAPIService
 {
-    [Get("/Vehicle/")]
+    private const string EndPoint = "/Api/Vehicles";
+    [Get(EndPoint)]
     public Task<ResultList<VehicleResponse>> GetAsync(CancellationToken cancellationToken=default);
-    [Get("/Vehicle/Default")]
+    [Get(EndPoint+"/Default")]
     public Task<Result<VehicleDefaultResponse>> GetDefaultAsync(CancellationToken cancellationToken=default);
-    [Get("/Vehicle/{Id}")]
+    [Get(EndPoint+"/{Id}")]
     public Task<Result<VehicleResponse>> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Post("/Vehicle/")]
+    [Post(EndPoint)]
     public Task<Result<Guid>> CreateAsync([Body]CreateEditVehicleRequest request, CancellationToken cancellationToken = default);
-    [Put("/Vehicle/{Id}")]
+    [Put(EndPoint+"/{Id}")]
     public Task<Result<Guid>> EditAsync(Guid Id, [Body]CreateEditVehicleRequest request, CancellationToken cancellationToken = default);
-    [Delete("/Vehicle/{Id}")]
+    [Delete(EndPoint+"/{Id}")]
     public Task<Result<Guid>> DeleteAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Patch("/Vehicle/Restore/{Id}")]
+    [Patch(EndPoint+"/Restore/{Id}")]
     public Task<Result<Guid>> RestoreAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Patch("/Vehicle/Activate/{Id}")]
+    [Patch(EndPoint+"/Activate/{Id}")]
     public Task<Result<Guid>> ActivateAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Patch("/Vehicle/Maintenance/{Id}")]
+    [Patch(EndPoint+"/Maintenance/{Id}")]
     public Task<Result<Guid>> MaintenanceAsync(Guid Id, CancellationToken cancellationToken = default);
 }

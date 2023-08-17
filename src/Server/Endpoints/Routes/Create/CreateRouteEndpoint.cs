@@ -9,7 +9,6 @@ public static class CreateRouteEndpoint
 {
       public static IEndpointConventionBuilder MapCreateRouteEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPost("/", GetRouteAsync)
         .WithName("CreateRoute")
-        .WithTags("Route")
         .WithDisplayName("Create a new Route");
         public static async ValueTask<Result<Guid>> GetRouteAsync(ISender Mediator,CreateEditRouteRequest request,CancellationToken cancellationToken=default){
         var query = new CreateRouteCommand(request.Origin,request.Destination,request.Amount);

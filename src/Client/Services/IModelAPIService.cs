@@ -9,17 +9,18 @@ namespace CleanArchTemplate.Client.Services;
 
 public interface IModelAPIService
 {
-    [Get("/Model/Default")]
+    private const string EndPoint = "/Api/Models";
+    [Get(EndPoint+"/Default")]
     public Task<Result<ModelDefaultResponse>> GetDefaultAsync(CancellationToken cancellationToken=default);
-    [Get("/Model/")]
+    [Get(EndPoint+"/")]
     public Task<ResultList<ModelResponse>> GetAsync(CancellationToken cancellationToken=default);
-    [Get("/Model/{Id}")]
+    [Get(EndPoint+"/{Id}")]
     public Task<Result<ModelResponse>> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Post("/Model/")]
+    [Post(EndPoint+"/")]
     public Task<Result<Guid>> CreateAsync([Body] CreateEditModelRequest request, CancellationToken cancellationToken = default);
-    [Put("/Model/{Id}")]
+    [Put(EndPoint+"/{Id}")]
     public Task<Result<Guid>> EditAsync(Guid Id, [Body] CreateEditModelRequest request, CancellationToken cancellationToken = default);
-    [Delete("/Model/{Id}")]
+    [Delete(EndPoint+"/{Id}")]
     public Task<Result<Guid>> DeleteAsync(Guid Id, CancellationToken cancellationToken = default);
 }
 

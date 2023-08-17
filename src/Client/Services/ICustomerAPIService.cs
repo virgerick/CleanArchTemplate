@@ -7,21 +7,22 @@ namespace CleanArchTemplate.Client.Services;
 
 public interface ICustomerAPIService
 {
-    [Get("/Customer/")]
+    private const string EndPoint = "/Api/Customers";
+    [Get(EndPoint)]
     public Task<ResultList<CustomerResponse>> GetAsync(CancellationToken cancellationToken=default);
-    [Get("/Customer/{Id}")]
+    [Get(EndPoint+"/{Id}")]
     public Task<Result<CustomerResponse>> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Post("/Customer/")]
+    [Post(EndPoint)]
     public Task<Result<Guid>> CreateAsync([Body]AddEditCustomerRequest request, CancellationToken cancellationToken = default);
-    [Put("/Customer/{Id}")]
+    [Put(EndPoint+"/{Id}")]
     public Task<Result<Guid>> EditAsync(Guid Id, [Body]AddEditCustomerRequest request, CancellationToken cancellationToken = default);
-    [Delete("/Customer/{Id}")]
+    [Delete(EndPoint+"/{Id}")]
     public Task<Result<Guid>> DeleteAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Patch("/Customer/Restore/{Id}")]
+    [Patch(EndPoint+"/Restore/{Id}")]
     public Task<Result<Guid>> RestoreAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Patch("/Customer/Activate/{Id}")]
+    [Patch(EndPoint+"/Activate/{Id}")]
     public Task<Result<Guid>> ActivateAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Patch("/Customer/Maintenance/{Id}")]
+    [Patch(EndPoint+"/Maintenance/{Id}")]
     public Task<Result<Guid>> MaintenanceAsync(Guid Id, CancellationToken cancellationToken = default);
 }
 

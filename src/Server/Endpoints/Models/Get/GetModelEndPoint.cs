@@ -12,7 +12,6 @@ public static class GetModelEndPoint
 {
      public static IEndpointConventionBuilder MapGetModelEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/", GetModelAsync)
         .WithName("GetModel")
-        .WithTags("Model")
         .WithDisplayName("Get Model");
         public static async ValueTask<ResultList<ModelResponse>> GetModelAsync(ISender Mediator,CancellationToken cancellationToken=default){
         var query = new GetModelQuery();

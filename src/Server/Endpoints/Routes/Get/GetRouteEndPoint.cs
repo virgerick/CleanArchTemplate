@@ -9,7 +9,6 @@ public static class GetRouteEndPoint
 {
      public static IEndpointConventionBuilder MapGetRouteEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/", GetRouteAsync)
         .WithName("GetRoute")
-        .WithTags("Route")
         .WithDisplayName("Get Route");
         public static async ValueTask<ResultList<RouteResponse>> GetRouteAsync(ISender Mediator,CancellationToken cancellationToken=default){
         var query = new GetRouteQuery();

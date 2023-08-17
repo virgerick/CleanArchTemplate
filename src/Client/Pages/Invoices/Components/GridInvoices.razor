@@ -1,0 +1,129 @@
+<RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween">
+    <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Add new invoice"
+                  Click="@InsertRow"  />
+    <PrintButton ComponentName="invoiceGrid">
+        
+    </PrintButton>
+</RadzenStack>
+
+
+<RadzenDataGrid id="invoiceGrid" @ref="invoicesGrid" AllowAlternatingRows="true" AllowFiltering="true" 
+                AllowSorting="true" EditMode="DataGridEditMode.Single" Responsive="true" Data="@invoices" 
+                TItem="InvoiceResponse" RowUpdate="@OnUpdateRow" RowCreate="@OnCreateRow"   >
+    <EmptyTemplate>
+        <p style="color: lightgrey; font-size: 24px; text-align: center; margin: 2rem;">No records to display.</p>
+    </EmptyTemplate>
+    <Columns>
+        <RadzenDataGridColumn Sortable TItem="InvoiceResponse" Property="Customer" Title="Customer" />
+        <RadzenDataGridColumn Sortable TItem="InvoiceResponse" Property="Status" Title="Status" />
+        <RadzenDataGridColumn Sortable  TItem="InvoiceResponse" Property="IssueDate" Title="IssueDate">
+            <Template>
+               @context.IssueDate.ToString("dd/MM/yyyy")
+               
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Sortable="true" TItem="InvoiceResponse" Property="Total" Title="Total"/>
+        <RadzenDataGridColumn TItem="InvoiceResponse" Context="invoice" Filterable="false" Sortable="false"
+                              TextAlign="TextAlign.Left">
+            <Template Context="invoice">
+                <RadzenButton  Text="View" Icon="visibility" Size="ButtonSize.Small"/>
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+
+
+@code{
+    RadzenDataGrid<InvoiceResponse> invoicesGrid = null!;
+    IEnumerable<InvoiceResponse> invoices = null!;
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await GetInvoicesAsync();
+    }
+
+    async Task GetInvoicesAsync()
+    {
+        LoadingService.Show();
+        try
+        {
+            var result = await InvoiceApiService.GetAsync();
+            result.ThrowIfNotSucceeded();
+            invoices = result.Items;
+        }
+        catch (Exception ex)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Detail = ex.Message });
+
+        }
+        finally
+        {
+            LoadingService.Hide();
+        }
+    }
+
+    async Task EditRow(InvoiceResponse invoice)
+    {
+      
+        await invoicesGrid.EditRow(invoice);
+    }
+
+    Task OnUpdateRow(InvoiceResponse invoice)
+    {
+
+        return Task.CompletedTask;
+
+    }
+
+    async Task SaveRow(InvoiceResponse invoice)
+    {
+        await invoicesGrid.UpdateRow(invoice);
+    }
+
+    void CancelEdit(InvoiceResponse invoice)
+    {
+       
+        invoicesGrid.CancelEditRow(invoice);
+    }
+
+    async Task DeleteRow(InvoiceResponse invoice)
+    {
+        var confirmed = await DialogService.Confirm($"Are you sure to delete the invoice '{invoice.Id}'?");
+        if (confirmed == false)
+        {
+
+            return;
+        }
+
+        invoicesGrid.CancelEditRow(invoice);
+        await OnDeleteRow(invoice);
+        await invoicesGrid.Reload();
+
+    }
+
+    Task InsertRow()
+    {
+       /* var result = await DialogService.OpenAsync<AddInvoice>("Add Invoice",options:new DialogOptions()
+        {
+            Draggable = true,Resizable = true,
+            
+        });
+        await GetInvoicesAsync();*/
+         _navigationManager.NavigateTo("/Invoices/Add");
+        return Task.CompletedTask;
+    }
+
+    async Task OnCreateRow(InvoiceResponse invoice)
+    {
+        var result = await DialogService.OpenAsync<AddInvoice>("Add Invoice");
+        
+    }
+    async Task OnDeleteRow(InvoiceResponse invoice)
+    {
+      
+    }
+    async Task ResoreRow(InvoiceResponse invoice)
+    {
+       
+    }
+}

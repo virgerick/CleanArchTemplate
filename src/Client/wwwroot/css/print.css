@@ -1,0 +1,15 @@
+.no-print{
+    display: inherit !important;
+}
+.only-print {
+    display: none !important;
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    .only-print {
+        display: inline !important;
+    }
+}

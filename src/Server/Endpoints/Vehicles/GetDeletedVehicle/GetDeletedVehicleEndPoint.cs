@@ -9,7 +9,6 @@ public static class GetDeletedVehicleEndPoint
 {
      public static IEndpointConventionBuilder MapGetDeletedVehicleEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/GetDeleted", GetDeletedVehicleAsync)
         .WithName("GetDeletedVehicle")
-        .WithTags("Vehicle")
         .WithDisplayName("Get Deleted Vehicle");
         public static async ValueTask<ResultList<VehicleResponse>> GetDeletedVehicleAsync(ISender Mediator,CancellationToken cancellationToken=default){
         var query = new GetDeletedVehicleQuery();

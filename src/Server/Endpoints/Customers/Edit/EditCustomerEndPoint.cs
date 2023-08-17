@@ -9,7 +9,6 @@ public static class EditCustomerEndPoint
 {
      public static IEndpointConventionBuilder MapEditCustomerEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPut("{Id}", EditCustomerAsync)
         .WithName("EditCustomer")
-        .WithTags("Customer")
         .WithDisplayName("Edit Customer");
 
         public static async ValueTask<Result<Guid>> EditCustomerAsync(Guid Id, AddEditCustomerRequest request, ISender Mediator,CancellationToken cancellationToken=default){

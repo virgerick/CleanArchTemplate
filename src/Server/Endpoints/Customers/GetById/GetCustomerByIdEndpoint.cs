@@ -11,7 +11,6 @@ public static class GetCustomerByIdEndpoint
 {
     public static IEndpointConventionBuilder MapGetCustomerByIdEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/{Id}", GetCustomerAsync)
        .WithName("GetCustomerById")
-       .WithTags("Customer")
        .WithDisplayName("Get Customer by id");
     public static async ValueTask<Result<CustomerResponse>> GetCustomerAsync(Guid Id,ISender Mediator, CancellationToken cancellationToken = default)
     {

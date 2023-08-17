@@ -12,7 +12,6 @@ public static class CreateInvoiceEndpoint
     public static IEndpointConventionBuilder MapCreateInvoiceEndpoint(this IEndpointRouteBuilder endpoint) => endpoint
         .MapPost("/", CreateInvoiceAsync)
         .WithName("CreateInvoice")
-        .WithTags("Invoice")
         .WithDisplayName("Create a new Invoice");
 
     private static async ValueTask<Response> CreateInvoiceAsync(ISender mediator, CreateInvoiceRequest request,CancellationToken cancellationToken=default){

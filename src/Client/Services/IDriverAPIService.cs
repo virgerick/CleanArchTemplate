@@ -7,21 +7,22 @@ namespace CleanArchTemplate.Client.Services;
 
 public interface IDriverAPIService
 {
-    [Get("/Driver/")]
+    private const string EndPoint = "/Api/Drivers";
+    [Get(EndPoint)]
     public Task<ResultList<DriverResponse>> GetAsync(CancellationToken cancellationToken=default);
-    [Get("/Driver/{Id}")]
+    [Get(EndPoint+"/{Id}")]
     public Task<Result<DriverResponse>> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Post("/Driver/")]
+    [Post(EndPoint)]
     public Task<Result<Guid>> CreateAsync([Body]AddEditDriverRequest request, CancellationToken cancellationToken = default);
-    [Put("/Driver/{Id}")]
+    [Put(EndPoint+"/{Id}")]
     public Task<Result<Guid>> EditAsync(Guid Id, [Body]AddEditDriverRequest request, CancellationToken cancellationToken = default);
-    [Delete("/Driver/{Id}")]
+    [Delete(EndPoint+"/{Id}")]
     public Task<Result<Guid>> DeleteAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Patch("/Driver/Restore/{Id}")]
+    [Patch(EndPoint+"/Restore/{Id}")]
     public Task<Result<Guid>> RestoreAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Patch("/Driver/Activate/{Id}")]
+    [Patch(EndPoint+"/Activate/{Id}")]
     public Task<Result<Guid>> ActivateAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Patch("/Driver/Maintenance/{Id}")]
+    [Patch(EndPoint+"/Maintenance/{Id}")]
     public Task<Result<Guid>> MaintenanceAsync(Guid Id, CancellationToken cancellationToken = default);
 }
 

@@ -7,15 +7,16 @@ namespace CleanArchTemplate.Client.Services;
 
 public interface IBrandApiService
 {
-    [Get("/Brand/")]
+    private const string EndPoint = "/Api/Brands";
+    [Get($"{EndPoint}")]
     public Task<ResultList<BrandResponse>> GetAsync(CancellationToken cancellationToken=default);
-    [Get("/Brand/{Id}")]
+    [Get($"{EndPoint}/{{Id}}")]
     public Task<Result<BrandResponse>> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Post("/Brand/")]
+    [Post($"{EndPoint}/")]
     public Task<Result<Guid>> CreateAsync([Body] CreateEditBrandRequest request, CancellationToken cancellationToken = default);
-    [Put("/Brand/{Id}")]
+    [Put($"{EndPoint}/{{Id}}")]
     public Task<Result<Guid>> EditAsync(Guid Id, [Body] CreateEditBrandRequest request, CancellationToken cancellationToken = default);
-    [Delete("/Brand/{Id}")]
+    [Delete($"{EndPoint}/{{Id}}")]
     public Task<Result<Guid>> DeleteAsync(Guid Id, CancellationToken cancellationToken = default);
 }
 

@@ -7,33 +7,34 @@ namespace CleanArchTemplate.Client.Services;
 
 public interface IRouteAPIService
 {
-    [Get("/Route/")]
+    private const string EndPoint = "/Api/Routes";
+    [Get(EndPoint)]
     public Task<ResultList<RouteResponse>> GetAsync(CancellationToken cancellationToken = default);
 
-    [Get("/Route/Default")]
+    [Get(EndPoint+"/Default")]
     public Task<Result<RouteDefaultResponse>> GetDefaultAsync(
         CancellationToken cancellationToken = default
     );
 
-    [Get("/Route/{Id}")]
+    [Get(EndPoint+"/{Id}")]
     public Task<Result<RouteResponse>> GetByIdAsync(
         Guid Id,
         CancellationToken cancellationToken = default
     );
 
-    [Post("/Route/")]
+    [Post(EndPoint+"/")]
     public Task<Result<Guid>> CreateAsync(
         [Body] CreateEditRouteRequest request,
         CancellationToken cancellationToken = default
     );
 
-    [Put("/Route/{Id}")]
+    [Put(EndPoint+"/{Id}")]
     public Task<Result<Guid>> EditAsync(
         Guid Id,
         [Body] CreateEditRouteRequest request,
         CancellationToken cancellationToken = default
     );
 
-    [Delete("/Route/{Id}")]
+    [Delete(EndPoint+"/{Id}")]
     public Task<Result<Guid>> DeleteAsync(Guid Id, CancellationToken cancellationToken = default);
 }

@@ -10,10 +10,11 @@ using CleanArchTemplate.Server.Endpoints.Customers.Restore;
 namespace CleanArchTemplate.Server.Endpoints.Customers;
 public class CustomerEndpoints : IMapEndpoint
 {
+    private const string EndPoint = "Customers";
     public IEndpointConventionBuilder Map(IEndpointRouteBuilder endpoint)
     {
-        var group=endpoint.MapGroup("/Customer")
-            .WithTags("Customer");
+        var group=endpoint.MapGroup(EndPoint)
+            .WithTags(EndPoint);
         group.MapGetCustomerEndpoint();
         group.MapGetCustomerByIdEndpoint();
         group.MapCreateCustomerEndpoint();

@@ -12,7 +12,6 @@ public static class GetBrandEndPoint
 {
      public static IEndpointConventionBuilder MapEditBrandEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapPut("{Id}", EditBrandAsync)
         .WithName("EditBrand")
-        .WithTags("Brand")
         .WithDisplayName("Edit Brand");
 
         public static async ValueTask<Result<Guid>> EditBrandAsync(Guid Id, CreateEditBrandRequest request, ISender Mediator,CancellationToken cancellationToken=default){

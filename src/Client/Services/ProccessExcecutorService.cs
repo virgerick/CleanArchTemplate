@@ -32,10 +32,14 @@ public class ProcessExecutorService {
             onFinally?.Invoke();
         }
     }
-    private void HandlerException(Exception exception, Action<Exception>? onCatch) {
-        _logger.LogError(exception.Message);
-        _notificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error,
-            Detail = exception.Message });
+    private void HandlerException(Exception exception, Action<Exception>? onCatch)
+    {
+        _notificationService.Notify(new NotificationMessage
+        {
+            Severity = NotificationSeverity.Error,
+            Summary = "Error",
+             Detail= exception.Message
+        });
         onCatch?.Invoke(exception);
     }
 }

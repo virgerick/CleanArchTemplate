@@ -11,7 +11,6 @@ public static class GetRouteByIdEndpoint
 {
     public static IEndpointConventionBuilder MapGetRouteByIdEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/{Id}", GetRouteAsync)
        .WithName("GetRouteById")
-       .WithTags("Route")
        .WithDisplayName("Get Route by id");
     public static async ValueTask<Result<RouteResponse>> GetRouteAsync(Guid Id,ISender Mediator, CancellationToken cancellationToken = default)
     {

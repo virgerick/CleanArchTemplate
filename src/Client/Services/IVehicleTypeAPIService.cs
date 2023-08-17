@@ -7,14 +7,15 @@ namespace CleanArchTemplate.Client.Services;
 
 public interface IVehicleTypeAPIService
 {
-    [Get("/VehicleType/")]
+    private const string EndPoint = "/Api/VehicleTypes";
+    [Get(EndPoint)]
     public Task<ResultList<IdNameResponse>> GetAsync(CancellationToken cancellationToken=default);
-    [Get("/VehicleType/{Id}")]
+    [Get(EndPoint+"/{Id}")]
     public Task<Result<IdNameResponse>> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default);
-    [Post("/VehicleType/")]
+    [Post(EndPoint)]
     public Task<Result<Guid>> CreateAsync([Body] NameRequest request, CancellationToken cancellationToken = default);
-    [Put("/VehicleType/{Id}")]
+    [Put(EndPoint+"/{Id}")]
     public Task<Result<Guid>> EditAsync(Guid Id, [Body] NameRequest request, CancellationToken cancellationToken = default);
-    [Delete("/VehicleType/{Id}")]
+    [Delete(EndPoint+"/{Id}")]
     public Task<Result<Guid>> DeleteAsync(Guid Id, CancellationToken cancellationToken = default);
 }

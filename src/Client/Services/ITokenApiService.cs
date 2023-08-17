@@ -5,9 +5,9 @@ using CleanArchTemplate.Shared.Wrapper;
 
 namespace CleanArchTemplate.Client;
 public interface ITokenApiService
-{
-    [Post("/token/GetToken")]
+{private const string EndPoint = "/Api/token";
+    [Post(EndPoint+"/GetToken")]
     public Task<Result<TokenResponse>> GetAsync(TokenRequest request,CancellationToken cancellationToken=default);
-    [Post("/token/RefreshToken")]
+    [Post(EndPoint+"/RefreshToken")]
     public Task<Result<TokenResponse>> RefreshAsync(RefreshTokenRequest request,CancellationToken cancellationToken=default);
 }

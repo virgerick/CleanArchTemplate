@@ -11,7 +11,6 @@ public static class GetVehicleByIdEndpoint
 {
     public static IEndpointConventionBuilder MapGetVehicleByIdEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/{Id}", GetVehicleAsync)
        .WithName("GetVehicleById")
-       .WithTags("Vehicle")
        .WithDisplayName("Get Vehicle by id");
     public static async ValueTask<Result<VehicleResponse>> GetVehicleAsync(Guid Id,ISender Mediator, CancellationToken cancellationToken = default)
     {

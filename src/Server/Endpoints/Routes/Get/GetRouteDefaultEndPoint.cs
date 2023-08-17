@@ -9,7 +9,6 @@ public static class GetRouteDefaultEndPoint
 {
      public static IEndpointConventionBuilder MapGetRouteDefaultEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/Default", GetRouteDefaultAsync)
         .WithName("GetRouteDefault")
-        .WithTags("Route")
         .WithDisplayName("Get Route Default");
         public static async ValueTask<Result<RouteDefaultResponse>> GetRouteDefaultAsync(ISender Mediator,CancellationToken cancellationToken=default){
         var query = new GetRouteDefaultQuery();

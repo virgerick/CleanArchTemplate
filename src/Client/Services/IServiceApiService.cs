@@ -8,35 +8,36 @@ namespace CleanArchTemplate.Client.Services;
 //interface of a service api service using refit
 public interface IServiceApiService
 {
-    [Get("/Service/")]
+    private const string EndPoint = "/Api/Services";
+    [Get(EndPoint)]
     public Task<ResultList<ServiceResponse>> GetAsync(
         CancellationToken cancellationToken = default
     );
 
-    [Get("/Service/Default")]
+    [Get(EndPoint+"/Default")]
     public Task<Result<ServiceDefaultResponse>> GetDefaultAsync(
         CancellationToken cancellationToken = default
     );
 
-    [Get("/Service/{Id}")]
+    [Get(EndPoint+"/{Id}")]
     public Task<Result<ServiceResponse>> GetByIdAsync(
         Guid Id,
         CancellationToken cancellationToken = default
     );
 
-    [Post("/Service/")]
+    [Post(EndPoint+"/")]
     public Task<Result<Guid>> CreateAsync(
         [Body] AddEditServiceRequest request,
         CancellationToken cancellationToken = default
     );
 
-    [Put("/Service/{Id}")]
+    [Put(EndPoint+"/{Id}")]
     public Task<Result<Guid>> EditAsync(
         Guid Id,
         [Body] AddEditServiceRequest request,
         CancellationToken cancellationToken = default
     );
 
-    [Delete("/Service/{Id}")]
+    [Delete(EndPoint+"/{Id}")]
     public Task<Result<Guid>> DeleteAsync(Guid Id, CancellationToken cancellationToken = default);
 }

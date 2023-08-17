@@ -11,7 +11,6 @@ public static class GetModelByIdEndpoint
 {
     public static IEndpointConventionBuilder MapGetModelByIdEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/{Id}", GetModelAsync)
        .WithName("GetModelById")
-       .WithTags("Model")
        .WithDisplayName("Get Model by id");
     public static async ValueTask<Result<ModelResponse>> GetModelAsync(Guid Id,ISender Mediator, CancellationToken cancellationToken = default)
     {

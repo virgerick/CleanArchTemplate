@@ -9,7 +9,6 @@ public static class DeleteVehicleTypeEndPoint
 {
      public static IEndpointConventionBuilder MapDeleteVehicleTypeEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapDelete("{Id}", DeleteVehicleTypeAsync)
         .WithName("DeleteVehicleType")
-        .WithTags("VehicleType")
         .WithDisplayName("Delete VehicleType");
 
         public static async ValueTask<Result> DeleteVehicleTypeAsync(Guid Id, ISender Mediator,CancellationToken cancellationToken=default){

@@ -11,7 +11,6 @@ public static class GetDriverByIdEndpoint
 {
     public static IEndpointConventionBuilder MapGetDriverByIdEndpoint(this IEndpointRouteBuilder endpoint) => endpoint.MapGet("/{Id}", GetDriverAsync)
        .WithName("GetDriverById")
-       .WithTags("Driver")
        .WithDisplayName("Get Driver by id");
     public static async ValueTask<Result<DriverResponse>> GetDriverAsync(Guid Id,ISender Mediator, CancellationToken cancellationToken = default)
     {
