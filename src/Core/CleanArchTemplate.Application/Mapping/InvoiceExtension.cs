@@ -46,7 +46,12 @@ public static class InvoiceExtension
             }).ToList()      
         });
 
-    public static IQueryable<Invoice> Get(this IQueryable<Invoice> source,InvoiceId id=default, InvoiceStatus? status=null!,DateTime from=default,DateTime to=default, bool showDeleted=false)
+    public static IQueryable<Invoice> Get(this IQueryable<Invoice> source,
+        InvoiceId id = default,
+        InvoiceStatus? status = null!,
+        DateTime from = default,
+        DateTime to = default,
+        bool showDeleted = false)
     {
         ArgumentNullException.ThrowIfNull(source);
         if (id != default)

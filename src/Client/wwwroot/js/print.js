@@ -16,7 +16,7 @@ function  printByDocumentId(documentId) {
         </head>`
     )
     ventimp.document.write('<body>')
-    ventimp.document.write('<div class="no-print" style="width:100%; height: 100% ;"></div>')
+    ventimp.document.write('<div  style=" width:100%; height: 100%;@media print{ display: none;}"></div>' )
     ventimp.document.write(`
       <table class="is-fullwidth">        
         <thead>

@@ -1,0 +1,117 @@
+<RadzenTemplateForm Data="Customer" Submit="(CustomerResponse customer) => Save(customer)">
+    <RadzenStack Orientation="Orientation.Vertical" Gap="2px">
+        <RadzenFormField Text="Name" Variant="@FormStyle">
+            <Start><RadzenIcon Icon="person"></RadzenIcon></Start>
+            <ChildContent>
+                <RadzenTextBox @bind-Value="Customer.Name" class="w-100;" Name="Name"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="Name" Text="Name is required"/>
+            </Helper>
+        </RadzenFormField> 
+        <RadzenFormField Text="Email" Variant="@FormStyle">
+            <Start><RadzenIcon Icon="email"></RadzenIcon></Start>
+            <ChildContent>
+                <RadzenTextBox @bind-Value="Customer.Email" class="w-100;" Name="Email"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="Email" Text="Email is required"/>
+                <RadzenEmailValidator Component="Email" Text="Email must have a valid format "/>
+            </Helper>
+        </RadzenFormField>
+        <RadzenFormField Text="City" Variant="FormStyle">
+            <Start><RadzenIcon Icon="location_city"></RadzenIcon></Start>
+            <ChildContent>
+                <RadzenTextBox  @bind-Value="Customer.Address.City" class="w-100;" 
+                               Name="City"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="City" Text="City is required."/>
+            </Helper>
+        </RadzenFormField>
+        <RadzenFormField Text="State" Variant="FormStyle">
+            <Start><RadzenIcon Icon="flag"></RadzenIcon></Start>
+            <ChildContent>
+                <RadzenTextBox  @bind-Value="Customer.Address.State" class="w-100;" 
+                               Name="State"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="State" Text="State is required."/>
+            </Helper>
+        </RadzenFormField>
+        <RadzenFormField Text="Street" Variant="FormStyle">
+            <Start><RadzenIcon Icon="signpost"></RadzenIcon></Start>
+            <ChildContent>
+                <RadzenTextBox  @bind-Value="Customer.Address.Street" class="w-100;" 
+                               Name="Street"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="Street" Text="Street is required."/>
+            </Helper>
+        </RadzenFormField>
+        <RadzenFormField Text="Zip Code" Variant="FormStyle">
+            <Start><RadzenIcon Icon="markunread_mailbox"></RadzenIcon></Start>
+            <ChildContent>
+                <RadzenTextBox  @bind-Value="Customer.Address.ZipCode" class="w-100;"  Name="ZipCode"/>
+            </ChildContent>
+            <End></End>
+            <Helper>
+                <RadzenRequiredValidator Component="ZipCode" Text="ZipCode is required."/>
+                <RadzenLengthValidator Component="ZipCode" Min="5" Max="5" Text="Zip code must have a valid format."></RadzenLengthValidator>
+            </Helper>
+        </RadzenFormField>
+        <RadzenButton Variant="FormStyle" ButtonType="ButtonType.Submit" Icon="save" Text="Save"/>
+    </RadzenStack>
+</RadzenTemplateForm>
+@code {
+
+    [Parameter]
+    public CustomerResponse Customer { get; set; } = new();
+    private const Variant FormStyle = Variant.Text;
+
+    async Task Save(CustomerResponse service)
+    {
+        if (service.Id == Guid.Empty)
+        {
+            await Insert(service);
+            return;
+        }
+        await Update(service);
+    }
+
+    async Task Update(CustomerResponse customer) => await Excecutor.Run(async () =>
+    {
+        var result = await CustomerApiService.EditAsync(customer.Id,new AddEditCustomerRequest(customer.Name,customer.Email,customer.Address.Map()));
+        result.ThrowIfNotSucceeded();
+
+        NotificationService.Notify(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Detail = "Customer updated successfully"
+            }
+            );
+        DialogService.Close(true);
+    });
+
+    async Task Insert(CustomerResponse customer) => await Excecutor.Run(async () =>
+    {
+        var result = await CustomerApiService.CreateAsync(new AddEditCustomerRequest(customer.Name,customer.Email,customer.Address.Map()));
+        result.ThrowIfNotSucceeded();
+
+        NotificationService.Notify(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Detail = "Customer created successfully"
+            }
+            );
+        DialogService.Close(true);
+    });
+
+}
